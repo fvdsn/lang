@@ -26,6 +26,48 @@ public class CheckPrecedence {
 			i++;
 		}
 	}
+	public static boolean check(List<Rule> grammar){
+		boolean validity = false;
+		Hashtable<Term,Hashtable<Term,String>> table = null;
+		List<Term> allTerm = getAllTerm(grammar);
+		
+		/* Print all terms */
+		System.out.println("\nList of all Terms");
+		for(Term t:allTerm){
+			System.out.print(t.toString()+" ");
+		}
+		System.out.println("\nList of all Terminals");
+		for(Term t:allTerm){
+			if(t.isTerminal()){
+				System.out.print(t.toString()+" ");
+			}
+		}
+		System.out.println("\nList of all Non-Terminals");
+		for(Term t:allTerm){
+			if(!t.isTerminal()){
+				System.out.print(t.toString()+" ");
+			}
+		}
+		System.out.println("");
+		System.out.println("\nPrecedence Table");
+		/*Compute precedence table*/
+		table = new Hashtable<Term,Hashtable<Term,String>>();
+		for(Term l: allTerm){
+			Hashtable<Term,String> line = new Hashtable<Term,String>();
+			table.put(l,line);
+			for(Term col:allTerm){
+				line.put(col, NOTHING);
+			}
+		}
+		validity = precTable(grammar,table);
+		printTable(table,allTerm);
+		if(validity){
+			System.out.println("\nNo conflicts in table");
+		}else{
+			System.out.println("\nConflicts in table !");
+		}
+		return validity;
+	}
 	public static List<Term> getAllTerm(List<Rule> grammar){
 		Set<Term> set = new HashSet<Term>();
 		List<Term> list = new ArrayList<Term>();
@@ -169,7 +211,7 @@ public class CheckPrecedence {
 	}
 	public static Hashtable<Term,Set<Term>> LastSet(List<Rule> grammar){
 		Hashtable<Term,Set<Term>> Last = new Hashtable<Term, Set<Term>>();
-		HashSet<Term> AllTerm = new HashSet();
+		HashSet<Term> AllTerm = new HashSet<Term>();
 		boolean done = false;
 		/*
 		 * 1) Pour tout Non terminal A de la grammaire -> 
@@ -224,13 +266,13 @@ public class CheckPrecedence {
 		}
 		return Last;		
 	}
-	public static Hashtable<Term,Hashtable<Term,String>> precTable(List<Rule> grammar){
+	public static  boolean precTable(List<Rule> grammar, Hashtable<Term,Hashtable<Term,String>> table){
 		Hashtable<Term,Set<Term>> First = FirstSet(grammar);
 		Hashtable<Term,Set<Term>> Last = LastSet(grammar);
-		Hashtable<Term,Hashtable<Term,String>> table = new Hashtable();
 		List<Term> allTerm = getAllTerm(grammar);
+		boolean validity = true;
 		/*
-		 * 0) On initialise la table à NOTHING
+		 * 0) La table est initialisée à NOTHING.
 		 * 1) On identifie toutes les parties droites.
 		 * 	  - Pour chacune d'entre elles, on identifie toutes
 		 *      les paires de terminaux cote à cote XY.
@@ -249,13 +291,7 @@ public class CheckPrecedence {
 		 *    Si pas de conflits -> OK ! 
 		 */
 		/*0*/
-		for(Term l: allTerm){
-			Hashtable<Term,String> line = new Hashtable<Term,String>();
-			table.put(l,line);
-			for(Term col:allTerm){
-				line.put(col, NOTHING);
-			}
-		}
+
 		/*1*/
 		for(Rule r:grammar){
 			for(CatList cl:r.getOrList()){
@@ -277,17 +313,17 @@ public class CheckPrecedence {
 							if(!Y.isTerminal()){
 								for(Term t:First.get(Y)){
 									if(t.isTerminal()){
-										tableSet(table,s,t,GE,r);
+										if(!tableSet(table,s,t,GE,r)){validity = false;}
 									}
 								}
 							}else{
-								tableSet(table,s,Y,GE,r);
+								if(!tableSet(table,s,Y,GE,r)){validity = false;}
 							}
 						}
 					}
 					if(!Y.isTerminal()){
 						for(Term s:First.get(Y)){
-							tableSet(table, X, s, LE, r);
+							if(!tableSet(table, X, s, LE, r)){validity = false;}
 						}
 					}
 					
@@ -295,6 +331,6 @@ public class CheckPrecedence {
 				}
 			}
 		}
-		return table;
+		return validity;
 	}
 }
