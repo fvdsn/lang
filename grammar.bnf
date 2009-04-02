@@ -12,9 +12,9 @@
 <Id> ::= <caracter> | <Id> <caracter> | <Id> <digit>   
 <meth_or_fun> ::= <method> | <function>
 <Program> ::=  <meth_or_fun> | <Program> <sp>  <meth_or_fun> <esp>
-<function> ::= <(><sp> 'fun' <sp> <(> <sp> <Name> <esp> <arglist> <sp><)> <sp> <instr_list> <sp><)> 
+<function> ::= <(><sp> 'fun' <sp> <(> <sp> <id> <esp> <arglist> <sp><)> <sp> <instr_list> <sp><)> 
 <arglist> ::= <Id> | <Id> <esp> <arglist>
-<methode> ::= <(><sp> 'method' <sp> <(><sp> <Number> <sp><)> <sp> <(> <sp> <Name> <esp> <arglist> <sp> <)> <instr_list>  <sp> <)>
+<methode> ::= <(><sp> 'method' <sp> <(><sp> <Number> <sp><)> <sp> <(> <sp> <id> <esp> <arglist> <sp> <)> <instr_list>  <sp> <)>
 <instr_list> ::= <instr> | <(> <sp> <instr_list_np> <sp> <)> 
 <instr_list_np> ::= <instr> | <instr> <esp> <instr_list_np>
 <instr> ::= <conditional> | <while_block> | <call> | <(> <sp> 'return' <esp> <expr> <sp> <)> | <(><sp> 'skip' <sp><)>

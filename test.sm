@@ -1,0 +1,15 @@
+(fun (main) (write 42))
+
+(fun (:-> k l ) (
+	(set 8j (+ k l))
+	(set 9o (read))
+	(set object (new 10))
+	(if (< 4 5) (write 4) (write -5))
+	
+))  
+
+
+(method (8) (snouf lk kl) (
+	(set this.2 kl)
+	(write (+ this.1 lk)) 
+))
