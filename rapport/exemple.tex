@@ -1,5 +1,52 @@
 \section{Exemple de programmation HAPPY}
 
+
+\subsection{Example1}
+Un programme complet. 
+\begin{verbatim}
+(fun (:-D) (write 42))
+(fun (** a b) (
+	(set cpt b)
+	(set res 0)
+	(while (> cpt 0) 
+		(
+			(set r (* res b))
+			(set cpt (- cpt 1))	
+		)
+	)
+	(return R)
+))
+(fun (main) (
+	(HelloWorld)
+	(set B (** 4 2))
+	(return (write B))
+))
+
+(method (4) (-> level) (return this.level))
+
+\end{verbatim}
+Exemple de code intéressant. 
+\begin{verbatim}
+
+(method.2 (next) (return this.1))
+(method.2 (val)  (return this.2))
+	[Creation d'un noeud de linked list]
+(fun (N x) ((set n (new 2)) (set n.2 x) (set n.1 null) (return n)) )
+	[Ajoute un noeud a une linked list] 
+(fun (-> Node NextNode) ( (set Node.1 NextNode) (return Node)) )
+
+(fun (main) (
+	(set A (->(N 1) (->(N 2) (->(N 3) (N 4)))))
+	(while A (
+		(write (A.val))
+		(set A (A.next))
+	))
+	(return 0)
+))
+\end{verbatim}
+
+\subsection{Exemple2}
+
 Voici un exemple de programmation Happy :
 
 \begin{verbatim}
