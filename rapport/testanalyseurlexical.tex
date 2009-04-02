@@ -62,10 +62,10 @@ L'analyseur lexical marche donc parfaitement , et permet de reconnaitre les diff
 \subsubsection{Test qui ne marche pas}
 
 Voici un test qui ne marche pas :
-\begin{verbatim}
-(fun (azertyµ A B)((return 3) ))
-Exception in thread "main" list.all.LexicalError: => µ
-\end{verbatim}
+
+(fun (azerty$\mu$ A B)((return 3) ))
+Exception in thread "main" list.all.LexicalError: $\mu$
+
 
 Ce Test ne marche pas car un caractère illégal a été utilisé, et en conséquence l'analyseur lexical le reconnait et l'interdit.
 

@@ -1,2 +1,170 @@
 \section{Test du vérificateur}
-Nous avons tester
+Nous avons testé notre vérificateur de grammaire avec les grammaires fournie sur icampus 
+pour finalement tester avec notre grammaire. Ici je ne montrerai que le test final pour notre grammaire. 
+
+Teste avec la première grammaire 
+\begin{verbatim}
+ 
+
+
+A --> A a 
+A --> B 
+B --> a 
+B --> A B 
+\end{verbatim}
+
+
+réécrite en bnf pour notre parser :
+\begin{verbatim}
+<A> ::= <A> 'a'
+<A> ::= <B>
+<B> ::= 'a'
+<B> ::= <A> <B>
+
+
+Check conflit suffix : 
+----------------------------
+A   A
+<.
+----------------------------
+----------------------------
+B   A
+<=
+----------------------------
+conflit avec a:true
+A ::= A:false a:true
+B ::= a:true 
+
+conflit avec B:false
+B ::= A:false B:false
+A ::= B:false 
+\end{verbatim}
+
+Validity grammar : false
+
+
+Ce test concorde bien avec l'exmple donné
+
+\begin{verbatim}
+Grammaire non WP :
+règle 1 : B --> a 
+règle 2 : A --> A a
+A <. B
+Grammaire non WP :
+règle 1 : A --> B 
+règle 2 : B --> A B
+A <. A
+
+\end{verbatim}
+
+
+
+Test avec une autre grammaire WP :
+
+\begin{verbatim}
+E --> T 
+E --> + T 
+E --> E + T 
+T --> F 
+T --> T * F 
+F --> x 
+F --> ( E ) 
+\end{verbatim}
+
+qu'on a réécrit en :
+\begin{verbatim}
+<E> ::= <T> 
+<E> ::= '+' <T> 
+<E> ::= <E> '+' <T> 
+<T> ::= <F> 
+<T> ::= <T> '*' <F> 
+<F> ::= 'x' 
+<F> ::= '(' <E> ')' 
+\end{verbatim}
+
+C'est bien une grammaire WP :
+
+\begin{verbatim}
+Precedence Table
+    |(   |)   |*   |+   |T   |E   |F   |x   |
+     ========================================
+(   | <. |    |    | <. | <. | <= | <. | <. |
+     ----------------------------------------
+)   |    | .> | .> | .> |    |    |    |    |
+     ----------------------------------------
+*   | <. |    |    |    |    |    | .= | <. |
+     ----------------------------------------
++   | <. |    |    |    | <= |    | <. | <. |
+     ----------------------------------------
+T   |    | .> | .= | .> |    |    |    |    |
+     ----------------------------------------
+E   |    | .= |    | .= |    |    |    |    |
+     ----------------------------------------
+F   |    | .> | .> | .> |    |    |    |    |
+     ----------------------------------------
+x   |    | .> | .> | .> |    |    |    |    |
+     ----------------------------------------
+
+No conflicts in table
+Validity precedence : true
+Check conflit suffix : 
+Validity grammar : true
+\end{verbatim}
+
+
+
+Dernière grammaire qui est normalement fausse :
+\begin{verbatim}
+E --> T 
+E --> + T 
+E --> T + E 
+T --> F 
+T --> F * T 
+F --> x 
+F --> ( E ) 
+
+Precedence Table
+    |(   |)   |*   |+   |T   |E   |F   |x   |
+     ========================================
+(   | <. |    |    | <. | <. | .= | <. | <. |
+     ----------------------------------------
+)   |    | .> | .> | .> |    |    |    |    |
+     ----------------------------------------
+*   | <. |    |    |    | .= |    | <. | <. |
+     ----------------------------------------
++   | <. |    |    | <. | <= | .= | <. | <. |
+     ----------------------------------------
+T   |    | .> |    | .= |    |    |    |    |
+     ----------------------------------------
+E   |    | .= |    |    |    |    |    |    |
+     ----------------------------------------
+F   |    | .> | .= | .> |    |    |    |    |
+     ----------------------------------------
+x   |    | .> | .> | .> |    |    |    |    |
+     ----------------------------------------
+
+No conflicts in table
+Validity precedence : true
+Check conflit suffix : 
+----------------------------
+E   +
+.=
+----------------------------
+conflit avec T:false
+E ::= +:true T:false
+E ::= T:false 
+
+Validity grammar : false
+\end{verbatim}
+Elle est bien fausse et la faute est la même que le test.
+
+
+
+Maintenant que nous pouvons accorder un peu de crédit à notre vérificateur. Testons notre grammaire,
+en épargnant la table de précédence.
+\begin{verbatim}
+No conflicts in table
+Validity precedence : true
+Check conflit suffix : 
+Validity grammar : true
+\end{verbatim}
