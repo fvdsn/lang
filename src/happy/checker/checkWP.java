@@ -3,7 +3,7 @@ import java.util.List;
 
 import happy.parser.bnf.*;
 public class checkWP {
-	static boolean checkAll(List<Rule> grammar){
+	public static boolean checkAll(List<Rule> grammar){
 		if(CheckLambda.checkLambda(grammar)){
 			System.out.println("Félicitations, La grammaire ne contient pas d'expensions vide");
 		}else{
