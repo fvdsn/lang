@@ -2,13 +2,15 @@ package happy.checker;
 
 import happy.parser.bnf.CatList;
 import happy.parser.bnf.Rule;
-import happy.parser.util.CharIdentifier;
+import happy.parser.bnf.Term;
+
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
 public class CheckCycle {
-	public static List<RulesTuple> checkSuffix(List<Rule> rules) {
+	public static List<RulesTuple> checkSuffix(List<Rule> rules, Hashtable<Term,Hashtable<Term,String>> table) {
 		List<RulesTuple> problem = new ArrayList<RulesTuple>();
 		List<Pair> AllCat = new ArrayList<Pair>();
 		
@@ -23,6 +25,9 @@ public class CheckCycle {
 				for(Pair p : AllCat) {
 					if(isSuffix(c, p.cat)) {
 						if(!p.cat.stringRep().equals(c.stringRep())  && !r.getLeftSide().equals(p.r1.getLeftSide())) {
+							System.out.println(c);
+							System.out.println(c.getTermList().get(c.getTermList().size() - 2));
+							System.out.println(p.cat);
 							problem.add(new RulesTuple(r, p.r1, c));
 						}
 					}
@@ -35,7 +40,7 @@ public class CheckCycle {
 	}
 	
 	
-	public static boolean isSuffix(CatList c1, CatList c2) {
+	private static boolean isSuffix(CatList c1, CatList c2) {
 		int size = c2.getTermList().size();
 		//ne peut être suffix car plus grand que l'autre
 		if(size > c1.getTermList().size()) {
@@ -53,5 +58,10 @@ public class CheckCycle {
 			cpt1--;
 		}
 		return suffix;
+	}
+	
+	
+	private static Term getTermBeforeSuffix(CatList longOne, CatList shortOne) {
+		
 	}
 }

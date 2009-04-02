@@ -37,6 +37,8 @@ public class CheckPrecedence {
 		Hashtable<Term,Hashtable<Term,String>> table = null;
 		List<Term> allTerm = getAllTerm(grammar);
 		
+		
+		
 		/* Print all terms */
 		System.out.println("\nList of all Terms");
 		for(Term t:allTerm){
@@ -72,6 +74,18 @@ public class CheckPrecedence {
 		}else{
 			System.out.println("\nConflicts in table !");
 		}
+		
+		
+		System.out.println("Check conflit : ");
+
+		for(RulesTuple r : CheckCycle.checkSuffix(grammar, table)) {
+			System.out.println("conflit avec " + r.prob + "\n" + r.r1 + "\n" + r.r2 + " \n");
+			validity = false;
+		}
+		
+		
+		
+		
 		return validity;
 	}
 	/**
