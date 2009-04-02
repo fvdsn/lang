@@ -1,0 +1,87 @@
+\section{Exemple de programmation HAPPY}
+
+
+\subsection{Exemple1}
+Un programme complet. 
+\begin{verbatim}
+(fun (:-D) (write 42))
+(fun (** a b) (
+  (set cpt b)
+  (set res 0)
+  (while (> cpt 0) 
+    (
+      (set r (* res b))
+      (set cpt (- cpt 1))	
+    )
+  )
+  (return R)
+))
+(fun (main) (
+  (HelloWorld)
+  (set B (** 4 2))
+  (return (write B))
+))
+
+(method (4) (-> level) (return this.level))
+
+\end{verbatim}
+\subsection{Exemple2}
+Exemple de code intéressant. 
+\begin{verbatim}
+
+(method.2 (next) (return this.1))
+(method.2 (val)  (return this.2))
+  [Creation d'un noeud de linked list]
+(fun (N x) ((set n (new 2)) (set n.2 x) (set n.1 null) (return n)) )
+  [Ajoute un noeud a une linked list] 
+(fun (-> Node NextNode) ( (set Node.1 NextNode) (return Node)) )
+
+(fun (main) (
+  (set A (->(N 1) (->(N 2) (->(N 3) (N 4)))))
+  (while A (
+    (write (A.val))
+    (set A (A.next))
+  ))
+  (return 0)
+))
+\end{verbatim}
+
+\subsection{Exemple3}
+
+Voici un exemple de programmation Happy :
+
+\begin{verbatim}
+
+(fun (Adder A B)(
+  (set C (+ A B))
+  (return C)
+)
+
+(fun (exposant A B)(
+  (set result A)
+  (set I 0)
+  (while (I<B) 
+    (set result (* result A))
+    (set I (+ I 1))
+  )
+  (return result)
+  )
+)
+
+(method(3) (Moore A B)(
+  (return (A*B*1.5))
+  )
+)
+
+(fun (main) (
+  (set A 5)
+  (set B 10)
+  (set C (Adder A B))
+  (set D (Exposant C B))
+  (write (moore A B))
+  )
+)
+
+\end{verbatim}
+
+Dans cet exemple on montre différente manière de traiter des nombres grâce à des opérations relativement simple, tel que l'addition et l'exposant. Cet exemple permet d'illustrer la syntaxe de manière concrète.
