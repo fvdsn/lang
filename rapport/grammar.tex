@@ -6,14 +6,14 @@ Nous avons définit un premier lieu cette syntaxe :
 \begin{verbatim}
 <Reserved_words>    ::= set | if | while | write | fun | method 
       | null | true | false | read | new | + | - | * | / 
-      | % | | | & | ! | < | > | <= | >= | neg | this 
+      | % | '|' | & | ! | < | > | <= | >= | neg | this 
       | return | skip
 <Reserved_caracter> ::= <o_brackets> | <c_brackets> | .
 <digit> ::= 0..9 
 <pnumber> ::=  <digit> | <number> <digit> 
 <number>  ::= - <pnumber> | <pnumber>
 <caracter> ::= a..z | A..Z | ! | @ | # | $ | % | ^ | & | * 
-		| { | } | | | _ | , | ? | - | + | = | / 
+		| { | } '|' | | _ | , | ? | - | + | = | / 
 		| \\ | > | < | : | ; | ~ | \ | " 
 <sp> ::= lambda |   | NewLine | Tab | <sp> <sp>
 <esp> ::=   <sp>
@@ -89,6 +89,47 @@ Voici quelque exemple de programme écrit en happy :
 
 \subsection{Syntaxe de l'analyseur Lexical}
 
-Notre analyseur lexical nous permet de 
+Notre analyseur lexical nous permet de parser notre programme et d'en ressortir une liste de jetons ordonnés concret. La syntaxe qui sera analysée ne sera bien évidemment pas aussi fine que la syntaxe de base définie dans la section précedente ( en effet, quel serait l'objectif de ressortir des jetons contenant chacun un et un seul caractère ! ). Les jetons contiendront donc des unités concrètes tel que les identifieurs, les nombes, les nombres négatifs, les parenthèse, etc etc..
+
+Voici donc la syntaxe interpretée par l'analyseur syntaxique :
+
+\subsection{Syntaxe initiale}
+Nous avons définit un premier lieu cette syntaxe : 
+
+\begin{verbatim}
+<Reserved_words>    ::= set | if | while | write | fun | method 
+      | null | true | false | read | new | + | - | * | / 
+      | % | '|' | & | ! | < | > | <= | >= | neg | this 
+      | return | skip
+<meth_or_fun> ::= <method> | <function>
+<Program> ::=  <meth_or_fun> | <Program>  <meth_or_fun>
+<function> ::= (fun ( Id <arglist> ) <instr_list> ) 
+<arglist> ::= Id | Id <arglist>
+<methode> ::= (method ( Number ) (Id <arglist> ) <instr_list> )
+<instr_list> ::= <instr> | ( <instr_list_np> ) 
+<instr_list_np> ::= <instr> | <instr> <instr_list_np>
+<instr> ::= <conditional> | <while_block> | <call> 
+			  | ( return <expr> ) 
+			  | ( skip )
+<conditional> ::= (if <expr> <instr_list> <instr_list> ) 
+<while_block ::= ( while <expr> <instr_list>) 
+<call> ::= <function_call> | <method_call> | <builtin_call> 
+<builtin_call> ::= <assignment> | <read_call> | <write_call> | <arithmetic>
+<assignment> ::= ( set <left_Id> <expr> ) 
+<read_call>  ::= ( read ) 
+<write_call> ::= ( write <expr> )
+<arithmetic> ::= <binary> | <unary>
+<binary ::= (<bin_id> <expr> <expr>)
+<bin_id> ::=  + | - | * | / | % | '|' | & | < | > | <= | >=
+<unary>  ::=  (<un_id> <expr>)
+<un_id>  ::=  ! | neg | new
+<left_Id> ::= Id | Id . <expr> | this .  <expr>
+<user_call>  ::= ( <Id> <expr_list_np> )
+<expr_list_np> ::= lambda | <expr> | <expr> <expr_list_np>
+<method_call>  ::= ( <method_id> <expr_list_np>)
+<method_id> ::= <Id> . <Id> | super . <Id> 
+<expr> ::= <call> | <left_Id> | <number> | null | true | false | this  
+\end{verbatim}
+
 
 \subsection{Syntaxe WP de l'analyseur grammatical}

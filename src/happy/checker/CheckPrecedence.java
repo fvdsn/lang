@@ -238,7 +238,9 @@ public class CheckPrecedence {
 								if(First.get(t).add(fst)){
 									done = false;
 								}
-								if(First.get(t).addAll(First.get(fst))){
+								if(First.get(fst) == null){
+									System.out.println("Not in First:"+ fst.toString());
+								}else if(First.get(t).addAll(First.get(fst))){
 									done = false;
 								}
 							}
@@ -364,6 +366,9 @@ public class CheckPrecedence {
 					}*/
 					if(!X.isTerminal()){
 						/*3*/
+						if(Last.get(X) == null){
+							System.out.println("Is not in Last :"+X.toString());
+						}else{
 						for(Term s:Last.get(X)){
 							if(!Y.isTerminal()){
 								for(Term t:First.get(Y)){
@@ -377,12 +382,17 @@ public class CheckPrecedence {
 								if(!tableSet(table,s,Y,GE,r)){validity = false;}
 							}
 						}
+						}
 					}
 					/*4*/
 					if(!Y.isTerminal()){
-						for(Term s:First.get(Y)){
-							/*5*/
-							if(!tableSet(table, X, s, LE, r)){validity = false;}
+						if(First.get(Y) == null){
+							System.out.println("Is not in First:"+Y.toString());
+						}else{
+							for(Term s:First.get(Y)){
+								/*5*/
+								if(!tableSet(table, X, s, LE, r)){validity = false;}
+							}
 						}
 					}
 					
