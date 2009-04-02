@@ -130,22 +130,22 @@ Voici donc la syntaxe interpretée par l'analyseur syntaxique :
 
 
 \subsection{Syntaxe WP de l'analyseur grammatical}
-La Syntaxe de l'analyse grammatical est de plus haut niveau car elle n'est définie que sur ce qui
+La Syntaxe de l'analyse grammaticale est de plus haut niveau car elle n'est définie que sur ce qui
 est renvoyé par l'analyseur syntaxique. Quelques adaptations ont été nécessaires afin de rendre
 notre syntaxe Weak Priority. 
 
-Premièrement toutes les parenthèses se trouvant à l'intérieur d'une rêgle ont du ètre sorties en
+Premièrement toutes les parenthèses se trouvant à l'intérieur d'une rêgle ont du être sorties en
 tant que nouvelles règles afin de respecter la précédence entre les parenthèses et les espaces.  
 
-Pour élíminer les Terminaux vides, nous avons dédoublé les règles: une pour le cas vide, et l'autre
+Pour élíminer les terminaux vides, nous avons dédoublé les règles: une pour le cas vide, et l'autre
 pour le cas alternatif. Seul le <sp> nous posait problème (<sp> représente un espace / indentation facultatif)
 Nous avons décidé de les remplacer par des <esp> (indentation obligatoire). Remplacer les <sp> par des <esp> au
 niveau de l'analyse est trivial. Il nous aurait beaucoup plu de retirer entièrement les espaces, mais ceux-ci
 sont important pour délimiter les points. Il aurait été possible d'insérer des délimiteurs fictifs autour
 des règles avec point, mais cela semblait moins facile à implémenter au niveau de l'analyseur syntaxique. 
 
-Comme la grande partie des règles sont contenues par des parentèses il n'y a pas eu beaucoup de problème de suffixes
-ou d'indéterminisme. Les rares problèmes de suffixes on pu ètre résolu en remontant les règles problématiques
+Comme la grande partie des règles sont contenues par des parenthèses il n'y a pas eu beaucoup de problème de suffixes
+ou d'indéterminisme. Les rares problèmes de suffixes ont pu ètre résolus en remontant les règles problématiques
 à l'intérieur de règles avec parenthèses. 
 
 Voici donc la syntaxe WP. 
@@ -169,7 +169,7 @@ Voici donc la syntaxe WP.
 <call> 		::=  <user_call> | <method_call> | <builtin_call> 
 <builtin_call> 	::=  <assignment> | <read_call> | <write_call> | <arithmetic>
 
-<assignment> 	::= ( esp set esp id esp <expr> esp ) | ( esp set esp id . id esp <expr> ) | ( esp set esp this . id esp <expr> esp )
+<assignment> 	::= ( esp set esp id esp <expr> esp ) | ( esp set esp id . <expr> esp <expr> ) | ( esp set esp this . <expr> esp <expr> esp )
 <read_call>  	::= ( esp read esp ) 
 <write_call> 	::= ( esp write esp <expr> esp )
 <arithmetic> 	::=  <binary> | <unary>
@@ -180,5 +180,5 @@ Voici donc la syntaxe WP.
 <method_call>  	::= ( esp id.id esp <expr_list_np> esp ) | ( esp super.id esp <expr_list_np> esp ) 
 
 <expr_list_np> 	::=  <expr> | <expr> esp <expr_list_np>
-<expr> 		::=  <call>  | <number> | null | true | false | this | id | id.id | this.id
+<expr> 		::=  <call>  | <number> | null | true | false | this | id | id.<expr> | this.<expr>
 \end{verbatim}
