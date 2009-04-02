@@ -4,19 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrList {
-	List<Term> list;
-	CatList catlist;
+	List<CatList> list;
 	
 	public OrList() {
-		list = new ArrayList<Term>();
+		list = new ArrayList<CatList>();
 	}
-	public void add(Term t) {
+	public void add(CatList t) {
 		list.add(t);
 	}
 	
-	public CatList getCatList() {
-		/* TODO implement */
-		return catlist;
+	
+	public List<CatList> getTerm() {
+		
+		return list;
 	}
 	
 	@Override
