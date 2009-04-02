@@ -13,7 +13,10 @@ public class parser {
 		this.list = new LinkedList<token>();
 		this.program = str;
 		programchar = str.toCharArray();
-		this.reserved = new String[]{"fun","set","test"};
+		this.reserved = new String[] {"set","if","while","write","fun","method" ,
+				"null","true","false","read","new","+","-","*","/" ,
+				"%","|","&","!","<",">","<=",">=","neg",
+				"this","return","skip"}; 
 	}
 
 	public void addToList(token t){
