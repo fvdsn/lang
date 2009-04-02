@@ -142,9 +142,9 @@ public class CheckPrecedence {
 		}else if(old_rel.equals(ERROR)){
 			return false;
 		}else{
-			System.out.println("Conflict from Rule : "+rule.toString());
-			System.out.println("Was :"+X.toString()+old_rel+Y.toString());
-			System.out.println("Is  :"+X.toString()+rel+Y.toString());
+			System.out.println("Conflict in Rule:" + rule.getLeftSide());
+			System.out.println("   Was :"+X.toString()+old_rel+Y.toString());
+			System.out.println("   Is  :"+X.toString()+rel+Y.toString());
 			table.get(X).put(Y, ERROR);
 			return false;
 		}
@@ -323,6 +323,11 @@ public class CheckPrecedence {
 	 * 			à NOTHING.
 	 * @return true si il n'y a pas de conflits dans la table, false sinon. 
 	 */
+	public static  void printError(Rule r ,List<Term> termlist, int pos, Term X, Term Y){
+		System.out.println("Error in rule:"+ r.getLeftSide());
+		System.out.println("   Pos:"+pos);
+		System.out.println("   XY:"+X+" "+Y);
+	}
 	public static  boolean precTable(List<Rule> grammar, Hashtable<Term,Hashtable<Term,String>> table){
 		Hashtable<Term,Set<Term>> First = FirstSet(grammar);
 		Hashtable<Term,Set<Term>> Last = LastSet(grammar);
@@ -359,7 +364,11 @@ public class CheckPrecedence {
 				while(i < n-1){
 					X = tl.get(i);
 					Y = tl.get(i+1);
-					tableSet(table,X,Y,EQ,r);
+					/*5*/
+					if(!tableSet(table,X,Y,EQ,r)){  
+						validity = false;
+						printError(r,tl,i,X,Y);
+					}
 					/*if(X.isTerminal() && Y.isTerminal()){
 						*2*
 						
@@ -374,12 +383,12 @@ public class CheckPrecedence {
 								for(Term t:First.get(Y)){
 									if(t.isTerminal()){
 										/*5*/
-										if(!tableSet(table,s,t,GE,r)){validity = false;}
+										if(!tableSet(table,s,t,GE,r)){validity = false;printError(r,tl,i,X,Y);}
 									}
 								}
 							}else{
 								/*5*/
-								if(!tableSet(table,s,Y,GE,r)){validity = false;}
+								if(!tableSet(table,s,Y,GE,r)){validity = false;printError(r,tl,i,X,Y);}
 							}
 						}
 						}
@@ -391,7 +400,7 @@ public class CheckPrecedence {
 						}else{
 							for(Term s:First.get(Y)){
 								/*5*/
-								if(!tableSet(table, X, s, LE, r)){validity = false;}
+								if(!tableSet(table, X, s, LE, r)){validity = false;printError(r,tl,i,X,Y);}
 							}
 						}
 					}

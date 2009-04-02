@@ -1,24 +1,32 @@
 <number>		::=  <number> | 'pnumber'		
 <meth_or_fun> 	::=  <methode> | <function>
 <Program> 		::=  <meth_or_fun> | <Program> 'esp' <meth_or_fun>
-<function> 		::= '(' 'esp' 'fun' 'esp' '(' 'esp' <arglist> 'esp' ')' 'esp' <instr_list> 'esp' ')' 
-<arglist> 		::=  ''id'' | 'id' 'esp' <arglist>
-<methode> 		::= '(' 'esp' 'method' 'esp' '(' 'esp' 'pnumber' 'esp' ')' 'esp' '(' 'esp' <arglist> 'esp' ')' 'esp' <instr_list> 'esp' ')' 
-<instr_list> 	::=  <instr> | '(' <instr_list_np> ')' 
+
+<function> 		::= '(' 'esp' 'fun' 'esp' <arglist> 'esp' <instr_list> 'esp' ')' 
+<methode> 		::= '(' 'esp' 'method' 'esp' 'pnumber' 'esp' <arglist> 'esp' <instr_list> 'esp' ')' 
+
+<arglist>		::= '(' 'esp' <arglist_np> 'esp' ')'
+<arglist_np> 	::=  ''id'' | 'id' 'esp' <arglist_np>
+
+<instr_list> 	::=  <instr> | '(' 'esp' <instr_list_np> 'esp' ')' 
 <instr_list_np> ::=  <instr> | <instr> <instr_list_np>
+
 <instr> 		::=  <conditional> | <while_block> | <call> | '(' 'return' <expr> ')' | '(' 'skip' ')'
-<conditional> 	::= '(' 'if' <expr>'esp'<instr_list>'esp'<instr_list>  ')' 
-<while_block> 	::= '(' 'while'  <expr> 'esp' <instr_list>  ')' 
+<conditional> 	::= '(' 'esp' 'if' 'esp' <expr> 'esp' <instr_list>'esp'<instr_list> 'esp' ')' 
+<while_block> 	::= '(' 'esp' 'while' 'esp' <expr> 'esp' <instr_list> 'esp' ')' 
 <call> 			::=  <user_call> | <method_call> | <builtin_call> 
 <builtin_call> 	::=  <assignment> | <read_call> | <write_call> | <arithmetic>
-<assignment> 	::= '(' 'set' 'id' 'esp' <expr> ')' | '(' 'set' 'id' '.' <expr> 'esp' <expr> ')' | '(' 'set' 'this' '.' <expr> 'esp' <expr> ')'
-<read_call>  	::= '(' 'read' ')' 
-<write_call> 	::= '(' 'write' <expr> ')'
+
+<assignment> 	::= '(' 'esp' 'set' 'esp' 'id' 'esp' <expr> 'esp' ')' | '(' 'esp' 'set' 'esp' 'id' '.' <expr> 'esp' <expr> ')' | '(' 'esp' 'set' 'esp' 'this' '.' <expr> 'esp' <expr> 'esp' ')'
+<read_call>  	::= '(' 'esp' 'read' 'esp' ')' 
+<write_call> 	::= '(' 'esp' 'write' 'esp' <expr> 'esp' ')'
 <arithmetic> 	::=  <binary> | <unary>
-<binary> 		::= '(' 'bin_id' <expr> 'esp' <expr>  ')'
-<unary>  		::= '(' 'un_id' <expr>  ')'
+<binary> 		::= '(' 'esp' 'bin_id' 'esp'<expr> 'esp' <expr> 'esp'  ')'
+<unary>  		::= '(' 'esp' 'un_id' 'esp' <expr> 'esp' ')'
 <user_call>  	::= '(' 'esp' 'id' 'esp'  <expr_list_np> 'esp'  ')' | '(' 'esp' 'id' 'esp' ')' 
+
+<method_call>  	::= '(' 'esp' 'id''.''id' 'esp' <expr_list_np> 'esp' ')' | '(' 'esp' 'super''.''id' 'esp' <expr_list_np> 'esp' ')' 
+
 <expr_list_np> 	::=  <expr> | <expr> 'esp' <expr_list_np>
-<method_call>  	::= '(' 'id''.''id' 'esp' <expr_list_np>  ')' |   '(' 'super''.''id' 'esp' <expr_list_np>  ')' 
 <expr> 			::=  <call>  | <number> | 'null' | 'true' | 'false' | 'this' | 'id' | 'id''.'<expr> | 'this''.'<expr> 
 
