@@ -47,8 +47,7 @@ public class CheckPrecedence {
 			System.out.print(key.toString());
 			System.out.print("-> ");
 			for(Term el:set.get(key)){
-				fprintn(el.toString(),4);
-				System.out.print(" ");
+				System.out.print(el.toString() + " ");
 			}
 			System.out.print("\n");
 		}
@@ -87,8 +86,9 @@ public class CheckPrecedence {
 			fprintn("|",1);
 		}
 		System.out.println("");
+		System.out.print("     ");
 		for(Term c:allTerm){
-			fprintn("_____",5);
+			fprintn("=====",5);
 		}
 		System.out.println("");
 		for(Term line:allTerm){
@@ -96,9 +96,10 @@ public class CheckPrecedence {
 			fprintn("|",1);
 			for(Term col:allTerm){
 				fprintn(" "+table.get(line).get(col),4);
-				fprintn(":",1);
+				fprintn("|",1);
 			}
 			System.out.println("");
+			fprintn("     ",5);
 			for(Term col:allTerm){
 				fprintn("-----",5);
 			}
@@ -129,10 +130,13 @@ public class CheckPrecedence {
 		}
 		/*1)*/
 		for(Term t: AllTerm){
+			//System.out.println("t");
 			for(Rule r:grammar){
-				if(t == r.getLeftSide()){
+				//System.out.println("r");
+				if(t.equals(r.getLeftSide())){
 					for(CatList cl: r.getOrList()){
 						if(cl.getFirst().isTerminal()){
+							
 							First.get(t).add(cl.getFirst());
 						}
 					}
@@ -145,10 +149,13 @@ public class CheckPrecedence {
 			/*2)*/
 			for(Term t: AllTerm){
 				for(Rule r:grammar){
-					if(t == r.getLeftSide()){
+					if(t.equals(r.getLeftSide())){
 						for(CatList cl: r.getOrList()){
 							Term fst = cl.getFirst();
 							if(!fst.isTerminal()){
+								if(First.get(t).add(fst)){
+									done = false;
+								}
 								if(First.get(t).addAll(First.get(fst))){
 									done = false;
 								}
@@ -184,7 +191,7 @@ public class CheckPrecedence {
 		/*1)*/
 		for(Term t: AllTerm){
 			for(Rule r:grammar){
-				if(t == r.getLeftSide()){
+				if(t.equals(r.getLeftSide())){
 					for(CatList cl: r.getOrList()){
 						if(cl.getLast().isTerminal()){
 							Last.get(t).add(cl.getLast());
@@ -199,10 +206,13 @@ public class CheckPrecedence {
 			/*2)*/
 			for(Term t: AllTerm){
 				for(Rule r:grammar){
-					if(t == r.getLeftSide()){
+					if(t.equals(r.getLeftSide())){
 						for(CatList cl: r.getOrList()){
 							Term lst = cl.getLast();
 							if(!lst.isTerminal()){
+								if(Last.get(t).add(lst)){
+									done = false;
+								}
 								if(Last.get(t).addAll(Last.get(lst))){
 									done = false;
 								}
@@ -256,10 +266,11 @@ public class CheckPrecedence {
 				while(i < n-1){
 					X = tl.get(i);
 					Y = tl.get(i+1);
-					if(X.isTerminal() && Y.isTerminal()){
-						/*2*/
-						tableSet(table,X,Y,EQ,r);
-					}
+					tableSet(table,X,Y,EQ,r);
+					/*if(X.isTerminal() && Y.isTerminal()){
+						*2*
+						
+					}*/
 					if(!X.isTerminal()){
 						/*3*/
 						for(Term s:Last.get(X)){
@@ -284,6 +295,6 @@ public class CheckPrecedence {
 				}
 			}
 		}
-		return null;
+		return table;
 	}
 }
