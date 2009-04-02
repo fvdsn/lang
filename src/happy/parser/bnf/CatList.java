@@ -3,6 +3,12 @@ package happy.parser.bnf;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 
+ * this class provide a wrapper for the right side of a rule between or bnf symbole |
+ * This list contains Terms 
+ *
+ */
 public class CatList implements Term {
 	List<Term> list;
 	

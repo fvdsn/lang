@@ -3,6 +3,11 @@ package happy.parser.bnf;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class provide a wrapper for the entire right part of a rule, 
+ * the orlist is a list of cat list. 
+ *
+ */
 public class OrList {
 	List<CatList> list;
 	
