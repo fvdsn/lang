@@ -8,12 +8,12 @@ import happy.parser.bnf.*;
 
 
 public class CheckPrecedence {
-	public static String NOTHING = " ";
-	public static String LE 	= "<.";
+	public static String NOTHING = " ";		/* aucune relation */
+	public static String LE 	= "<.";		
 	public static String LEQ 	= "<="; 
 	public static String GE 	= ".>";
 	public static String EQ 	= ".=";
-	public static String ERROR  = "X";
+	public static String ERROR  = "X" ;		/* conflit */
 	public static void fprintn(String s,int n){
 		char[] cs = s.toCharArray();
 		int i = 0;
@@ -26,6 +26,12 @@ public class CheckPrecedence {
 			i++;
 		}
 	}
+	/**
+	 * Regarde si la grammaire n'a pas de conflits de précédence.
+	 * Affiche la table des précédence à la sortie standard.
+	 * @param grammar Une grammaire cohérente : tous les non terminaux ont au moins une règle. 
+	 * @return true si la grammaire est valide, false sinon.
+	 */
 	public static boolean check(List<Rule> grammar){
 		boolean validity = false;
 		Hashtable<Term,Hashtable<Term,String>> table = null;
@@ -68,6 +74,12 @@ public class CheckPrecedence {
 		}
 		return validity;
 	}
+	/**
+	 * Renvoie la liste de tous les Termes d'une grammaire.
+	 * @param grammar Une grammaire . 
+	 * @return la liste de tous les Termes, avec chaque Terme ne s'y trouvant pas
+	 * plus d'une fois.
+	 */
 	public static List<Term> getAllTerm(List<Rule> grammar){
 		Set<Term> set = new HashSet<Term>();
 		List<Term> list = new ArrayList<Term>();
@@ -84,6 +96,10 @@ public class CheckPrecedence {
 		}
 		return list;
 	}
+	/**
+	 * Imprime à la sortie standard l'ensemble First ou Last.
+	 * @param set un Ensemble First ou Last.
+	 */
 	public static void printSet(Hashtable<Term,Set<Term>> set){
 		for( Term key:set.keySet()){
 			System.out.print(key.toString());
@@ -94,6 +110,19 @@ public class CheckPrecedence {
 			System.out.print("\n");
 		}
 	}
+	/**
+	 * Met une relation de précédence dans la table de précédence et
+	 * résout les conflits. Affiche les détails de l'erreur à la sortie
+	 * standard en cas de conflits. Si le conflit est entre <. ou <.= ou =. 
+	 * celui ci est résolu en insérant un <.= 
+	 * 
+	 * @param table la table de précédence
+	 * @param X	le premier Terme
+	 * @param Y le second Terme
+	 * @param rel la relation de précédence ( EQ,LE,GE,LEQ,ERROR,NOTHING)
+	 * @param rule la règle d'ou provient X et Y.
+	 * @return true si il n'y a pas de conflits, false sinon. 
+	 */
 	public static boolean tableSet(Hashtable<Term,Hashtable<Term,String>> table, Term X, Term Y, String rel, Rule rule){
 		String old_rel = table.get(X).get(Y);
 		if(old_rel.equals(NOTHING) || old_rel.equals(rel)){
@@ -121,6 +150,11 @@ public class CheckPrecedence {
 		}
 		return true;
 	}
+	/**
+	 * Imprime une table de précédence à la sortie standard.
+	 * @param table la table de précédence, non nulle.
+	 * @param allTerm : tous les termes de la table. 
+	 */
 	public static void printTable(Hashtable<Term,Hashtable<Term,String>> table, List<Term> allTerm){
 		fprintn("    |",5);
 		for(Term t:allTerm){
@@ -149,6 +183,12 @@ public class CheckPrecedence {
 		}
 		
 	}
+	/**
+	 * Calcule l'ensemble First pour chaque Terme correspondant aux Termes
+	 * pouvant se trouver à l'extrème gauche de celui ci. 
+	 * @param grammar la grammaire
+	 * @return une Hashtable qui fait correspondre à chaque Terme son set First.
+	 */
 	public static Hashtable<Term,Set<Term>> FirstSet(List<Rule> grammar){
 		Hashtable<Term,Set<Term>> First = new Hashtable<Term, Set<Term>>();
 		HashSet<Term> AllTerm = new HashSet<Term>();
@@ -209,6 +249,12 @@ public class CheckPrecedence {
 		}
 		return First;		
 	}
+	/**
+	 * Calcule l'ensemble Last pour chaque Terme correspondant aux Termes
+	 * pouvant se trouver à l'extrème droite de celui ci. 
+	 * @param grammar la grammaire
+	 * @return une Hashtable qui fait correspondre à chaque Terme son set Last.
+	 */
 	public static Hashtable<Term,Set<Term>> LastSet(List<Rule> grammar){
 		Hashtable<Term,Set<Term>> Last = new Hashtable<Term, Set<Term>>();
 		HashSet<Term> AllTerm = new HashSet<Term>();
@@ -266,6 +312,15 @@ public class CheckPrecedence {
 		}
 		return Last;		
 	}
+	/**
+	 * Calcule la table de précédence WP et si celle ci contient des conflits.
+	 * En cas de conflits, ceux ci sont affichés à la sortie standard.
+	 * @param grammar la grammaire
+	 * @param table une Hashtable à deux dimensions dont les clefs sont tous les couples
+	 * 			de termes existant dans grammar. Tous les éléments de table sont initialisés
+	 * 			à NOTHING.
+	 * @return true si il n'y a pas de conflits dans la table, false sinon. 
+	 */
 	public static  boolean precTable(List<Rule> grammar, Hashtable<Term,Hashtable<Term,String>> table){
 		Hashtable<Term,Set<Term>> First = FirstSet(grammar);
 		Hashtable<Term,Set<Term>> Last = LastSet(grammar);
@@ -313,16 +368,20 @@ public class CheckPrecedence {
 							if(!Y.isTerminal()){
 								for(Term t:First.get(Y)){
 									if(t.isTerminal()){
+										/*5*/
 										if(!tableSet(table,s,t,GE,r)){validity = false;}
 									}
 								}
 							}else{
+								/*5*/
 								if(!tableSet(table,s,Y,GE,r)){validity = false;}
 							}
 						}
 					}
+					/*4*/
 					if(!Y.isTerminal()){
 						for(Term s:First.get(Y)){
+							/*5*/
 							if(!tableSet(table, X, s, LE, r)){validity = false;}
 						}
 					}
