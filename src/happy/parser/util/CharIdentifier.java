@@ -13,15 +13,5 @@ public class CharIdentifier {
 		return false;
 	}
 	
-	public static boolean isSuffix(String a, String b) {
-		int lenA = a.length();
-		int lenB = b.length();
-		if(lenA >= lenB) {
-			return a.endsWith(b);
-		}
-		else {
-			return b.endsWith(a);
-		}
-		
-	}
+	
 }

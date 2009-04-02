@@ -21,8 +21,10 @@ public class CheckCycle {
 		for(Rule r : rules) {
 			for(CatList c : r.getOrList()) {
 				for(Pair p : AllCat) {
-					if(CharIdentifier.isSuffix(p.cat.stringRep(), c.stringRep())) {
-						problem.add(new RulesTuple(r, p.r1));
+					if(p.cat.stringRep().endsWith(c.stringRep())) {
+						if(!p.cat.stringRep().equals(c.stringRep())) {
+							problem.add(new RulesTuple(r, p.r1, c));
+						}
 					}
 				}
 			}
@@ -30,5 +32,15 @@ public class CheckCycle {
 		
 		
 		return problem;
+	}
+	
+	
+	public static boolean isSuffix(CatList c1, CatList c2) {
+		int size = c2.getTermList().size();
+		//ne peut être suffix 
+		if(size > c1.getTermList().size()) {
+			return false;
+		}
+		return true;
 	}
 }
