@@ -20,10 +20,30 @@ public class TermImpl implements Term {
 		return term;
 	}
 	
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
-	public int hashCode() {
-		return (term + terminal).hashCode();
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof TermImpl))
+			return false;
+		TermImpl other = (TermImpl) obj;
+		if (term == null) {
+			if (other.term != null)
+				return false;
+		} else if (!term.equals(other.term))
+			return false;
+		if (terminal != other.terminal)
+			return false;
+		return true;
 	}
+	
+	
 
 
 }

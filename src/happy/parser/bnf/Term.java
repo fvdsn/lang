@@ -10,4 +10,7 @@ public interface Term {
 	@Override
 	public int hashCode();
 	
+	@Override
+	public boolean equals(Object obj);
+	
 }

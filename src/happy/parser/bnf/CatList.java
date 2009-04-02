@@ -60,5 +60,18 @@ public class CatList implements Term {
 		return toString().hashCode();
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj == null) 
+			return false;
+		if (obj instanceof CatList) {
+			CatList other = (CatList) obj;
+			return stringRep().equals(other.stringRep());
+		}
+		else {
+			return false;
+		}
+	}
+	
 
 }
