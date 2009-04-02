@@ -19,6 +19,9 @@ public class CharIdentifier {
 		if(lenA >= lenB) {
 			return a.endsWith(b);
 		}
+		else {
+			return b.endsWith(a);
+		}
 		
 	}
 }

@@ -19,11 +19,17 @@ public class Loader {
 			System.out.println(r);
 			System.out.println();
 		}
-
+		System.out.println("List of all Terms:\n");
 		List<Term> l = CheckPrecedence.getAllTerm(load.getRules());
 		for(Term t:l){
-			System.out.println(t.toString());
+			System.out.println(t.toString()+":"+t.hashCode());
 		}
+		System.out.println("\nFirstSet:\n");
+		CheckPrecedence.printSet(CheckPrecedence.FirstSet(load.getRules()));
+		System.out.println("\nLastSet:\n");
+		CheckPrecedence.printSet(CheckPrecedence.LastSet(load.getRules()));
+		System.out.println("\nPrecedence Table:\n");
+		CheckPrecedence.printTable(CheckPrecedence.precTable(load.getRules()),l);
 	}
 	public Loader(String file) throws FileNotFoundException, IOException {
 		rules = new ArrayList<Rule>();
