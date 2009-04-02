@@ -40,3 +40,17 @@ une orListe qui représente une liste de règles \textit{ou}. Chaque éléments 
 
 	Un test global se charge de tester l'ensemble de ces tests.
 
+
+
+	Le vérificateur de suffixe ne crée pas un arbre de suffix. Il place juste toutes les règles dans une liste et compare chaque règle à cette liste
+	Si un suffix est trouvé les critères suivants sont testés et si il existe un problème, le suffix qui est en conflit et les deux règles sont placer dans la liste des conflits
+
+\begin{verbatim}
+ /**
+	 * 
+	 * @param rules The rules list
+	 * @param table The precedence table
+	 * @return a list of tuple (triple) that contains the two conflicting rules and the suffix the cause the conflict
+	 */
+	public static List<RulesTuple> checkSuffix(List<Rule> rules, Hashtable<Term,Hashtable<Term,String>> table) {
+\end{verbatim}
