@@ -1,7 +1,7 @@
 \section{Exemple de programmation HAPPY}
 
 
-\subsection{Exemple1}
+\subsection{Example1}
 Un programme complet. 
 \begin{verbatim}
 (fun (:-D) (write 42))
@@ -25,7 +25,6 @@ Un programme complet.
 (method (4) (-> level) (return this.level))
 
 \end{verbatim}
-\subsection{Exemple2}
 Exemple de code intéressant. 
 \begin{verbatim}
 
@@ -46,7 +45,7 @@ Exemple de code intéressant.
 ))
 \end{verbatim}
 
-\subsection{Exemple3}
+\subsection{Exemple2}
 
 Voici un exemple de programmation Happy :
 

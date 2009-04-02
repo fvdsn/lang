@@ -1,14 +1,20 @@
-This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2009.3.31)  1 APR 2009 18:08
+This is pdfTeXk, Version 3.1415926-1.40.9 (Web2C 7.5.7) (format=pdflatex 2008.10.5)  2 APR 2009 23:55
 entering extended mode
  %&-line parsing enabled.
 **rapport.tex
 (./rapport.tex
 LaTeX2e <2005/12/01>
-Babel <v3.8h> and hyphenation patterns for english, usenglishmax, dumylang, noh
-yphenation, ukrainian, russian, bulgarian, loaded.
-(/usr/share/texmf-texlive/tex/latex/base/article.cls
+Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
+yphenation, german-x-2008-06-18, ngerman-x-2008-06-18, ancientgreek, ibycus, ar
+abic, basque, bulgarian, catalan, pinyin, coptic, croatian, czech, danish, dutc
+h, esperanto, estonian, farsi, finnish, french, galician, german, ngerman, mono
+greek, greek, hungarian, icelandic, indonesian, interlingua, irish, italian, la
+tin, mongolian, mongolian2a, bokmal, nynorsk, polish, portuguese, romanian, rus
+sian, sanskrit, serbian, slovak, slovenian, spanish, swedish, turkish, ukenglis
+h, ukrainian, uppersorbian, welsh, loaded.
+(/usr/share/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2005/09/16 v1.4f Standard LaTeX document class
-(/usr/share/texmf-texlive/tex/latex/base/size11.clo
+(/usr/share/texmf-dist/tex/latex/base/size11.clo
 File: size11.clo 2005/09/16 v1.4f Standard LaTeX file (size option)
 )
 \c@part=\count79
@@ -23,23 +29,23 @@ File: size11.clo 2005/09/16 v1.4f Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
-(/usr/share/texmf-texlive/tex/generic/oberdiek/ifpdf.sty
-Package: ifpdf 2006/02/20 v1.4 Provides the ifpdf switch (HO)
+(/usr/share/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2007/12/12 v1.6 Provides the ifpdf switch (HO)
 Package ifpdf Info: pdfTeX in pdf mode detected.
 )
-(/usr/share/texmf-texlive/tex/latex/base/inputenc.sty
+(/usr/share/texmf-dist/tex/latex/base/inputenc.sty
 Package: inputenc 2006/05/05 v1.1b Input encoding file
 \inpenc@prehook=\toks14
 \inpenc@posthook=\toks15
 
-(/usr/share/texmf-texlive/tex/latex/base/utf8.def
+(/usr/share/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2006/03/30 v1.1i UTF-8 support for inputenc
 Now handling font encoding OML ...
 ... no UTF-8 mapping file for font encoding OML
 Now handling font encoding T1 ...
 ... processing UTF-8 mapping file for font encodingT1
 
-(/usr/share/texmf-texlive/tex/latex/base/t1enc.dfu
+(/usr/share/texmf-dist/tex/latex/base/t1enc.dfu
 File: t1enc.dfu 2006/03/30 v1.1i UTF-8 support for inputenc
    defining Unicode char U+00A1 (decimal 161)
    defining Unicode char U+00A3 (decimal 163)
@@ -189,7 +195,7 @@ File: t1enc.dfu 2006/03/30 v1.1i UTF-8 support for inputenc
 Now handling font encoding OT1 ...
 ... processing UTF-8 mapping file for font encodingOT1
 
-(/usr/share/texmf-texlive/tex/latex/base/ot1enc.dfu
+(/usr/share/texmf-dist/tex/latex/base/ot1enc.dfu
 File: ot1enc.dfu 2006/03/30 v1.1i UTF-8 support for inputenc
    defining Unicode char U+00A1 (decimal 161)
    defining Unicode char U+00A3 (decimal 163)
@@ -220,7 +226,7 @@ File: ot1enc.dfu 2006/03/30 v1.1i UTF-8 support for inputenc
 Now handling font encoding OMS ...
 ... processing UTF-8 mapping file for font encodingOMS
 
-(/usr/share/texmf-texlive/tex/latex/base/omsenc.dfu
+(/usr/share/texmf-dist/tex/latex/base/omsenc.dfu
 File: omsenc.dfu 2006/03/30 v1.1i UTF-8 support for inputenc
    defining Unicode char U+00A7 (decimal 167)
    defining Unicode char U+00B6 (decimal 182)
@@ -244,139 +250,104 @@ Now handling font encoding U ...
    defining Unicode char U+2122 (decimal 8482)
    defining Unicode char U+2423 (decimal 9251)
 ))
-(/usr/share/texmf-texlive/tex/generic/babel/babel.sty
-Package: babel 2005/11/23 v3.8h The Babel package
+(/usr/share/texmf-dist/tex/generic/babel/babel.sty
+Package: babel 2008/07/06 v3.8l The Babel package
 
-(/usr/share/texmf-texlive/tex/generic/babel/frenchb.ldf
-Language: french 2005/02/06 v1.6g French support from the babel system
+(/usr/share/texmf-dist/tex/generic/babel/frenchb.ldf
+Language: frenchb 2008/05/08 v2.2a French support from the babel system
 
-(/usr/share/texmf-texlive/tex/generic/babel/babel.def
-File: babel.def 2005/11/23 v3.8h Babel common definitions
+(/usr/share/texmf-dist/tex/generic/babel/babel.def
+File: babel.def 2008/07/06 v3.8l Babel common definitions
 \babel@savecnt=\count87
 \U@D=\dimen103
 )
-
-Package babel Warning: No hyphenation patterns were loaded for
-(babel)                the language `French'
-(babel)                I will use the patterns loaded for \language=0 instead.
-
-\l@french = a dialect from \language0
-Package babel Info: Making : an active character on input line 219.
-Package babel Info: Making ; an active character on input line 220.
-Package babel Info: Making ! an active character on input line 221.
-Package babel Info: Making ? an active character on input line 222.
-LaTeX Font Info:    Redeclaring font encoding T1 on input line 299.
-\parindentFFN=\dimen104
+Package babel Info: Making : an active character on input line 119.
+Package babel Info: Making ; an active character on input line 120.
+Package babel Info: Making ! an active character on input line 121.
+Package babel Info: Making ? an active character on input line 122.
+\FB@Mht=\dimen104
 \std@mcc=\count88
 \dec@mcc=\count89
+\parindentFFN=\dimen105
+
 *************************************
 * Local config file frenchb.cfg used
 *
-(/usr/share/texmf-texlive/tex/generic/babel/frenchb.cfg)))
-(/usr/share/texmf-texlive/tex/latex/tools/varioref.sty
-Package: varioref 2006/05/13 v1.4p package for extended references (FMi)
-\c@vrcnt=\count90
-)
-(/usr/share/texmf-texlive/tex/latex/graphics/graphicx.sty
-Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
-
-(/usr/share/texmf-texlive/tex/latex/graphics/keyval.sty
+(/usr/share/texmf-dist/tex/generic/babel/frenchb.cfg)))
+(/usr/share/texmf-dist/tex/latex/carlisle/scalefnt.sty)
+(/usr/share/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks16
 )
-(/usr/share/texmf-texlive/tex/latex/graphics/graphics.sty
+(/usr/share/texmf-dist/tex/latex/tools/varioref.sty
+Package: varioref 2006/05/13 v1.4p package for extended references (FMi)
+\c@vrcnt=\count90
+)
+(/usr/share/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf-dist/tex/latex/graphics/graphics.sty
 Package: graphics 2006/02/20 v1.0o Standard LaTeX Graphics (DPC,SPQR)
 
-(/usr/share/texmf-texlive/tex/latex/graphics/trig.sty
+(/usr/share/texmf-dist/tex/latex/graphics/trig.sty
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 )
-(/etc/texmf/tex/latex/config/graphics.cfg
+(/usr/share/texmf/tex/latex/config/graphics.cfg
 File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
 )
 Package graphics Info: Driver file: pdftex.def on input line 90.
 
-(/usr/share/texmf-texlive/tex/latex/pdftex-def/pdftex.def
-File: pdftex.def 2007/01/08 v0.04d Graphics/color for pdfTeX
+(/usr/share/texmf-dist/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2008/09/08 v0.04l Graphics/color for pdfTeX
 \Gread@gobject=\count91
 ))
-\Gin@req@height=\dimen105
-\Gin@req@width=\dimen106
+\Gin@req@height=\dimen106
+\Gin@req@width=\dimen107
 )
-(/usr/share/texmf-texlive/tex/latex/listings/listings.sty
+(/usr/share/texmf-dist/tex/latex/listings/listings.sty
 \lst@mode=\count92
 \lst@gtempboxa=\box26
 \lst@token=\toks17
 \lst@length=\count93
-\lst@currlwidth=\dimen107
+\lst@currlwidth=\dimen108
 \lst@column=\count94
 \lst@pos=\count95
-\lst@lostspace=\dimen108
-\lst@width=\dimen109
+\lst@lostspace=\dimen109
+\lst@width=\dimen110
 \lst@newlines=\count96
 \lst@lineno=\count97
-\c@lstlisting=\count98
-\lst@maxwidth=\dimen110
+\lst@maxwidth=\dimen111
 
-(/usr/share/texmf-texlive/tex/latex/listings/lstpatch.sty
-File: lstpatch.sty 2004/10/17 1.3b (Carsten Heinz)
-)
-(/usr/share/texmf-texlive/tex/latex/listings/lstmisc.sty
-File: lstmisc.sty 2004/09/07 1.3 (Carsten Heinz)
-\c@lstnumber=\count99
-\lst@skipnumbers=\count100
+(/usr/share/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2007/02/22 1.4 (Carsten Heinz)
+\c@lstnumber=\count98
+\lst@skipnumbers=\count99
 \lst@framebox=\box27
 )
-(/usr/share/texmf-texlive/tex/latex/listings/listings.cfg
-File: listings.cfg 2004/09/05 1.3 listings configuration
+(/usr/share/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2007/02/22 1.4 listings configuration
 ))
-Package: listings 2004/10/17 1.3b (Carsten Heinz)
+Package: listings 2007/02/22 1.4 (Carsten Heinz)
 
-(/usr/share/texmf-texlive/tex/latex/graphics/color.sty
+(/usr/share/texmf-dist/tex/latex/graphics/color.sty
 Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
 
-(/etc/texmf/tex/latex/config/color.cfg
+(/usr/share/texmf/tex/latex/config/color.cfg
 File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
 Package color Info: Driver file: pdftex.def on input line 130.
 )
-(/usr/share/texmf-texlive/tex/latex/floatflt/floatflt.sty
-Package: floatflt 1997/07/16 v. 1.31
-\c@OptionTest=\count101
-\figbox=\box28
-\tabbox=\box29
-\pagebox=\box30
-\ffigcount=\count102
-\ftabcount=\count103
-\fftest=\count104
-\hangcount=\count105
-\nosuccesstryfig=\count106
-\nosuccesstrytab=\count107
-\figgutter=\dimen111
-\tabgutter=\dimen112
-\htdone=\dimen113
-\pageht=\dimen114
-\startpageht=\dimen115
-\tabbredd=\dimen116
-\floatfltwidth=\dimen117
-\fltitemwidth=\dimen118
-\outputpretest=\toks18
-)
-(/usr/share/texmf-texlive/tex/latex/graphics/lscape.sty
+(/usr/share/texmf-dist/tex/latex/graphics/lscape.sty
 Package: lscape 2000/10/22 v3.01 Landscape Pages (DPC)
 )
-(/usr/share/texmf-texlive/tex/latex/listings/lstlang1.sty
+(/usr/share/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2004/09/05 1.3 listings language file
 ) (./rapport.aux)
 \openout1 = `rapport.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 29.
 LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for T1/lmr/m/n on input line 29.
-LaTeX Font Info:    Try loading font information for T1+lmr on input line 29.
-
-(/usr/share/texmf/tex/latex/lm/t1lmr.fd
-File: t1lmr.fd 2007/01/14 v1.3 Font defs for Latin Modern
-)
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 29.
 LaTeX Font Info:    ... okay on input line 29.
 LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 29.
 LaTeX Font Info:    ... okay on input line 29.
@@ -386,24 +357,29 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 29.
 LaTeX Font Info:    ... okay on input line 29.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 29.
 LaTeX Font Info:    ... okay on input line 29.
+LaTeX Info: Redefining \degres on input line 29.
 LaTeX Info: Redefining \dots on input line 29.
+LaTeX Info: Redefining \up on input line 29.
 
-(/usr/share/texmf/tex/context/base/supp-pdf.tex
+
+Package frenchb.ldf Warning: OT1 encoding should not be used for French. 
+(frenchb.ldf)                Add \usepackage[T1]{fontenc} to the preamble
+(frenchb.ldf)                of your document, on input line 29.
+
+(/usr/share/texmf-dist/tex/context/base/supp-pdf.tex
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count108
-\scratchdimen=\dimen119
-\scratchbox=\box31
-\nofMPsegments=\count109
-\nofMParguments=\count110
-\everyMPshowfont=\toks19
-\MPscratchCnt=\count111
-\MPscratchDim=\dimen120
-\MPnumerator=\count112
-\everyMPtoPDFconversion=\toks20
-) (./rapport.toc)
-\tf@toc=\write3
-\openout3 = `rapport.toc'.
-
+\scratchcounter=\count100
+\scratchdimen=\dimen112
+\scratchbox=\box28
+\nofMPsegments=\count101
+\nofMParguments=\count102
+\everyMPshowfont=\toks18
+\MPscratchCnt=\count103
+\MPscratchDim=\dimen113
+\MPnumerator=\count104
+\everyMPtoPDFconversion=\toks19
+)
+\c@lstlisting=\count105
  (./garde.tex
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <10.95> on input line 3.
@@ -413,129 +389,170 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 3.
  <logo.png, id=1, 205.76875pt x 126.4725pt>
 File: logo.png Graphic file (type png)
-
-<use logo.png>
+ <use logo.png>
 Overfull \hbox (69.96902pt too wide) in paragraph at lines 12--17
  []
  []
 
-) (./intro.tex) (./grammar.tex [1
+) [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./logo.png>]
-Overfull \hbox (71.15158pt too wide) in paragraph at lines 54--54
-[]\OT1/cmtt/m/n/10.95 <Reserved_words>    ::= 'set' | 'if' | 'while' | 'write' 
-| 'fun' | 'method'[] 
+{/usr/share/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./logo.png>]
+<xkcd.png, id=12, 502.87875pt x 792.9625pt>
+File: xkcd.png Graphic file (type png)
+ <use xkcd.png> [2 <./xkcd.png (PNG copy)>] (./intro.tex) (./grammar.tex
+Overfull \hbox (2.22954pt too wide) in paragraph at lines 32--34
+[]\OT1/cmr/m/n/10.95 Les ob-jets sont impl^^Sement^^Ses comme des listes de lon
+-gueur fixe qui peuvent
  []
 
 
-Overfull \hbox (65.4029pt too wide) in paragraph at lines 54--54
-[]      \OT1/cmtt/m/n/10.95 | 'null' | 'true' | 'false' | 'read' | 'new' | '+' 
-| '-' | '*' | '/'[] 
+Overfull \hbox (2.16733pt too wide) in paragraph at lines 87--87
+[]\OT1/cmtt/m/n/10.95 <Reserved_words>    ::= set | if | while | write | fun | 
+method[] 
+ []
+
+[3]
+Overfull \hbox (13.6647pt too wide) in paragraph at lines 87--87
+[]\OT1/cmtt/m/n/10.95 <function> ::= (<sp> fun <sp> ( <sp> <Name> <esp> <arglis
+t> <sp>)[] 
  []
 
 
-Overfull \hbox (53.90552pt too wide) in paragraph at lines 54--54
-[]      \OT1/cmtt/m/n/10.95 | '%' | '|' | '&' | '!' | '<' | '>' | '<=' | '>=' |
- 'neg' | 'this'[] 
+Overfull \hbox (2.16733pt too wide) in paragraph at lines 87--87
+[]      \OT1/cmtt/m/n/10.95 ( <sp> <Name> <esp> <arglist> <sp> ) <instr_list>  
+<sp> )[] 
  []
 
 
-Overfull \hbox (88.39764pt too wide) in paragraph at lines 54--54
-[]\OT1/cmtt/m/n/10.95 <caracter> ::= 'a..z' | 'A..Z' | '!' | '@' | '#' | '$' | 
-'%' | '^' | '&' | '*'[] 
+Overfull \hbox (30.91077pt too wide) in paragraph at lines 87--87
+[]\OT1/cmtt/m/n/10.95 <while_block ::= ( <sp> while <esp> <expr> <esp> <instr_l
+ist> <sp> )[] 
  []
 
 
-Overfull \hbox (19.41339pt too wide) in paragraph at lines 54--54
-[]\OT1/cmtt/m/n/10.95 <Program> ::=  <meth_or_fun> | <Program> <sp>  <meth_or_f
-un> <esp>[] 
- []
-
-
-Overfull \hbox (59.6542pt too wide) in paragraph at lines 54--54
-[]\OT1/cmtt/m/n/10.95 <function> ::= <(><sp> 'fun' <sp> <(> <sp> <Name> <esp> <
-arglist> <sp><)>[] 
- []
-
-
-Overfull \hbox (13.6647pt too wide) in paragraph at lines 54--54
-[]\OT1/cmtt/m/n/10.95 <methode> ::= <(><sp> 'method' <sp> <(><sp> <Number> <sp>
-<)> <sp>[] 
- []
-
-
-Overfull \hbox (36.65945pt too wide) in paragraph at lines 54--54
-[]      \OT1/cmtt/m/n/10.95 <(> <sp> <Name> <esp> <arglist> <sp> <)> <instr_lis
-t>  <sp> <)>[] 
- []
-
-
-Overfull \hbox (65.4029pt too wide) in paragraph at lines 54--54
-[]\OT1/cmtt/m/n/10.95 <while_block ::= <(> <sp> 'while' <esp> <expr> <esp> <ins
-tr_list> <sp> <)>[] 
- []
-
-
-Overfull \hbox (71.15158pt too wide) in paragraph at lines 54--54
+Overfull \hbox (71.15158pt too wide) in paragraph at lines 87--87
 []\OT1/cmtt/m/n/10.95 <builtin_call> ::= <assignment> | <read_call> | <write_ca
 ll> | <arithmetic>[] 
  []
 
 
-Overfull \hbox (36.65945pt too wide) in paragraph at lines 54--54
-[]\OT1/cmtt/m/n/10.95 <assignment> ::= <(> <sp> 'set' <esp> <left_Id> <esp> <ex
-pr> <sp> <)>[] 
+Overfull \hbox (2.16733pt too wide) in paragraph at lines 87--87
+[]\OT1/cmtt/m/n/10.95 <assignment> ::= ( <sp> set <esp> <left_Id> <esp> <expr> 
+<sp> )[] 
  []
 
 
-Overfull \hbox (7.91602pt too wide) in paragraph at lines 54--54
-[]\OT1/cmtt/m/n/10.95 <binary ::= <(> <sp> <bin_id> <esp> <expr> <esp> <expr> <
-sp> <)>[] 
- []
-
-[2]
-Overfull \hbox (94.14633pt too wide) in paragraph at lines 54--54
-[]\OT1/cmtt/m/n/10.95 <bin_id> ::=  '+' | '-' | '*' | '/' | '%' | '|' | '&' | '
-<' | '>' | '<=' | '>='[] 
+Overfull \hbox (7.91602pt too wide) in paragraph at lines 87--87
+[]\OT1/cmtt/m/n/10.95 <unary>  ::=  ( <sp> <un_id> <esp> <expr> <sp> ) | return
+ | skip[] 
  []
 
 
-Overfull \hbox (19.41339pt too wide) in paragraph at lines 54--54
-[]\OT1/cmtt/m/n/10.95 <expr_list_np> ::= 'lambda' | <expr> | <expr> <esp> <expr
-_list_np>[] 
+Overfull \hbox (7.91602pt too wide) in paragraph at lines 87--87
+[]\OT1/cmtt/m/n/10.95 <expr_list_np> ::= lambda | <expr> | <expr> <esp> <expr_l
+ist_np>[] 
  []
 
 
-Overfull \hbox (36.65945pt too wide) in paragraph at lines 54--54
-[]\OT1/cmtt/m/n/10.95 <method_call>  ::= <(> <sp> <method_id> <esp> <expr_list_
-np> <sp> <)>[] 
+Overfull \hbox (13.6647pt too wide) in paragraph at lines 87--87
+[]\OT1/cmtt/m/n/10.95 <method_call>  ::= ( <sp> <method_id> <esp> <expr_list_np
+> <sp> )[] 
  []
 
 
-Overfull \hbox (82.64896pt too wide) in paragraph at lines 54--54
-[]\OT1/cmtt/m/n/10.95 <expr> ::= <call> | <left_Id> | <number> | 'null' | 'true
-' | 'false' | 'this'[] 
+Overfull \hbox (82.64896pt too wide) in paragraph at lines 87--87
+[]\OT1/cmtt/m/n/10.95 <expr>         ::= <call> | <left_Id> | <number> | null |
+ true | false | this[] 
  []
 
-) [3] (./rapport.aux) ) 
+[4]
+Overfull \hbox (2.16733pt too wide) in paragraph at lines 129--129
+[]\OT1/cmtt/m/n/10.95 <Reserved_words>    ::= set | if | while | write | fun | 
+method[] 
+ []
+
+
+Overfull \hbox (2.16733pt too wide) in paragraph at lines 129--129
+[]\OT1/cmtt/m/n/10.95 <methode> ::= (method ( Number ) (Id <arglist> ) <instr_l
+ist> )[] 
+ []
+
+
+Overfull \hbox (71.15158pt too wide) in paragraph at lines 129--129
+[]\OT1/cmtt/m/n/10.95 <builtin_call> ::= <assignment> | <read_call> | <write_ca
+ll> | <arithmetic>[] 
+ []
+
+
+Overfull \hbox (36.65945pt too wide) in paragraph at lines 129--129
+[]\OT1/cmtt/m/n/10.95 <expr> ::= <call> | <left_Id> | <number> | null | true | 
+false | this[] 
+ []
+
+[5]) (./exemple.tex [6]
+Overfull \hbox (30.91077pt too wide) in paragraph at lines 47--47
+[]\OT1/cmtt/m/n/10.95 (fun (N x) ((set n (new 2)) (set n.2 x) (set n.1 null) (r
+eturn n)) )[] 
+ []
+
+
+Overfull \hbox (7.91602pt too wide) in paragraph at lines 47--47
+[]\OT1/cmtt/m/n/10.95 (fun (-> Node NextNode) ( (set Node.1 NextNode) (return N
+ode)) )[] 
+ []
+
+[7]) (./analyseurlexical.tex) (./testanalyseurlexical.tex [8] [9]
+
+! Package inputenc Error: Unicode char \u8:µ not set up for use with LaTeX.
+
+See the inputenc package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.68 \end{verbatim}
+                   
+? 
+
+! Package inputenc Error: Unicode char \u8:µ not set up for use with LaTeX.
+
+See the inputenc package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.68 \end{verbatim}
+                   
+? 
+
+Overfull \hbox (12.93617pt too wide) in paragraph at lines 70--71
+[]\OT1/cmr/m/n/10.95 Ce Test ne marche pas car un ca-ract^^Rere ill^^Segal a ^^
+Set^^Se uti-lis^^Se, et en cons^^Sequence
+ []
+
+
+Overfull \hbox (76.90027pt too wide) in paragraph at lines 79--79
+[]\OT1/cmtt/m/n/10.95 Exception in thread "main" list.all.LexicalError: Erreur 
+: No starting point[] 
+ []
+
+) [10] (./rapport.aux) ) 
 Here is how much of TeX's memory you used:
- 3340 strings out of 94834
- 43318 string characters out of 1179181
- 102757 words of memory out of 1500000
- 6490 multiletter control sequences out of 10000+50000
- 8060 words of font info for 29 fonts, out of 1200000 for 2000
- 212 hyphenation exceptions out of 8191
- 26i,15n,40p,227b,353s stack positions out of 5000i,500n,6000p,200000b,5000s
-</usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmbx10.
-pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmbx12.pfb></usr/share/tex
-mf-texlive/fonts/type1/bluesky/cm/cmcsc10.pfb></usr/share/texmf-texlive/fonts/t
-ype1/bluesky/cm/cmmi10.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmr
-10.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmr17.pfb></usr/share/t
-exmf-texlive/fonts/type1/bluesky/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/
-type1/bluesky/cm/cmtt10.pfb>
-Output written on rapport.pdf (3 pages, 60587 bytes).
+ 3378 strings out of 493886
+ 44244 string characters out of 1155675
+ 133981 words of memory out of 3000000
+ 6616 multiletter control sequences out of 10000+50000
+ 9011 words of font info for 32 fonts, out of 3000000 for 5000
+ 714 hyphenation exceptions out of 8191
+ 26i,15n,40p,539b,354s stack positions out of 5000i,500n,10000p,200000b,50000s
+</usr/share/texmf-dist/fonts/type1/bluesky/cm/cmbx10.pf
+b></usr/share/texmf-dist/fonts/type1/bluesky/cm/cmbx12.pfb></usr/share/texmf-di
+st/fonts/type1/bluesky/cm/cmcsc10.pfb></usr/share/texmf-dist/fonts/type1/bluesk
+y/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/bluesky/cm/cmr10.pfb></usr/s
+hare/texmf-dist/fonts/type1/bluesky/cm/cmr17.pfb></usr/share/texmf-dist/fonts/t
+ype1/bluesky/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/bluesky/cm/cmti10
+.pfb></usr/share/texmf-dist/fonts/type1/bluesky/cm/cmtt10.pfb>
+Output written on rapport.pdf (10 pages, 217925 bytes).
 PDF statistics:
- 46 PDF objects out of 1000 (max. 8388607)
+ 75 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 131072)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
