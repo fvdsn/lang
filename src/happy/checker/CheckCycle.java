@@ -3,6 +3,7 @@ package happy.checker;
 import happy.parser.bnf.CatList;
 import happy.parser.bnf.Rule;
 import happy.parser.bnf.Term;
+import happy.parser.bnf.TermImpl;
 
 
 import java.util.ArrayList;
@@ -39,7 +40,19 @@ public class CheckCycle {
 								
 							if(rule != null) {
 								Term precedent = before.getTermList().get(before.getTermList().size() - 2);
-								if(table.get(rule).get(precedent).equals(CheckPrecedence.EQ) || table.get(rule).get(precedent).equals(CheckPrecedence.LE)) {
+								//System.out.println(table.get(new TermImpl("A", false)).get(new TermImpl("A", false)));
+								//System.out.println(rule + "   " + precedent);
+								//System.out.print("equals  ");
+								
+								//System.out.println(table.get(precedent).get(rule));
+								
+								if(table.get(precedent).get(rule).equals(CheckPrecedence.EQ) 
+										|| table.get(precedent).get(rule).equals(CheckPrecedence.LE)
+										|| table.get(precedent).get(rule).equals(CheckPrecedence.LEQ)) {
+									System.out.println("----------------------------");
+									System.out.println(rule + "   " + precedent);
+									System.out.println(table.get(precedent).get(rule));
+									System.out.println("----------------------------");
 									problem.add(new RulesTuple(r, p.r1, little));
 								}
 							}
