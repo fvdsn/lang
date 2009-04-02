@@ -1,6 +1,5 @@
-\section*{Syntaxe concrètes}
+\section*{Syntaxe concraites}
 
-\subsection{Syntaxe initiale}
 Nous avons définit un premier lieu cette syntaxe : 
 
 \begin{verbatim}
@@ -53,7 +52,8 @@ Nous avons définit un premier lieu cette syntaxe :
 
 
 Vu que cette syntaxe n'utilise que les parenthèses et le points comme caractère réservés, nous pouvons utiliser n'importe caractère pour définir
-un identifiant (pour peut qu'il ne commence pas par un chiffre). Nous pouvons donc donner des noms tel que $:-D$ ou encore $;\}$ voir $:->$. Nous avons donc choisit d'appeler notre langage le langage Happy. 
+un identifiant (pour peut qu'il ne commence pas par un chiffre). Nous pouvons donc donner des noms tel que $:-D$ ou encore $;\}$ voir $:->$. Nous avons donc choisit d'appeler notre
+langage le langage Happy. 
 
 Les commentaires sont entre [ ] : [mon commentaire]
 
@@ -87,8 +87,3 @@ Voici quelque exemple de programme écrit en happy :
 
 \end{verbatim}
 
-\subsection{Syntaxe de l'analyseur Lexical}
-
-Notre analyseur lexical nous permet de 
-
-\subsection{Syntaxe WP de l'analyseur grammatical}
