@@ -39,7 +39,7 @@ public class Loader {
 		
 		
 		//check the grammar
-		CheckPrecedence.check(load.getRules());
+		checkWP.checkAll(load.getRules());
 
 	}
 	
