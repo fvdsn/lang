@@ -27,7 +27,6 @@ public class parser {
 		
 		for(int i=0;i<reserved.length;i++){
 			if(str.toString().equals(reserved[i])){
-				System.out.println(i+"a");
 				this.list.add(new token(str.toString(),reserved[i]));
 				return;
 			}
