@@ -3,7 +3,7 @@
 <Program> 		::=  <meth_or_fun> | <Program> 'esp' <meth_or_fun>
 
 <function> 		::= '(' 'esp' 'fun' 'esp' <arglist> 'esp' <instr_list> 'esp' ')' 
-<methode> 		::= '(' 'esp' 'method' 'esp' 'pnumber' 'esp' <arglist> 'esp' <instr_list> 'esp' ')' 
+<methode> 		::= '(' 'esp' 'method' '.' 'pnumber' 'esp' <arglist> 'esp' <instr_list> 'esp' ')' 
 
 <arglist>		::= '(' 'esp' <arglist_np> 'esp' ')'
 <arglist_np> 	::=  ''id'' | 'id' 'esp' <arglist_np>
@@ -11,7 +11,7 @@
 <instr_list> 	::=  <instr> | '(' 'esp' <instr_list_np> 'esp' ')' 
 <instr_list_np> ::=  <instr> | <instr> <instr_list_np>
 
-<instr> 		::=  <conditional> | <while_block> | <call> | '(' 'return' <expr> ')' | '(' 'skip' ')'
+<instr> 		::=  <conditional> | <while_block> | <call> | '(' 'esp' 'return' 'esp' <expr> 'esp'')' | '(' 'esp' 'skip' 'esp' ')'
 <conditional> 	::= '(' 'esp' 'if' 'esp' <expr> 'esp' <instr_list>'esp'<instr_list> 'esp' ')' 
 <while_block> 	::= '(' 'esp' 'while' 'esp' <expr> 'esp' <instr_list> 'esp' ')' 
 <call> 			::=  <user_call> | <method_call> | <builtin_call> 
