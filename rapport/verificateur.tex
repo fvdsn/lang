@@ -40,7 +40,7 @@ une orListe qui représente une liste de règles \textit{ou}. Chaque éléments 
 
 	Un test global - \emph{CheckAll} - se charge de tester l'ensemble de ces tests.
 
-<<<<<<< HEAD:rapport/verificateur.tex
+
 	\subsection{Test de symbole vide (\emph{CheckLambda})}
 		Ce test s'assure qu'aucune règle n'a de symbole vide (lambda).
 		Ce test parcourt simplement l'arbre de la définition grammaire et
@@ -73,29 +73,29 @@ une orListe qui représente une liste de règles \textit{ou}. Chaque éléments 
 			\item On initialise tous les éléments de la table à 'Nothing'
 			\item On identifie toutes les parties droites, et pour chacune d'entre elles on identifie tous les
 			symboles cotes à cotes XY.
-			\item On ajoute X.=Y dans la table.
+			\item On ajoute X$.=$Y dans la table.
 			\item Si X non terminal : Pour tout symbole s dans Last(X), Pour tout terminal t dans First(Y)
-				on met s.>t dans la table. Si Y est non-terminal on met s.>Y dans la table.
-			\item Si Y non terminal : Pour tout symbole s dans First(Y), on met X <. s dans la table.
+				on met s$.>$t dans la table. Si Y est non-terminal on met s$.>$Y dans la table.
+			\item Si Y non terminal : Pour tout symbole s dans First(Y), on met X $<.$ s dans la table.
 			\item Si à un moment on met une relation dans la table là ou précédemment il n'y avait pas 'Nothing',
-				on a un conflit. Les conflits impliquant <. , =. et <.= sont résolus en insérant <.= dans
+				on a un conflit. Les conflits impliquant $<.$ , =. et $<.=$ sont résolus en insérant $<.=$ dans
 				la table. Les autres conflits sont marqués en tant que conflits et reportés. 
 			\item Si il y a des conflits non résolus dans la table alors le Test échoue, la grammaire n'est pas valide
 			Weak Precedence.
 		\end{enumerate}
 	\subsection{Test de Suffixe}
 		Ce test vérifie que les relations de suffixe sont respectées. C'est à dire :
-		Pour tout couple de règles Z -> B, X -> AYB, où A représente une suite de symbole, Y un symbole unique,
-		et B et une suite non vide symboles, on vérifie que !(Y .= X) , !(Y <. X) et !(Y <.= X).
+		Pour tout couple de règles Z $->$ B, X $->$ AYB, où A représente une suite de symbole, Y un symbole unique,
+		et B et une suite non vide symboles, on vérifie que !(Y .= X) , !(Y $<.$ X) et !(Y $<.=$ X).
 		
 		Pour ce faire nous utilisons la méthode suivante : 
-		Pour chaque règle Z -> B, pour toute autre règle X->Y on regarde si on peut matcher B comme suffixe de Y.
+		Pour chaque règle Z $->$ B, pour toute autre règle X $->$ Y on regarde si on peut matcher B comme suffixe de Y.
 		Dans l'affirmative, on identifie le symbole juste avant le suffixe. Nous pouvons a ce moment vérifier la
 		condition décrite expliquée précédemment. Si elle n'est pas vérifiée. le Test échoue, la grammaire n'est pas valide.
 
 
 \begin{verbatim}
- /**
+	/**
 	 * 
 	 * @param rules The rules list
 	 * @param table The precedence table

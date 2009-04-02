@@ -1,4 +1,4 @@
-This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2009.3.31)  3 APR 2009 01:18
+This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2009.3.31)  3 APR 2009 01:32
 entering extended mode
  %&-line parsing enabled.
 **rapport.tex
@@ -387,12 +387,8 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 3.
  <logo.png, id=1, 205.76875pt x 126.4725pt>
 File: logo.png Graphic file (type png)
- <use logo.png>
-Overfull \hbox (69.96902pt too wide) in paragraph at lines 12--17
- []
- []
-
-) [1
+ <use logo.png>)
+[1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./logo.png>]
 <xkcd.png, id=11, 502.87875pt x 792.9625pt>
@@ -565,44 +561,50 @@ Overfull \hbox (42.40814pt too wide) in paragraph at lines 30--30
 recede by a \[] 
  []
 
+[12]
+Overfull \hbox (2.71622pt too wide) in paragraph at lines 53--57
+[]\OT1/cmr/m/n/10.95 Pour faire cela, le test con-struit deux en-sem-ble pour c
+haque non-terminal :
+ []
 
-Overfull \hbox (289.60172pt too wide) in paragraph at lines 56--56
+[13]
+Overfull \hbox (289.60172pt too wide) in paragraph at lines 105--105
 [] \OT1/cmtt/m/n/10.95 * @return a list of tuple (triple) that contains the two
  conflicting rules and the suffix the cause the conflict[] 
  []
 
-[12]
-Overfull \hbox (260.85828pt too wide) in paragraph at lines 56--56
+
+Overfull \hbox (260.85828pt too wide) in paragraph at lines 105--105
 []\OT1/cmtt/m/n/10.95 public static List<RulesTuple> checkSuffix(List<Rule> rul
 es, Hashtable<Term,Hashtable<Term,String>> table) {[] 
  []
 
-) (./testverif.tex [13] [14] [15]
+) (./testverif.tex [14] [15] [16]
 Overfull \hbox (12.2671pt too wide) in paragraph at lines 163--165
 []\OT1/cmr/m/n/10.95 Maintenant que nous pou-vons ac-corder un peu de cr^^Sedit
  ^^Ra notre v^^Serificateur.
  []
 
-) [16] (./rapport.aux) ) 
+) [17] (./rapport.aux) ) 
 Here is how much of TeX's memory you used:
- 3284 strings out of 94834
- 42635 string characters out of 1179181
+ 3287 strings out of 94834
+ 42667 string characters out of 1179181
  101401 words of memory out of 1500000
- 6424 multiletter control sequences out of 10000+50000
- 9011 words of font info for 32 fonts, out of 1200000 for 2000
+ 6426 multiletter control sequences out of 10000+50000
+ 9370 words of font info for 33 fonts, out of 1200000 for 2000
  212 hyphenation exceptions out of 8191
  26i,15n,40p,539b,353s stack positions out of 5000i,500n,6000p,200000b,5000s
 </usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmbx10
 .pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmbx12.pfb></usr/share/te
-xmf-texlive/fonts/type1/bluesky/cm/cmcsc10.pfb></usr/share/texmf-texlive/fonts/
-type1/bluesky/cm/cmmi10.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cm
-r10.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmr17.pfb></usr/share/
-texmf-texlive/fonts/type1/bluesky/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts
-/type1/bluesky/cm/cmti10.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/c
-mtt10.pfb>
-Output written on rapport.pdf (16 pages, 230156 bytes).
+xmf-texlive/fonts/type1/bluesky/cm/cmbxti10.pfb></usr/share/texmf-texlive/fonts
+/type1/bluesky/cm/cmcsc10.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/
+cmmi10.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmr10.pfb></usr/sha
+re/texmf-texlive/fonts/type1/bluesky/cm/cmr17.pfb></usr/share/texmf-texlive/fon
+ts/type1/bluesky/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm
+/cmti10.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmtt10.pfb>
+Output written on rapport.pdf (17 pages, 242562 bytes).
 PDF statistics:
- 93 PDF objects out of 1000 (max. 8388607)
+ 100 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 131072)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
