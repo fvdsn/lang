@@ -1,9 +1,9 @@
 <number>		::=  <number> | 'pnumber'		
 <meth_or_fun> 	::=  <methode> | <function>
-<Program> 		::=  <meth_or_fun> | <Program>  <meth_or_fun>
-<function> 		::= '(' 'fun' '(' <arglist> ')' 'esp' <instr_list> 'esp' ')' 
+<Program> 		::=  <meth_or_fun> | <Program> 'esp' <meth_or_fun>
+<function> 		::= '(' 'esp' 'fun' 'esp' '(' 'esp' <arglist> 'esp' ')' 'esp' <instr_list> 'esp' ')' 
 <arglist> 		::=  ''id'' | 'id' 'esp' <arglist>
-<methode> 		::= '(' 'method' '(' 'pnumber' ')' 'esp' '(' <arglist> ')' 'esp' <instr_list> 'esp' ')' 
+<methode> 		::= '(' 'esp' 'method' 'esp' '(' 'esp' 'pnumber' 'esp' ')' 'esp' '(' 'esp' <arglist> 'esp' ')' 'esp' <instr_list> 'esp' ')' 
 <instr_list> 	::=  <instr> | '(' <instr_list_np> ')' 
 <instr_list_np> ::=  <instr> | <instr> <instr_list_np>
 <instr> 		::=  <conditional> | <while_block> | <call> | '(' 'return' <expr> ')' | '(' 'skip' ')'

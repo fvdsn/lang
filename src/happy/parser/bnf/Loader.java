@@ -14,7 +14,7 @@ public class Loader {
 	List<Rule> rules;
 
 	public static void main(String[] args) throws Exception {
-		Loader load = new Loader("grammar_wp.bnf");
+		Loader load = new Loader("grammar_wp_space.bnf");
 		for(Rule r : load.getRules()) {
 			System.out.println(r);
 			System.out.println();
