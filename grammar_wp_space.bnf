@@ -17,7 +17,7 @@
 <call> 			::=  <user_call> | <method_call> | <builtin_call> 
 <builtin_call> 	::=  <assignment> | <read_call> | <write_call> | <arithmetic>
 
-<assignment> 	::= '(' 'esp' 'set' 'esp' 'id' 'esp' <expr> 'esp' ')' | '(' 'esp' 'set' 'esp' 'id' '.' <expr> 'esp' <expr> ')' | '(' 'esp' 'set' 'esp' 'this' '.' <expr> 'esp' <expr> 'esp' ')'
+<assignment> 	::= '(' 'esp' 'set' 'esp' 'id' 'esp' <expr> 'esp' ')' | '(' 'esp' 'set' 'esp' 'id' '.' 'id' 'esp' <expr> ')' | '(' 'esp' 'set' 'esp' 'this' '.' 'id' 'esp' <expr> 'esp' ')'
 <read_call>  	::= '(' 'esp' 'read' 'esp' ')' 
 <write_call> 	::= '(' 'esp' 'write' 'esp' <expr> 'esp' ')'
 <arithmetic> 	::=  <binary> | <unary>
@@ -28,5 +28,5 @@
 <method_call>  	::= '(' 'esp' 'id''.''id' 'esp' <expr_list_np> 'esp' ')' | '(' 'esp' 'super''.''id' 'esp' <expr_list_np> 'esp' ')' 
 
 <expr_list_np> 	::=  <expr> | <expr> 'esp' <expr_list_np>
-<expr> 			::=  <call>  | <number> | 'null' | 'true' | 'false' | 'this' | 'id' | 'id''.'<expr> | 'this''.'<expr> 
+<expr> 			::=  <call>  | <number> | 'null' | 'true' | 'false' | 'this' | 'id' | 'id''.''id' | 'this''.''id'
 

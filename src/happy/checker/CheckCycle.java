@@ -2,13 +2,16 @@ package happy.checker;
 
 import happy.parser.bnf.CatList;
 import happy.parser.bnf.Rule;
-import happy.parser.util.CharIdentifier;
+import happy.parser.bnf.Term;
+import happy.parser.bnf.TermImpl;
+
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
 public class CheckCycle {
-	public static List<RulesTuple> checkSuffix(List<Rule> rules) {
+	public static List<RulesTuple> checkSuffix(List<Rule> rules, Hashtable<Term,Hashtable<Term,String>> table) {
 		List<RulesTuple> problem = new ArrayList<RulesTuple>();
 		List<Pair> AllCat = new ArrayList<Pair>();
 		
@@ -23,7 +26,39 @@ public class CheckCycle {
 				for(Pair p : AllCat) {
 					if(isSuffix(c, p.cat)) {
 						if(!p.cat.stringRep().equals(c.stringRep())  && !r.getLeftSide().equals(p.r1.getLeftSide())) {
-							problem.add(new RulesTuple(r, p.r1, c));
+							CatList before = getTermBeforeSuffix(p.cat, c);
+							CatList little = null;
+							Term rule = null;
+							if(before == p.cat) {
+								rule =  p.r1.getLeftSide();
+								little = c;
+							}
+							else if(before == c) {
+								rule = r.getLeftSide();
+								little = p.cat;
+							}
+								
+							if(rule != null) {
+								Term precedent = before.getTermList().get(before.getTermList().size() - 2);
+								//System.out.println(table.get(new TermImpl("A", false)).get(new TermImpl("A", false)));
+								//System.out.println(rule + "   " + precedent);
+								//System.out.print("equals  ");
+								
+								//System.out.println(table.get(precedent).get(rule));
+								
+								if(table.get(precedent).get(rule).equals(CheckPrecedence.EQ) 
+										|| table.get(precedent).get(rule).equals(CheckPrecedence.LE)
+										|| table.get(precedent).get(rule).equals(CheckPrecedence.LEQ)) {
+									System.out.println("----------------------------");
+									System.out.println(rule + "   " + precedent);
+									System.out.println(table.get(precedent).get(rule));
+									System.out.println("----------------------------");
+									problem.add(new RulesTuple(r, p.r1, little));
+								}
+							}
+							
+							
+							
 						}
 					}
 				}
@@ -35,7 +70,7 @@ public class CheckCycle {
 	}
 	
 	
-	public static boolean isSuffix(CatList c1, CatList c2) {
+	private static boolean isSuffix(CatList c1, CatList c2) {
 		int size = c2.getTermList().size();
 		//ne peut être suffix car plus grand que l'autre
 		if(size > c1.getTermList().size()) {
@@ -54,4 +89,21 @@ public class CheckCycle {
 		}
 		return suffix;
 	}
+	
+	
+	private static CatList getTermBeforeSuffix(CatList c1, CatList c2) {
+		int size1 = c1.getTermList().size();
+		int size2 = c2.getTermList().size();
+		if(size1 > size2) {
+			return c1;
+		}
+		else if(size1 < size2) {
+			return c2;
+		}
+		else 
+			return null;
+		
+	}
+	
+	
 }
