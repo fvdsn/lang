@@ -20,13 +20,6 @@ public class Loader {
 			System.out.println();
 		}
 
-		
-		for(Rule r : load.getRules()) {
-			for(CatList l : r.getOrList()) {
-				System.out.println(l.stringRep());
-			}
-		}
-
 		List<Term> l = CheckPrecedence.getAllTerm(load.getRules());
 		for(Term t:l){
 			System.out.println(t.toString());
