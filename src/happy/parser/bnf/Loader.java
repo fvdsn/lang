@@ -19,6 +19,7 @@ public class Loader {
 	
 	List<Rule> rules;
 
+	
 	public static void main(String[] args) throws Exception {
 		//load the grammar
 		Loader load = new Loader("grammar_wp_space.bnf");
@@ -43,7 +44,26 @@ public class Loader {
 	}
 	
 	
-	
+	/**
+	 * initialize the rules loader, the file should be a valid BNF File
+	 * that mean every rules look like that
+	 * nonTerminal ::= rules1 | rules2 | .. | rulesN
+	 * nonTerminal should be written like that : <id>
+	 * Terminal should be written like that : 'term'
+	 * special caracter  ' \ could be in a terminal symbole precede by a \
+	 * 
+	 * exemple : 
+	 * <E> ::= <T> 
+	 * <E> ::= '\\' <T> 
+	 * <E> ::= <T> '+' <E>
+	 * <T> ::= <F>
+	 * <T> ::= <F> '*' <T> 
+	 * <F> ::= '\''
+	 *  
+	 * @param file the path of the file
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
 	public Loader(String file) throws FileNotFoundException, IOException {
 		rules = new ArrayList<Rule>();
 		File f = new File(file);
