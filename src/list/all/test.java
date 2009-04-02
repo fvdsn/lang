@@ -8,7 +8,7 @@ public class test {
 	 * @param args
 	 */
 	public static void main(String[] args) throws Exception {
-		String str = "(fun test.dsf. 123 prout . yop -123 123 + +123 xzv-123  )";
+		String str = ".(fun (test A B)((return 3) ))";
 		System.out.println(str);
 		parser p = new parser(str);
 		LinkedList<Token> l = p.getList();

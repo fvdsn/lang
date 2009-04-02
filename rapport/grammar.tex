@@ -93,17 +93,11 @@ La syntaxe qui sera analysée ne sera bien évidemment pas aussi fine que la syn
 ( en effet, quel serait l'objectif de ressortir des jetons contenant chacun un et un seul caractère ! ). 
 Les lexèmes contiendront donc des unités concrètes tel que les identifieurs, les nombes, les nombres négatifs, les parenthèse, etc etc..
 
-
 Voici donc la syntaxe interpretée par l'analyseur syntaxique :
-
-\subsection{Syntaxe initiale}
-Nous avons définit un premier lieu cette syntaxe : 
 
 \begin{verbatim}
 <Reserved_words>    ::= set | if | while | write | fun | method 
-      | null | true | false | read | new | + | - | * | / 
-      | % | '|' | & | ! | < | > | <= | >= | neg | this 
-      | return | skip
+      | null | true | false | read | new | return | skip
 <meth_or_fun> ::= <method> | <function>
 <Program> ::=  <meth_or_fun> | <Program>  <meth_or_fun>
 <function> ::= (fun ( Id <arglist> ) <instr_list> ) 

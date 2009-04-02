@@ -3,6 +3,7 @@ package list.all;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
 
 
 public class parser {
@@ -15,7 +16,7 @@ public class parser {
 	String unary[];
 	String binary[];
 	ArrayList<Character> character;
-	
+
 
 
 	public  parser(String str){
@@ -27,8 +28,8 @@ public class parser {
 		for(char c : cha) {
 			character.add(c);
 		}
-		
-		
+
+
 		this.list = new LinkedList<Token>();
 		this.program = str;
 		programchar = str.toCharArray();
@@ -38,14 +39,14 @@ public class parser {
 		this.reservedcharacters = new String[]{"(",")","."};
 		this.unary = new String[]{"!","neg","new"};
 		this.binary = new String[]{"+","-","*","/","%","|","&","<",">","<=",">="};
-		
-	
+
+
 
 	}
 
 
 
-	
+
 
 	public void endOfCurrent(StringBuffer str){
 		if(str.length()==0){
@@ -59,7 +60,7 @@ public class parser {
 				return;
 			}
 		}
-		
+
 		for(int i=0;i<unary.length;i++){
 			if(str.toString().equals(unary[i])){
 				this.list.add(new Token(str.toString(),"unary"));
@@ -67,7 +68,7 @@ public class parser {
 				return;
 			}
 		}
-		
+
 		for(int i=0;i<binary.length;i++){
 			if(str.toString().equals(binary[i])){
 				this.list.add(new Token(str.toString(),"binary"));
@@ -137,12 +138,15 @@ public class parser {
 						this.list.add(new Token(")",")"));
 						addSpace();
 					}else if(newchar=='.'){
-						endOfCurrent(current);
-						current = new StringBuffer("");
-						this.list.removeLast();
-						this.list.add(new Token(".","."));
-						
-						
+						try{
+							endOfCurrent(current);
+							current = new StringBuffer("");
+							this.list.removeLast();
+							this.list.add(new Token(".","."));
+						}
+						catch(NoSuchElementException e){
+							throw new LexicalError("Erreur : No starting point !");
+						}
 					}else if(newchar==' '){
 						endOfCurrent(current);
 						current = new StringBuffer("");
@@ -161,7 +165,7 @@ public class parser {
 
 		return this.list;
 	}
-	
+
 	private void addSpace() {
 		this.list.add(new Token(" ", "esp"));
 	}

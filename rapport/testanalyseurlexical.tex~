@@ -1,0 +1,9 @@
+\section{Test Analyseur Lexical}
+
+Voici quelques tests qui permettent d'illustrer le comportement de l'analyseur lexical .Afin de visualiser la sortie de l'analyseur , on sort le type et le nom du jeton à la sortie standard (stdin).
+
+\paragraph{Premier Test}
+Voici le programme que l'analyseur lexical doit prendre en entrée pour ce premier test :
+\begin{verbatim}
+(fun (test A B C)((return (+ A(+ B C)))))
+\end{verbatim}
