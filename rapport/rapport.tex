@@ -1,0 +1,38 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{ifpdf}
+\usepackage[utf8]{inputenc}
+\usepackage[francais]{babel}
+\usepackage[french]{varioref} 
+\usepackage[pdftex]{graphicx}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{floatflt}
+\usepackage{lscape} %afficher une partie en paysage
+
+
+%%% Pour du code source %%%%
+ \definecolor{colKeys}{rgb}{0.5,0,0.33} 
+ \definecolor{colIdentifier}{rgb}{0.16,0,1} 
+ \definecolor{colComments}{rgb}{0.25,0.5,0.37} 
+ \definecolor{colString}{rgb}{0.6,0.1,0.1} 
+ \definecolor{shadow}{rgb}{0.5,0.5,0.5} 
+ 
+ \lstset{ 
+ basicstyle=\ttfamily\small,
+ identifierstyle=\color{colIdentifier},
+ keywordstyle=\color{colKeys},
+ stringstyle=\color{colString},
+ commentstyle=\color{colComments}
+ }
+ \lstset{language=python}
+
+\begin{document}
+
+\tableofcontents
+\input{garde}
+\input{intro}
+\input{grammar}
+
+
+
+\end{document}
