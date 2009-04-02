@@ -1,1 +1,8 @@
+\section{L'analyseur Lexical}
+
+L'analyseur Lexical a pour fonction de sortir une suite de jeton concrêt et de assez haut niveau, permettant de simplifier la tache du vérificateur de grammaire. Plus concrètement, il s'agit dans un premier temps de transformer un fichier texte en une suite de caractère, et de les parser les un après les autres. Chaque caractère donnera lieu à une action précise, par exemple les caractères spéciaux tel que les paranthèse et les points, etc... donnent lieux à un jeton entier.
+Les caractères qui ne sont aps des caractères spéciaux vont quand à eux remplir un buffer , qui sera rempli des qu'un caractère spécial ou délimiteur sera rencontré. Une fois qu'un caractère de ce type est rencontré, on procédera à l'analyse de ce que contient le buffer, et selon le cas on en déterminera le type du jeton à donner.
+
+La sortie de l'analyseur lexical sera donc une linkedlist contenant les jetons dans l'ordre correspondant au programme.
+
 
