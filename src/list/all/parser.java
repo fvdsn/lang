@@ -6,6 +6,10 @@ import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
 
+/**
+ * @author Bernard Van De Walle
+ *
+ */
 public class parser {
 
 	LinkedList<Token> list;
@@ -19,6 +23,10 @@ public class parser {
 
 
 
+	/**
+	 * @param str : Representation du programme.
+	 * post : Ce constructeur initialise le parseur avec le programme passé en argument. Il est donc possible par la suite d'utiliser cet objet afind e récupérer la linkedlist.g
+	 */
 	public  parser(String str){
 		char cha[] = { '!' , '@' , '#' , '$' , '%' , '^' , '&' , '*' , '{' , '}' , '|' , '_' , ',' , '?' , '-' , '+' , '=' , '/' , '\\' , '>' , '<' , ':' , ';' , '~' , '\'' , '"', 
 				'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z', 
@@ -48,11 +56,16 @@ public class parser {
 
 
 
+	/**
+	 * @param str : Représentation du buffer a être analysé.
+	 * post : Une mesure est prise par rapport à ce que contient le buffer ( un jeton est ajouté a la linkedlist).
+	 */
 	public void endOfCurrent(StringBuffer str){
 		if(str.length()==0){
 			return;
 		}
-
+		
+		//Verification de si il s'agit d'un reserved word
 		for(int i=0;i<reservedwords.length;i++){
 			if(str.toString().equals(reservedwords[i])){
 				this.list.add(new Token(str.toString(),reservedwords[i]));
@@ -61,6 +74,7 @@ public class parser {
 			}
 		}
 
+		//Verification de si il s'agit d'un unary
 		for(int i=0;i<unary.length;i++){
 			if(str.toString().equals(unary[i])){
 				this.list.add(new Token(str.toString(),"unary"));
@@ -69,6 +83,7 @@ public class parser {
 			}
 		}
 
+		//Verification de si il s'agit d'un binary
 		for(int i=0;i<binary.length;i++){
 			if(str.toString().equals(binary[i])){
 				this.list.add(new Token(str.toString(),"binary"));
@@ -83,13 +98,15 @@ public class parser {
 
 		char temp[] = str.toString().toCharArray();
 
+		//Verification de si il s'agit d'un négatif.
 		if(!(temp[0]=='-')){
 			neg = false;
 			if(!(Character.isDigit(temp[0]))){
 				digit=false;
 			}
 		}
-
+		
+		//Verification de si il s'agit d'un nombre
 		for(int i=1;i<temp.length;i++){
 			if(!(Character.isDigit(temp[i]))){
 				digit=false;
@@ -111,6 +128,12 @@ public class parser {
 		}
 	}
 
+	/**
+	 * @return La linkedList contenant tout les tokens.
+	 * @throws LexicalError
+	 * 
+	 * Cette methode permet de parser caractère par caractère tout le programme et de renvoyer une linkedlist correspondante.
+	 */
 	public LinkedList<Token> getList() throws LexicalError {
 		char newchar;
 		StringBuffer current = new StringBuffer("");
