@@ -1,21 +1,35 @@
 package list.all;
+
+
+import java.util.ArrayList;
 import java.util.LinkedList;
-import list.all.token;
+
 
 public class parser {
 
-	LinkedList<token> list;
+	LinkedList<Token> list;
 	String program;
 	char programchar[];
 	String reservedwords[];
 	String reservedcharacters[];
 	String unary[];
 	String binary[];
+	ArrayList<Character> character;
 	
 
 
 	public  parser(String str){
-		this.list = new LinkedList<token>();
+		char cha[] = { '!' , '@' , '#' , '$' , '%' , '^' , '&' , '*' , '{' , '}' , '|' , '_' , ',' , '?' , '-' , '+' , '=' , '/' , '\\' , '>' , '<' , ':' , ';' , '~' , '\'' , '"', 
+				'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z', 
+				'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z', '(', ')', '.', ' ', '\n' , '\t', 
+				'0','1','2','3','4','5','6','7','8','9'};
+		character = new ArrayList<Character>();
+		for(char c : cha) {
+			character.add(c);
+		}
+		
+		
+		this.list = new LinkedList<Token>();
 		this.program = str;
 		programchar = str.toCharArray();
 		this.reservedwords = new String[] {"set","if","while","write","fun","method" ,
@@ -24,14 +38,14 @@ public class parser {
 		this.reservedcharacters = new String[]{"(",")","."};
 		this.unary = new String[]{"!","neg","new"};
 		this.binary = new String[]{"+","-","*","/","%","|","&","<",">","<=",">="};
+		
+	
 
 	}
 
 
 
-	public void addToList(token t){
-		this.list.add(t);
-	}
+	
 
 	public void endOfCurrent(StringBuffer str){
 		if(str.length()==0){
@@ -40,21 +54,24 @@ public class parser {
 
 		for(int i=0;i<reservedwords.length;i++){
 			if(str.toString().equals(reservedwords[i])){
-				this.list.add(new token(str.toString(),reservedwords[i]));
+				this.list.add(new Token(str.toString(),reservedwords[i]));
+				addSpace();
 				return;
 			}
 		}
 		
 		for(int i=0;i<unary.length;i++){
 			if(str.toString().equals(unary[i])){
-				this.list.add(new token(str.toString(),"unary"));
+				this.list.add(new Token(str.toString(),"unary"));
+				addSpace();
 				return;
 			}
 		}
 		
 		for(int i=0;i<binary.length;i++){
 			if(str.toString().equals(binary[i])){
-				this.list.add(new token(str.toString(),"binary"));
+				this.list.add(new Token(str.toString(),"binary"));
+				addSpace();
 				return;
 			}
 		}
@@ -80,23 +97,29 @@ public class parser {
 
 		if(digit){
 			if(neg){
-				this.list.add(new token(str.toString(),"number"));
+				this.list.add(new Token(str.toString(),"number"));
+				addSpace();
 			}
 			else{
-				this.list.add(new token(str.toString(),"pnumber"));
+				this.list.add(new Token(str.toString(),"pnumber"));
+				addSpace();
 			}
 		}else{
-			this.list.add(new token(str.toString(),"id"));
+			this.list.add(new Token(str.toString(),"id"));
+			addSpace();
 		}
 	}
 
-	public LinkedList getList(){
+	public LinkedList<Token> getList() throws LexicalError {
 		char newchar;
 		StringBuffer current = new StringBuffer("");
 		boolean virer=false;
 
 		for(int i=0;i<programchar.length;i++){
 			newchar = programchar[i];
+			if(!this.character.contains(newchar)) {
+				throw new LexicalError("=> " + newchar);
+			}
 
 			if(newchar==']'){
 				virer = false;
@@ -106,15 +129,20 @@ public class parser {
 					if(newchar=='['){
 						virer = true;
 					}else if(newchar=='('){
-						this.list.add(new token("(","("));
+						this.list.add(new Token("(","("));
+						addSpace();
 					}else if(newchar==')'){
 						endOfCurrent(current);
 						current = new StringBuffer("");
-						this.list.add(new token(")",")"));
+						this.list.add(new Token(")",")"));
+						addSpace();
 					}else if(newchar=='.'){
 						endOfCurrent(current);
 						current = new StringBuffer("");
-						this.list.add(new token(".","."));
+						this.list.removeLast();
+						this.list.add(new Token(".","."));
+						
+						
 					}else if(newchar==' '){
 						endOfCurrent(current);
 						current = new StringBuffer("");
@@ -132,6 +160,10 @@ public class parser {
 		}
 
 		return this.list;
+	}
+	
+	private void addSpace() {
+		this.list.add(new Token(" ", "esp"));
 	}
 
 }

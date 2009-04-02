@@ -11,7 +11,7 @@
 <while_block> 	::= '(' 'while'  <expr> 'esp' <instr_list>  ')' 
 <call> 			::=  <user_call> | <method_call> | <builtin_call> 
 <builtin_call> 	::=  <assignment> | <read_call> | <write_call> | <arithmetic>
-<assignment> 	::= '(' 'set' 'id' 'esp' <expr> ')' | '(' 'set' 'id' '.' <expr> 'esp' <expr> ')' | '(' 'set' 'this' '.' <expr> 'esp' <expr> ')'
+<assignment> 	::= '(' 'set' 'id' 'esp' <expr> ')' | '(' 'set' 'id' '.' 'id' 'esp' <expr> ')' | '(' 'set' 'this' '.' 'id' 'esp' <expr> ')'
 <read_call>  	::= '(' 'read' ')' 
 <write_call> 	::= '(' 'write' <expr> ')'
 <arithmetic> 	::=  <binary> | <unary>
@@ -20,5 +20,5 @@
 <user_call>  	::= '(' 'esp' 'id' 'esp'  <expr_list_np> 'esp'  ')' | '(' 'esp' 'id' 'esp' ')' 
 <expr_list_np> 	::=  <expr> | <expr> 'esp' <expr_list_np>
 <method_call>  	::= '(' 'id''.''id' 'esp' <expr_list_np>  ')' |   '(' 'super''.''id' 'esp' <expr_list_np>  ')' 
-<expr> 			::=  <call>  | <number> | 'null' | 'true' | 'false' | 'this' | 'id' | 'id''.'<expr> | 'this''.'<expr> 
+<expr> 			::=  <call>  | <number> | 'null' | 'true' | 'false' | 'this' | 'id' | 'id' '.' 'id' | 'this' '.' 'id'
 

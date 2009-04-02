@@ -109,7 +109,7 @@ public class Rule {
 	
 
 	private void addLetter(OrList l) {
-		String tab[] = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","k","r","s","t","u","v","w","x","y","z"};
+		String tab[] = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"};
 		for(String t : tab) {
 			CatList c = new CatList();
 			c.add(new TermImpl(t, true));

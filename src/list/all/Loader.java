@@ -31,7 +31,7 @@ public class Loader {
 		Loader load = new Loader("test.sm");
 		System.out.println(load.getRep());
 		parser p = new parser(load.getRep());
-		LinkedList<token> l = p.getList();
+		LinkedList<Token> l = p.getList();
 		for(int i=0;i<l.size();i++){
 			System.out.println("token "+i+" : "+l.get(i).name+"\t"+l.get(i).type+"\n");
 		}
