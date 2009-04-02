@@ -139,6 +139,12 @@ public class Rule {
 		
 		return name + " ::= " + list.toString();
 	}
+	
+	
+	@Override
+	public int hashCode() {
+		return toString().hashCode();
+	}
 
 	public List<CatList> getOrList(){
 		

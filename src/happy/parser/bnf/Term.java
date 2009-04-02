@@ -7,4 +7,7 @@ public interface Term {
 	 */
 	public boolean isTerminal();
 	
+	@Override
+	public int hashCode();
+	
 }

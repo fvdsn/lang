@@ -19,6 +19,12 @@ public class Loader {
 			System.out.println(r);
 			System.out.println();
 		}
+		
+		for(Rule r : load.getRules()) {
+			for(CatList l : r.getOrList()) {
+				System.out.println(l.stringRep());
+			}
+		}
 	}
 	
 	

@@ -46,6 +46,19 @@ public class CatList implements Term {
 		return res.toString();
 	}
 	
+	public String stringRep() {
+		StringBuilder res = new StringBuilder("");
+		for(Term t : list) {
+			res.append(t);		
+		}
+		return res.toString();
+	}
+	
+	
+
+	public int hashCode() {
+		return toString().hashCode();
+	}
 	
 
 }

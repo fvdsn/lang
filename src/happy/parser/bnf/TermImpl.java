@@ -2,7 +2,6 @@ package happy.parser.bnf;
 
 public class TermImpl implements Term {
 	String term;
-	String token;
 	boolean terminal;
 	
 	public TermImpl(String term, boolean terminal) {
@@ -19,6 +18,11 @@ public class TermImpl implements Term {
 	@Override
 	public String toString() {
 		return term;
+	}
+	
+	@Override
+	public int hashCode() {
+		return (term + terminal).hashCode();
 	}
 
 

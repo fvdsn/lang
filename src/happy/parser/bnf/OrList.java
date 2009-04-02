@@ -35,5 +35,11 @@ public class OrList {
 		}
 		return res.toString();
 	}
+	
+	
+	@Override
+	public int hashCode() {
+		return toString().hashCode();
+	}
 
 }
