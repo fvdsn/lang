@@ -22,7 +22,7 @@ public class Loader {
 
 		List<Term> l = CheckPrecedence.getAllTerm(load.getRules());
 		for(Term t:l){
-			System.out.println(t.toString());
+			System.out.println(t.toString()+":"+t.hashCode());
 		}
 	}
 	public Loader(String file) throws FileNotFoundException, IOException {
