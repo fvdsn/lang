@@ -5,6 +5,58 @@
 	
 	Tous ces tests prennent en paramètre la grammaire (une liste de "Rules")
 
-	Un test global se charge de tester l'ensemble de ces tests.
+	Un test global - \emph{CheckAll} - se charge de tester l'ensemble de ces tests.
 
-	\subsection{Test}
+	\subsection{Test de symbole vide (\emph{CheckLambda})}
+		Ce test s'assure qu'aucune règle n'a de symbole vide (lambda).
+		Ce test parcourt simplement l'arbre de la définition grammaire et
+		vérifie l'absence de terminaux lambda.
+	\subsection{Test de conflit de préférence (\emph{CheckPrecedence)}}
+		Ce test vérifie qu'il n'y ait pas de conflit entre les précédence
+		de symbole. Le seul conflit autorisé est entre '<.' et '=.' qui donne
+		la relation de précédence '<.='.
+
+		Pour faire cela, le test construit deux ensemble pour chaque non-terminal :
+		First et Last. First(A) contient l'ensemble des terminaux et non terminaux 
+		pouvant se trouver sur l'extrème gauche de A. Last(A) contient l'ensemble
+		des terminaux et non terminaux pouvant se trouver sur l'extrème droide de A. 
+
+		Pour calculer Tous les First on utilise l'algorithme suivant :
+		\begin{enumerate}
+			\item Pour tout non terminal A de la grammaire : On identifie les règles correspondantes.
+			Pour chacune d'entre elles on identifie si elles commencent par un terminal, et si
+			c'est le cas on les ajoute à First(A).
+			\item Pour tout non terminal A de la grammaire : On identifie les règles correspondantes,
+			Pour chacune d'entre elles, on identifie si elles commencent par un non terminal B.
+			Si c'est le cas on ajoute B et First(B) à First(A). 
+			\item on répète l'étape précédente tant que les First changent.
+		\end{enumerate}
+		L'algorithme pour trouver les Last est identique à ceci près qu'on examine les cotés droit des règles.
+		
+		Une fois que l'on a ces deux ensembles et que l'on sait qu'il n'y a pas de symboles vide dans
+		la grammaire on  peut calculer la table de précedence, grace à l'algorithme suivant :
+		\begin{enumerate}
+			\item On initialise tous les éléments de la table à 'Nothing'
+			\item On identifie toutes les parties droites, et pour chacune d'entre elles on identifie tous les
+			symboles cotes à cotes XY.
+			\item On ajoute X.=Y dans la table.
+			\item Si X non terminal : Pour tout symbole s dans Last(X), Pour tout terminal t dans First(Y)
+				on met s.>t dans la table. Si Y est non-terminal on met s.>Y dans la table.
+			\item Si Y non terminal : Pour tout symbole s dans First(Y), on met X <. s dans la table.
+			\item Si à un moment on met une relation dans la table là ou précédemment il n'y avait pas 'Nothing',
+				on a un conflit. Les conflits impliquant <. , =. et <.= sont résolus en insérant <.= dans
+				la table. Les autres conflits sont marqués en tant que conflits et reportés. 
+			\item Si il y a des conflits non résolus dans la table alors le Test échoue, la grammaire n'est pas valide
+			Weak Precedence.
+		\end{enumerate}
+	\subsection{Test de Suffixe}
+		Ce test vérifie que les relations de suffixe sont respectées. C'est à dire :
+		Pour tout couple de règles Z -> B, X -> AYB, où A représente une suite de symbole, Y un symbole unique,
+		et B et une suite non vide symboles, on vérifie que !(Y .= X) , !(Y <. X) et !(Y <.= X).
+		
+		Pour ce faire nous utilisons la méthode suivante : 
+		Pour chaque règle Z -> B, pour toute autre règle X->Y on regarde si on peut matcher B comme suffixe de Y.
+		Dans l'affirmative, on identifie le symbole juste avant le suffixe. Nous pouvons a ce moment vérifier la
+		condition décrite expliquée précédemment. Si elle n'est pas vérifiée. le Test échoue, la grammaire n'est pas valide.
+
+		Si a un moment

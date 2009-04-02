@@ -19,6 +19,19 @@ public class CheckLambda {
 				valid = false;
 			}
 		}
+		for (Rule r:grammar){
+			if (r.getOrList() == null){
+				valid = false;
+			}else if(r.getOrList().isEmpty()){
+				valid = false;
+			}else{
+				for(CatList cl:r.getOrList()){
+					if (cl.getTermList().isEmpty()){
+						valid = false;
+					}
+				}
+			}
+		}
 		return valid;
 		
 	}
