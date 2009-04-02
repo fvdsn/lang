@@ -32,7 +32,7 @@ public class CheckPrecedence {
 	 * @param grammar Une grammaire cohérente : tous les non terminaux ont au moins une règle. 
 	 * @return true si la grammaire est valide, false sinon.
 	 */
-	public static boolean check(List<Rule> grammar){
+	public static boolean checkPrecedence(List<Rule> grammar){
 		boolean validity = false;
 		Hashtable<Term,Hashtable<Term,String>> table = null;
 		List<Term> allTerm = getAllTerm(grammar);

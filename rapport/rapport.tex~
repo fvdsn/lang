@@ -6,6 +6,7 @@
 \usepackage[pdftex]{graphicx}
 \usepackage{listings}
 \usepackage{color}
+
 %\usepackage{floatflt}
 \usepackage{lscape} %afficher une partie en paysage
 
@@ -25,6 +26,8 @@
  commentstyle=\color{colComments}
  }
  \lstset{language=python}
+
+%\def\verbatim@font{\small\ttfamily}
 
 \begin{document}
 

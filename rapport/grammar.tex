@@ -40,6 +40,7 @@ reconnu mais leur valeur peut dépendre de la plateforme.
 
 \subsection{Syntaxe initiale}
 Voici la syntaxe en notation BNF.
+{\tiny
 \begin{verbatim}
 <Reserved_words>    ::= set | if | while | write | fun | method 
       | null | true | false | read | this 
@@ -85,7 +86,7 @@ Voici la syntaxe en notation BNF.
 <method_id>    ::= <Id> . <Id> | super . <Id> 
 <expr>         ::= <call> | <left_Id> | <number> | null | true | false | this  
 \end{verbatim}
-
+}
 \subsection{Syntaxe de l'analyseur Lexical}
 
 Notre analyseur lexical nous permet de parser notre programme et d'en ressortir une liste de lexèmes ordonnés concret. 
@@ -94,7 +95,7 @@ La syntaxe qui sera analysée ne sera bien évidemment pas aussi fine que la syn
 Les lexèmes contiendront donc des unités concrètes tel que les identifieurs, les nombes, les nombres négatifs, les parenthèse, etc etc..
 
 Voici donc la syntaxe interpretée par l'analyseur syntaxique :
-
+{\tiny
 \begin{verbatim}
 <Reserved_words>    ::= set | if | while | write | fun | method 
       | null | true | false | read | new | return | skip
@@ -128,7 +129,7 @@ Voici donc la syntaxe interpretée par l'analyseur syntaxique :
 <method_id> ::= <Id> . <Id> | super . <Id> 
 <expr> ::= <call> | <left_Id> | <number> | null | true | false | this  
 \end{verbatim}
-
+}
 
 \subsection{Syntaxe WP de l'analyseur grammatical}
 La Syntaxe de l'analyse grammaticale est de plus haut niveau car elle n'est définie que sur ce qui
@@ -139,8 +140,8 @@ Premièrement toutes les parenthèses se trouvant à l'intérieur d'une rêgle o
 tant que nouvelles règles afin de respecter la précédence entre les parenthèses et les espaces.  
 
 Pour élíminer les terminaux vides, nous avons dédoublé les règles: une pour le cas vide, et l'autre
-pour le cas alternatif. Seul le <sp> nous posait problème (<sp> représente un espace / indentation facultatif)
-Nous avons décidé de les remplacer par des <esp> (indentation obligatoire). Remplacer les <sp> par des <esp> au
+pour le cas alternatif. Seul le $<sp>$ nous posait problème ($<sp>$ représente un espace / indentation facultatif)
+Nous avons décidé de les remplacer par des $<esp>$ (indentation obligatoire). Remplacer les $<sp>$ par des $<esp>$ au
 niveau de l'analyse est trivial. Il nous aurait beaucoup plu de retirer entièrement les espaces, mais ceux-ci
 sont important pour délimiter les points. Il aurait été possible d'insérer des délimiteurs fictifs autour
 des règles avec point, mais cela semblait moins facile à implémenter au niveau de l'analyseur syntaxique. 
@@ -150,6 +151,7 @@ ou d'indéterminisme. Les rares problèmes de suffixes ont pu ètre résolus en 
 à l'intérieur de règles avec parenthèses. 
 
 Voici donc la syntaxe WP. 
+{\tiny
 \begin{verbatim}
 <number>	::=  <number> | pnumber		
 <meth_or_fun> 	::=  <methode> | <function>
@@ -189,3 +191,4 @@ Voici donc la syntaxe WP.
 <expr> 		::=  <call>  | <number> | null | true | false | this | id | id.<expr> 
            | this.<expr>
 \end{verbatim}
+}

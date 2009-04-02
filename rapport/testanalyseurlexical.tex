@@ -8,6 +8,7 @@ Voici le programme que l'analyseur lexical doit prendre en entrée pour ce premi
 (fun (test A B C)((return (+ A(+ B C)))))
 \end{verbatim}
 Voici ce qu'on obtient en sortie :
+{\tiny
 \begin{verbatim}
 token 0 : (	(
 token 1 :  	esp
@@ -56,7 +57,7 @@ token 43 :  	esp
 token 44 : )	)
 token 45 :  	esp
 \end{verbatim}
-
+}
 L'analyseur lexical marche donc parfaitement , et permet de reconnaitre les différents type de token, ainsio que leurs valeurs.
 
 \subsubsection{Test qui ne marche pas}

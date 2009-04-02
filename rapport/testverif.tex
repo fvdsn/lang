@@ -2,7 +2,8 @@
 Nous avons testé notre vérificateur de grammaire avec les grammaires fournie sur icampus 
 pour finalement tester avec notre grammaire. Ici je ne montrerai que le test final pour notre grammaire. 
 
-Teste avec la première grammaire 
+Teste avec la première grammaire
+{\tiny 
 \begin{verbatim}
  
 
@@ -12,9 +13,10 @@ A --> B
 B --> a 
 B --> A B 
 \end{verbatim}
-
+}
 
 réécrite en bnf pour notre parser :
+{\tiny
 \begin{verbatim}
 <A> ::= <A> 'a'
 <A> ::= <B>
@@ -39,12 +41,13 @@ conflit avec B:false
 B ::= A:false B:false
 A ::= B:false 
 \end{verbatim}
+}
 
 Validity grammar : false
 
 
 Ce test concorde bien avec l'exmple donné
-
+{\tiny
 \begin{verbatim}
 Grammaire non WP :
 règle 1 : B --> a 
@@ -56,11 +59,11 @@ règle 2 : B --> A B
 A <. A
 
 \end{verbatim}
-
+}
 
 
 Test avec une autre grammaire WP :
-
+{\tiny
 \begin{verbatim}
 E --> T 
 E --> + T 
@@ -70,8 +73,9 @@ T --> T * F
 F --> x 
 F --> ( E ) 
 \end{verbatim}
-
+}
 qu'on a réécrit en :
+{\tiny
 \begin{verbatim}
 <E> ::= <T> 
 <E> ::= '+' <T> 
@@ -81,9 +85,9 @@ qu'on a réécrit en :
 <F> ::= 'x' 
 <F> ::= '(' <E> ')' 
 \end{verbatim}
-
+}
 C'est bien une grammaire WP :
-
+{\tiny
 \begin{verbatim}
 Precedence Table
     |(   |)   |*   |+   |T   |E   |F   |x   |
@@ -110,10 +114,11 @@ Validity precedence : true
 Check conflit suffix : 
 Validity grammar : true
 \end{verbatim}
-
+}
 
 
 Dernière grammaire qui est normalement fausse :
+{\tiny
 \begin{verbatim}
 E --> T 
 E --> + T 
@@ -156,6 +161,7 @@ E ::= T:false
 
 Validity grammar : false
 \end{verbatim}
+}
 Elle est bien fausse et la faute est la même que le test.
 
 
