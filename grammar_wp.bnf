@@ -22,5 +22,3 @@
 <method_call>  	::= '(' <Id>'.'<Id> <expr_list_np>  ')' |   '(' 'super''.'<Id><expr_list_np>  ')' 
 <expr> 			::=  <call>  | <number> | 'null' | 'true' | 'false' | 'this' | <Id> | <Id>'.'<expr> | 'this'.<expr> 
 
-
-
