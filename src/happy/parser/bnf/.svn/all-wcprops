@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/studentsvn/LTGroupe6/!svn/ver/8/src/happy/parser/bnf
+END
+CatList.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/studentsvn/LTGroupe6/!svn/ver/8/src/happy/parser/bnf/CatList.java
+END
+Loader.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/studentsvn/LTGroupe6/!svn/ver/6/src/happy/parser/bnf/Loader.java
+END
+NotRuleException.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/studentsvn/LTGroupe6/!svn/ver/1/src/happy/parser/bnf/NotRuleException.java
+END
+Rule.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/studentsvn/LTGroupe6/!svn/ver/8/src/happy/parser/bnf/Rule.java
+END
+Term.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/studentsvn/LTGroupe6/!svn/ver/6/src/happy/parser/bnf/Term.java
+END
+TermImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/studentsvn/LTGroupe6/!svn/ver/6/src/happy/parser/bnf/TermImpl.java
+END
+OrList.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/studentsvn/LTGroupe6/!svn/ver/8/src/happy/parser/bnf/OrList.java
+END

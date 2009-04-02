@@ -141,10 +141,11 @@ public class Rule {
 	}
 
 	public List<CatList> getOrList(){
-		
-		return list.getTerm();
+		/* TODO implement*/
+		return null;
 	}
 	public Term getLeftSide(){
-		return new TermImpl(name, false);
+		/* TODO implement */
+		return null;
 	}
 }

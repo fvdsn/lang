@@ -22,13 +22,13 @@ public class CatList implements Term {
 	public List<Term> getTermList() {
 		return list;
 	}
-	
 	public Term getFirst(){
-		return list.get(0);
+		/*TODO*/
+		return null;
 	}
-	
 	public Term getLast(){
-		return list.get(list.size() - 1);
+		/*TODO*/
+		return null;
 	}
 	
 	public String toString() {
