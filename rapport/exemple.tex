@@ -1,0 +1,41 @@
+\section{Exemple de programmation HAPPY}
+
+Voici un exemple de programmation Happy :
+
+\begin{verbatim}
+
+(fun (Adder A B)(
+	(set C (+ A B))
+	(return C)
+)
+
+(fun (exposant A B)(
+	(set result A)
+	(set I 0)
+	(while (I<B) 
+		(set result (* result A))
+		(set I (+ I 1))
+	)
+	(return result)
+	)
+)
+
+(method(3) (Moore A B)(
+	(return (A*B*1.5))
+	)
+)
+
+(fun (main) (
+	(set A 5)
+	(set B 10)
+	(set C (Adder A B))
+	(set D (Exposant C B))
+	(write (moore A B))
+	)
+)
+
+\end{verbatim}
+
+Dans cet exemple on montre différente manière de traiter des nombres grâce à des opérations relativement simple, tel que l'addition et l'exposant. Cet exemple permet d'illustrer la syntaxe de manière concrète.
+
+
