@@ -5,11 +5,14 @@ Les caractères qui ne sont pas des caractères spéciaux vont quand à eux remp
 
 La sortie de l'analyseur lexical sera donc une linkedlist contenant les jetons dans l'ordre correspondant au programme.
 
+Voici la spécification de la méthode principale qui permet d'obtenir la linkedlist de jetons :
+
 \begin{verbatim}
 	/**
 	 * @pre Le parser est initialisé avec le programme.
-	 * @post Le programme est transformé en un tableaux de caractère, et est analysé 
-caractère par caractère, permettant de créer une suite logique de jetons.
+	 * @post Le programme est transformé en un tableaux de caractère, 
+et est analysé caractère par caractère, permettant de créer 
+une suite logique de jetons.
 	 * @return La linkedList contenant tout les tokens.
 	 * @throws LexicalError
 	 */

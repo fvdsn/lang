@@ -111,7 +111,8 @@ Voici donc la syntaxe interpretée par l'analyseur syntaxique :
 <conditional> ::= (if <expr> <instr_list> <instr_list> ) 
 <while_block ::= ( while <expr> <instr_list>) 
 <call> ::= <function_call> | <method_call> | <builtin_call> 
-<builtin_call> ::= <assignment> | <read_call> | <write_call> | <arithmetic>
+<builtin_call> ::= <assignment> | <read_call> | <write_call> 
+                | <arithmetic>
 <assignment> ::= ( set <left_Id> <expr> ) 
 <read_call>  ::= ( read ) 
 <write_call> ::= ( write <expr> )
@@ -163,13 +164,17 @@ Voici donc la syntaxe WP.
 <instr_list> 	::=  <instr> | ( esp <instr_list_np> esp ) 
 <instr_list_np> ::=  <instr> | <instr> <instr_list_np>
 
-<instr> 	::=  <conditional> | <while_block> | <call> | ( esp return esp <expr> esp) | ( esp skip esp )
+<instr> 	::=  <conditional> | <while_block> | <call> 
+           | ( esp return esp <expr> esp) 
+           | ( esp skip esp )
 <conditional> 	::= ( esp if esp <expr> esp <instr_list>esp<instr_list> esp ) 
 <while_block> 	::= ( esp while esp <expr> esp <instr_list> esp ) 
 <call> 		::=  <user_call> | <method_call> | <builtin_call> 
 <builtin_call> 	::=  <assignment> | <read_call> | <write_call> | <arithmetic>
 
-<assignment> 	::= ( esp set esp id esp <expr> esp ) | ( esp set esp id . <expr> esp <expr> ) | ( esp set esp this . <expr> esp <expr> esp )
+<assignment> 	::= ( esp set esp id esp <expr> esp ) 
+               | ( esp set esp id . <expr> esp <expr> ) 
+               | ( esp set esp this . <expr> esp <expr> esp )
 <read_call>  	::= ( esp read esp ) 
 <write_call> 	::= ( esp write esp <expr> esp )
 <arithmetic> 	::=  <binary> | <unary>
@@ -177,8 +182,10 @@ Voici donc la syntaxe WP.
 <unary>  	::= ( esp un_id esp <expr> esp )
 <user_call>  	::= ( esp id esp  <expr_list_np> esp  ) | ( esp id esp ) 
 
-<method_call>  	::= ( esp id.id esp <expr_list_np> esp ) | ( esp super.id esp <expr_list_np> esp ) 
+<method_call>  	::= ( esp id.id esp <expr_list_np> esp ) 
+                 | ( esp super.id esp <expr_list_np> esp ) 
 
 <expr_list_np> 	::=  <expr> | <expr> esp <expr_list_np>
-<expr> 		::=  <call>  | <number> | null | true | false | this | id | id.<expr> | this.<expr>
+<expr> 		::=  <call>  | <number> | null | true | false | this | id | id.<expr> 
+           | this.<expr>
 \end{verbatim}
