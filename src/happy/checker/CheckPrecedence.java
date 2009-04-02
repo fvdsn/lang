@@ -77,13 +77,13 @@ public class CheckPrecedence {
 		
 		
 		System.out.println("Check conflit : ");
-
+		System.out.println("Validity precedence : " + validity);
 		for(RulesTuple r : CheckCycle.checkSuffix(grammar, table)) {
 			System.out.println("conflit avec " + r.prob + "\n" + r.r1 + "\n" + r.r2 + " \n");
 			validity = false;
 		}
 		
-		
+		System.out.println("Validity suffix : " + validity);
 		
 		
 		return validity;

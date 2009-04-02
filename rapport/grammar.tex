@@ -1,14 +1,50 @@
 \section*{Syntaxe concrètes}
 
-\subsection{Syntaxe initiale}
-Nous avons définit un premier lieu cette syntaxe : 
+Notre langage s'inspire fortement du lisp, langage qui nous attirait par sa simplicité
+et son élégance. Toutes les structures sont constituées de liste d'élément séparés par
+des espaces, clos par des parenthèses. 
 
+La syntaxe BNF suivante aurait pu être nettement plus simple, cependant nous avons choisi
+de rendre explicites certains éléments de la syntaxe. Ainsi nous différentions le Nom ( <name> )
+de la fonction de ses arguments, même si dans certains cas ce sont des entités syntaxiques identiques. 
+
+Les appels de fonction sont de forme \emph{(Nom arg1 arg2 ...)}. A chaque opérateur du langage 
+correspond une fonction, par exemple \emph{(+ 1 2)} Cependant nous avons donné un statut spécial
+de <builtin\_call> à celles-ci afin d'empècher l'utilisateur de les redéfinir, et l'on espère,
+de simplifier l'implémentation du futur interpréteur en lui permettant de repérer directement
+les fonctions internes. 
+
+Read et write sont eux aussi implémentés en tant que fonction, la fonction write renvoyant
+l'argument donné en plus de l'imprimer sur la sortie standard, permettant de les intégrer
+à des expressions normales. 
+
+Cette syntaxe a l'avantage d'avoir peu de caractères réservés $\{ (,),.,[,]\}$, et peu
+de restrictions sur les identifiants (ceux ci ne peuvent commencer par un chiffre). Il
+est donc facile de créer de nouveaux opérateurs, parfois amusant comme des smileys , ce
+qui a donné le nom de notre langage.  
+
+Notre langage différe cependant du lisp dans le fait qu'il n'est pas composé d'une seule
+expression, mais d'une suite de fonctions et méthodes, et que celles-ci sont composées de
+liste d'instructions. Ainsi l'assignation et les conditionnelles ne sont pas des expressions.
+Le langage ainsi défini est donc impératif.
+
+Les objets sont implémentés comme des listes de longueur fixe qui peuvent être crées dynamiquement
+grâce à la fonction new.
+
+Les commentaires sont entre brackets et leur contenu est remplacé par un espace par l'analyseur lexical. 
+
+L'ensemble des caractères acceptables par le programme est constitué d'un sous-ensemble de l'ASCII,
+constitué de l'union de <caracter> et de <reserved\_caracter>. Les caractères Tab et NewLine sont aussi
+reconnu mais leur valeur peut dépendre de la plateforme. 
+
+\subsection{Syntaxe initiale}
+Voici la syntaxe en notation BNF.
 \begin{verbatim}
 <Reserved_words>    ::= set | if | while | write | fun | method 
-      | null | true | false | read | new | + | - | * | / 
-      | % | '|' | & | ! | < | > | <= | >= | neg | this 
-      | return | skip
-<Reserved_caracter> ::= <o_brackets> | <c_brackets> | .
+      | null | true | false | read | this 
+<bin_id> ::=  + | - | * | / | % | '|' | & | < | > | <= | >=
+<un_id>  ::=  ! | neg | new
+<Reserved_caracter> ::=  ( | ) | . | [ | ]
 <digit> ::= 0..9 
 <pnumber> ::=  <digit> | <number> <digit> 
 <number>  ::= - <pnumber> | <pnumber>
@@ -18,12 +54,12 @@ Nous avons définit un premier lieu cette syntaxe :
 <sp> ::= lambda |   | NewLine | Tab | <sp> <sp>
 <esp> ::=   <sp>
 <Id> ::= <caracter> | <Id> <caracter> | <Id> <digit>   
-<meth_or_fun> ::= <method> | <function>
-<Program> ::=  <meth_or_fun> | <Program> <sp>  <meth_or_fun> <esp>
+<meth_or_fun> ::= <methode> | <function>
+<program> ::=  <meth_or_fun> | <program> <sp>  <meth_or_fun> 
 <function> ::= (<sp> fun <sp> ( <sp> <Name> <esp> <arglist> <sp>) 
 		<sp> <instr_list> <sp>) 
 <arglist> ::= <Id> | <Id> <esp> <arglist>
-<methode> ::= (<sp> method <sp> (<sp> <Number> <sp>) <sp> 
+<methode> ::= (<sp> method . <Number> <sp> 
 	      ( <sp> <Name> <esp> <arglist> <sp> ) <instr_list>  <sp> )
 <instr_list> ::= <instr> | ( <sp> <instr_list_np> <sp> ) 
 <instr_list_np> ::= <instr> | <instr> <esp> <instr_list_np>
@@ -40,27 +76,17 @@ Nous avons définit un premier lieu cette syntaxe :
 <write_call> ::= ( <sp> write <esp> <expr> )
 <arithmetic> ::= <binary> | <unary>
 <binary ::= ( <sp> <bin_id> <esp> <expr> <esp> <expr> <sp> )
-<bin_id> ::=  + | - | * | / | % | '|' | & | < | > | <= | >=
-<unary>  ::=  ( <sp> <un_id> <esp> <expr> <sp> )
-<un_id>  ::=  ! | neg | new
-<left_Id> ::= <Id> | <Id> . <expr> | this .  <expr>
-<user_call>  ::= ( <sp> <Id> <esp> <expr_list_np> <sp> )
+<unary>  ::=  ( <sp> <un_id> <esp> <expr> <sp> ) | return | skip
+<left_Id> ::= <Id> | <Id> . <expr> | this . <expr>
+<function_call>  ::= ( <sp> <Id> <esp> <expr_list_np> <sp> )
 <expr_list_np> ::= lambda | <expr> | <expr> <esp> <expr_list_np>
 <method_call>  ::= ( <sp> <method_id> <esp> <expr_list_np> <sp> )
-<method_id> ::= <Id> . <Id> | super . <Id> 
-<expr> ::= <call> | <left_Id> | <number> | null | true | false | this  
+<method_id>    ::= <Id> . <Id> | super . <Id> 
+<expr>         ::= <call> | <left_Id> | <number> | null | true | false | this  
 \end{verbatim}
 
-
-Vu que cette syntaxe n'utilise que les parenthèses et le points comme caractère réservés, nous pouvons utiliser n'importe caractère pour définir
-un identifiant (pour peut qu'il ne commence pas par un chiffre). Nous pouvons donc donner des noms tel que $:-D$ ou encore $;\}$ voir $:->$. Nous avons donc choisit d'appeler notre langage le langage Happy. 
-
-Les commentaires sont entre [ ] : [mon commentaire]
-
-Les noms des fonctions \textit{builtin} du langage sont des mots réservés afin d'éviter d'écrire des fonctions utilisateur qui aurait le même nom
-Ces fonctions sont l'assignement (set), le new, les opérations arithmétique et logique.
-
-Voici quelque exemple de programme écrit en happy : 
+\subsection{Examples de code}
+Un programme complet. 
 \begin{verbatim}
 (fun (:-D) (write 42))
 (fun (** a b) (
@@ -74,22 +100,41 @@ Voici quelque exemple de programme écrit en happy :
 	)
 	(return R)
 ))
-
 (fun (main) (
 	(HelloWorld)
 	(set B (** 4 2))
-	(write B)
-	(set A (new 5))
-	(-> A 2)
+	(return (write B))
 ))
 
 (method (4) (-> level) (return this.level))
 
 \end{verbatim}
+Exemple de code intéressant. 
+\begin{verbatim}
+
+(method.2 (next) (return this.1))
+(method.2 (val)  (return this.2))
+	[Creation d'un noeud de linked list]
+(fun (N x) ((set n (new 2)) (set n.2 x) (set n.1 null) (return n)) )
+	[Ajoute un noeud a une linked list] 
+(fun (-> Node NextNode) ( (set Node.1 NextNode) (return Node)) )
+
+(fun (main) (
+	(set A (->(N 1) (->(N 2) (->(N 3) (N 4)))))
+	(while A (
+		(write (A.val))
+		(set A (A.next))
+	))
+	(return 0)
+))
+\end{verbatim}
 
 \subsection{Syntaxe de l'analyseur Lexical}
 
-Notre analyseur lexical nous permet de parser notre programme et d'en ressortir une liste de jetons ordonnés concret. La syntaxe qui sera analysée ne sera bien évidemment pas aussi fine que la syntaxe de base définie dans la section précedente ( en effet, quel serait l'objectif de ressortir des jetons contenant chacun un et un seul caractère ! ). Les jetons contiendront donc des unités concrètes tel que les identifieurs, les nombes, les nombres négatifs, les parenthèse, etc etc..
+Notre analyseur lexical nous permet de parser notre programme et d'en ressortir une liste de jetons ordonnés concret. 
+La syntaxe qui sera analysée ne sera bien évidemment pas aussi fine que la syntaxe de base définie dans la section précedente 
+( en effet, quel serait l'objectif de ressortir des jetons contenant chacun un et un seul caractère ! ). 
+Les jetons contiendront donc des unités concrètes tel que les identifieurs, les nombes, les nombres négatifs, les parenthèse, etc etc..
 
 Voici donc la syntaxe interpretée par l'analyseur syntaxique :
 
