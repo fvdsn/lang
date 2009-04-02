@@ -1,23 +1,33 @@
 package list.all;
 import java.util.LinkedList;
+import list.all.token;
 
 public class parser {
 
 	LinkedList<token> list;
 	String program;
 	char programchar[];
-	String reserved[];
+	String reservedwords[];
+	String reservedcharacters[];
+	String unary[];
+	String binary[];
+	
 
 
 	public  parser(String str){
 		this.list = new LinkedList<token>();
 		this.program = str;
 		programchar = str.toCharArray();
-		this.reserved = new String[] {"set","if","while","write","fun","method" ,
-				"null","true","false","read","new","+","-","*","/" ,
-				"%","|","&","!","<",">","<=",">=","neg",
-				"this","return","skip"}; 
+		this.reservedwords = new String[] {"set","if","while","write","fun","method" ,
+				"null","true","false","read",
+				"this","return","skip"};
+		this.reservedcharacters = new String[]{"(",")","."};
+		this.unary = new String[]{"!","neg","new"};
+		this.binary = new String[]{"+","-","*","/","%","|","&","<",">","<=",">="};
+
 	}
+
+
 
 	public void addToList(token t){
 		this.list.add(t);
@@ -28,9 +38,23 @@ public class parser {
 			return;
 		}
 
-		for(int i=0;i<reserved.length;i++){
-			if(str.toString().equals(reserved[i])){
-				this.list.add(new token(str.toString(),reserved[i]));
+		for(int i=0;i<reservedwords.length;i++){
+			if(str.toString().equals(reservedwords[i])){
+				this.list.add(new token(str.toString(),reservedwords[i]));
+				return;
+			}
+		}
+		
+		for(int i=0;i<unary.length;i++){
+			if(str.toString().equals(unary[i])){
+				this.list.add(new token(str.toString(),"unary"));
+				return;
+			}
+		}
+		
+		for(int i=0;i<binary.length;i++){
+			if(str.toString().equals(binary[i])){
+				this.list.add(new token(str.toString(),"binary"));
 				return;
 			}
 		}
