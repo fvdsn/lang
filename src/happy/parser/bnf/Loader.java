@@ -20,7 +20,7 @@ public class Loader {
 			System.out.println();
 		}
 		
-		
+		System.out.println("Check conflit : ");
 		for(RulesTuple r : CheckCycle.checkSuffix(load.getRules())) {
 			System.out.println("conflit avec " + r.prob + "\n" + r.r1 + "\n" + r.r2 + " \n");
 		}
