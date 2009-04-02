@@ -14,13 +14,35 @@ public class Loader {
 	List<Rule> rules;
 
 	public static void main(String[] args) throws Exception {
-		Loader load = new Loader("grammar_simple.bnf");
+		Loader load = new Loader("grammar_wp.bnf");
 		for(Rule r : load.getRules()) {
 			System.out.println(r);
 			System.out.println();
 		}
+
+		
+		System.out.println("Check conflit : ");
+		for(RulesTuple r : CheckCycle.checkSuffix(load.getRules())) {
+			System.out.println("conflit avec " + r.prob + "\n" + r.r1 + "\n" + r.r2 + " \n");
+		}
+		
+		
+		System.out.println("List of all Terms:\n");
+		List<Term> l = CheckPrecedence.getAllTerm(load.getRules());
+		for(Term t:l){
+			System.out.println(t.toString()+":"+t.hashCode());
+		}
+		
+		
+		
+		
+
 		CheckPrecedence.check(load.getRules());
+
 	}
+	
+	
+	
 	public Loader(String file) throws FileNotFoundException, IOException {
 		rules = new ArrayList<Rule>();
 		File f = new File(file);
