@@ -9,18 +9,24 @@ import java.util.ArrayList;
 import java.util.List;
 import happy.checker.*;
 
+/**
+ * This class is a tool to load bnf grammar file, and return the list of the rules.
+ * We also put the main method for the programm : checker  
+ * 
+ *
+ */
 public class Loader {
 	
 	List<Rule> rules;
 
 	public static void main(String[] args) throws Exception {
-		Loader load = new Loader("grammar_simple.bnf");
+		//load the grammar
+		Loader load = new Loader("grammar_wp_space.bnf");
+		//print all the rules
 		for(Rule r : load.getRules()) {
 			System.out.println(r);
 			System.out.println();
-		}
-
-		
+		}	
 		
 		
 		
@@ -28,12 +34,10 @@ public class Loader {
 		List<Term> l = CheckPrecedence.getAllTerm(load.getRules());
 		for(Term t:l){
 			System.out.println(t.toString()+":"+t.hashCode());
-		}
+		}		
 		
 		
-		
-		
-
+		//check the grammar
 		CheckPrecedence.check(load.getRules());
 
 	}

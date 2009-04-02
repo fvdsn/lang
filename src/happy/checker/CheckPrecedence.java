@@ -75,15 +75,17 @@ public class CheckPrecedence {
 			System.out.println("\nConflicts in table !");
 		}
 		
-		
-		System.out.println("Check conflit : ");
 		System.out.println("Validity precedence : " + validity);
-		for(RulesTuple r : CheckCycle.checkSuffix(grammar, table)) {
+		System.out.println("Check conflit suffix : ");
+		
+		for(RulesTuple r : CheckSuffix.checkSuffix(grammar, table)) {
 			System.out.println("conflit avec " + r.prob + "\n" + r.r1 + "\n" + r.r2 + " \n");
 			validity = false;
 		}
 		
-		System.out.println("Validity suffix : " + validity);
+		System.out.println("Validity grammar : " + validity);
+		
+		
 		
 		
 		return validity;
@@ -177,7 +179,7 @@ public class CheckPrecedence {
 		}
 		System.out.println("");
 		System.out.print("     ");
-		for(Term c:allTerm){
+		for(Term c: allTerm){
 			fprintn("=====",5);
 		}
 		System.out.println("");
@@ -345,7 +347,7 @@ public class CheckPrecedence {
 	public static  boolean precTable(List<Rule> grammar, Hashtable<Term,Hashtable<Term,String>> table){
 		Hashtable<Term,Set<Term>> First = FirstSet(grammar);
 		Hashtable<Term,Set<Term>> Last = LastSet(grammar);
-		List<Term> allTerm = getAllTerm(grammar);
+		//List<Term> allTerm = getAllTerm(grammar);
 		boolean validity = true;
 		/*
 		 * 0) La table est initialisée à NOTHING.

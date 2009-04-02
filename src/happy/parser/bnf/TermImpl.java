@@ -49,8 +49,4 @@ public class TermImpl implements Term {
 			return false;
 		return true;
 	}
-	
-	
-
-
 }
