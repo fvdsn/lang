@@ -10,7 +10,7 @@ public class checkWP {
 			System.out.println("Dommage, la grammaire contient des expensions vides");
 			return false;
 		}
-		if(CheckPrecedence.check(grammar)){
+		if(CheckPrecedence.checkPrecedence(grammar)){
 			System.out.println("Bravo, la grammaire est WP");
 		}else{
 			System.out.println("Saperlipopette, la grammaire n'est pas WP!");

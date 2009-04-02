@@ -92,14 +92,68 @@ une orListe qui représente une liste de règles \textit{ou}. Chaque éléments 
 		Pour chaque règle Z -> B, pour toute autre règle X->Y on regarde si on peut matcher B comme suffixe de Y.
 		Dans l'affirmative, on identifie le symbole juste avant le suffixe. Nous pouvons a ce moment vérifier la
 		condition décrite expliquée précédemment. Si elle n'est pas vérifiée. le Test échoue, la grammaire n'est pas valide.
-
-
+	\subsection{Spécifications des méthodes importantes}
 \begin{verbatim}
- /**
+ 	/**
 	 * 
 	 * @param rules The rules list
 	 * @param table The precedence table
 	 * @return a list of tuple (triple) that contains the two conflicting rules and the suffix the cause the conflict
 	 */
 	public static List<RulesTuple> checkSuffix(List<Rule> rules, Hashtable<Term,Hashtable<Term,String>> table) {
+	
+	/**
+	 * Regarde si la grammaire n'a pas de conflits de précédence.
+	 * Affiche la table des précédence à la sortie standard.
+	 * @param grammar Une grammaire cohérente : tous les non terminaux ont au moins une règle. 
+	 * @return true si la grammaire est valide, false sinon.
+	 */
+	public static boolean checkPrecedence(List<Rule> grammar){
+	
+	/**
+	 * Met une relation de précédence dans la table de précédence et
+	 * résout les conflits. Affiche les détails de l'erreur à la sortie
+	 * standard en cas de conflits. Si le conflit est entre <. ou <.= ou =. 
+	 * celui ci est résolu en insérant un <.= 
+	 * 
+	 * @param table la table de précédence
+	 * @param X	le premier Terme
+	 * @param Y le second Terme
+	 * @param rel la relation de précédence ( EQ,LE,GE,LEQ,ERROR,NOTHING)
+	 * @param rule la règle d'ou provient X et Y.
+	 * @return true si il n'y a pas de conflits, false sinon. 
+	 */
+	public static boolean tableSet(Hashtable<Term,Hashtable<Term,String>> table, Term X, Term Y, String rel, Rule rule){
+	
+	/**
+	 * Calcule l'ensemble First pour chaque Terme correspondant aux Termes
+	 * pouvant se trouver à l'extrème gauche de celui ci. 
+	 * @param grammar la grammaire
+	 * @return une Hashtable qui fait correspondre à chaque Terme son set First.
+	 */
+	public static Hashtable<Term,Set<Term>> FirstSet(List<Rule> grammar){
+	
+	/**
+	 * Calcule la table de précédence WP et si celle ci contient des conflits.
+	 * En cas de conflits, ceux ci sont affichés à la sortie standard.
+	 * @param grammar la grammaire
+	 * @param table une Hashtable à deux dimensions dont les clefs sont tous les couples
+	 * 			de termes existant dans grammar. Tous les éléments de table sont initialisés
+	 * 			à NOTHING.
+	 * @return true si il n'y a pas de conflits dans la table, false sinon. 
+	 */
+	public static  boolean precTable(List<Rule> grammar, Hashtable<Term,Hashtable<Term,String>> table){
+	
+	/**
+	 * Vérifie que la liste ne contient pas d'expensions vides,
+	 * en cherchant les termes 'lambda' dans tous les termes de toutes
+	 * les règles. 
+	 * @param grammar la grammaire
+	 * @return  true si la grammaire ne contient pas de terme 'lambda',
+	 * 			false sinon.
+	 */
+	public static boolean checkLambda(List<Rule> grammar){
+
+
 \end{verbatim}
+
