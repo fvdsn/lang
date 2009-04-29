@@ -39,16 +39,9 @@ public class CmdStmt extends Stmt // l cmd l
     return res ; 
   }
   
-  public void execute(Env env, Store st) {
+  public Stmt execute(Env env, Store st) {
 	  cmd.execute(env, st);
-	  
-	  //System.out.println(next);
-	  if (!(next instanceof Method)) {
-		  next.execute(env, st);
-	  }
-	 
-	  
+	  return next;	  
   }
-
 }
 

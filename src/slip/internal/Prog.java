@@ -32,10 +32,16 @@ public class Prog extends AbstractNode // Program
 	   for(Method  method : this.meths) {
 		   if(method.m.equals("main")) {
 			   Store st = new Store();
-			   Env env = new Env(-1);
+			   Env env = new Env(-1,  method.getNumberVar());
+			   st.push(env);
+			  
 			   method.execute(env, st);
+			   
+			   st.end();
 		   }
 	   }
+	   
+	  
    }
 }
 

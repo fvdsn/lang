@@ -25,18 +25,19 @@ public class SimpleCall extends Call // x = m(x, ..., x);
 			System.out.println("Unknow Procedure or function");
 			System.exit(1);
 		}
-		Env newEnv = new Env(-1);	
+		
+		Env newEnv = new Env(-1, m1.getNumberVar());	
 		int i = 1;
 		for(int j : this.ap) {
 			newEnv.set(i, env.get(j).clone());
 			i++;
 		}
 		
-		
+		st.push(newEnv);
 		m1.execute(newEnv, st);
 		
 		env.set(x, newEnv.get(0));
-
+		st.pop();
 	}
 }
 

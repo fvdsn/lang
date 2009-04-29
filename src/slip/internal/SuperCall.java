@@ -48,7 +48,7 @@ public class SuperCall extends Call // x = super.m(x,..., x)
 		//System.out.println("level " + lev + " method " + list.get(lev).m );
 		
 		
-		Env newEnv = new Env(lev);
+		Env newEnv = new Env(lev, list.get(lev).getNumberVar());
 		//on place les arguments
 		int i = 1;
 		for(int j : this.ap) {
@@ -58,12 +58,13 @@ public class SuperCall extends Call // x = super.m(x,..., x)
 		//met le this
 		newEnv.set(0, tar.clone());
 		
-		
+		store.push(newEnv);
 		
 		list.get(lev).execute(newEnv, store);
 		
 		
 		env.set(x, newEnv.get(0));
+		store.pop();
 
 		
 	}

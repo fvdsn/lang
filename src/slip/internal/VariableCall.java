@@ -47,7 +47,7 @@ public class VariableCall extends Call
 		//System.out.println("level " + lev + " method " + list.get(lev).m );
 		
 		
-		Env newEnv = new Env(lev);
+		Env newEnv = new Env(lev, list.get(lev).getNumberVar() );
 		//on place les arguments
 		int i = 1;
 		for(int j : this.ap) {
@@ -57,10 +57,13 @@ public class VariableCall extends Call
 		//met le this
 		
 		newEnv.set(0, tar.clone());
+		
+		store.push(newEnv);
 		list.get(lev).execute(newEnv, store);
 		
-	
+		
 		env.set(x, newEnv.get(0));
+		store.pop();
 		//System.out.println("EXIT pour pas avance");
 		//System.exit(0);
 

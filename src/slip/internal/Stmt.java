@@ -13,6 +13,6 @@ public abstract class Stmt extends AbstractNode
 		
   abstract String toComment() ;
   
-  abstract void execute(Env env, Store st);
+  abstract Stmt execute(Env env, Store st);
 }
 

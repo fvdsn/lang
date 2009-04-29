@@ -45,5 +45,13 @@ public class Val {
 		
 	}
 	
+	public int getType() {
+		return type;
+	}
+	
+	public int getVal() {
+		return val;
+	}
+	
 	
 }

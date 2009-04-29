@@ -84,11 +84,22 @@ public class Method extends Stmt
    }
    
 
-   public void execute(Env env, Store st) {
+   public Stmt execute(Env env, Store st) {
 	   //System.out.println(l);
-	  if(!(l instanceof Method)) {
-		  l.execute(env, st);
+	  Stmt next = l;
+	  while(next != null && ! (next instanceof Method)) {
+	
+		  next = next.execute(env, st);
 	  }
+	  
+	  //System.out.println("end of method");
+	  return null;
+   }
+   
+   
+   public int getNumberVar() {
+	  
+	   return nav + nlv;
    }
 
 }

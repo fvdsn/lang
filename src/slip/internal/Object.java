@@ -1,6 +1,9 @@
 package slip.internal;
 
-public class Object {
+import java.util.Arrays;
+import java.util.Iterator;
+
+public class Object implements Iterable<Val> {
 	private int size;
 	private Val[] val;
 	
@@ -31,6 +34,11 @@ public class Object {
 		val[i - 1] = v;
 		
 		
+	}
+	
+	@Override
+	public Iterator<Val> iterator() {		
+		return Arrays.asList(val).iterator();
 	}
 	
 	public int getSize() {
