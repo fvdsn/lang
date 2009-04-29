@@ -1,0 +1,90 @@
+\documentclass[a4paper,fleqn,11pt]{article}
+
+% Chargement d'extensions
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{listings}
+
+% Modification des marges
+\setlength{\oddsidemargin}{0.5cm}
+\setlength{\textwidth}{15cm}
+\setlength{\textheight}{23.5cm}
+\setlength{\topmargin}{-2cm}
+\setlength{\headheight}{1cm}
+
+% Modification du style
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{10pt}
+
+% Style des listes
+\lstset{frame=tblr,basicstyle=\sf\scriptsize,columns=fixed,aboveskip=5mm,belowskip=2mm,frameround=tttt,framesep=10pt,xleftmargin=10pt,tabsize=4}
+
+% Début du document
+\begin{document}
+\thispagestyle{empty}
+
+% Numéro du groupe
+\hfill Groupe 6
+
+% Nom du langage
+{\Huge \sl \bfseries HAPPY-)}
+
+
+% Exemple qui calcule la factorielle
+\vspace{5mm}
+\begin{lstlisting}
+(fun (main) 
+	(write (fact (read)))
+)
+
+(fun (fact x) (
+	(if (= x 0) 
+		(return 1)			
+		(return (* x (fact (- x 1))))			
+	)	
+))
+\end{lstlisting}
+
+% Description
+\vspace{1cm}\hspace{1cm}
+\begin{minipage}{10cm}
+\sf La syntaxe du HAPPY-) 
+\end{minipage}
+
+
+% Un autre petit programme au choix
+\vspace{1cm}
+\begin{lstlisting}
+// Construit une liste d'entiers
+main()
+{
+	last := null;
+	read (x);
+	while (x != -1)
+	{
+		node := new/2;
+		node.1 = last;
+		node.2 := x;
+		last = node;
+		read (x);
+	}
+	y := sum (last);
+	write (y);
+}
+
+// Calcule la somme des entiers d'une liste
+sum (list)
+{
+	s := 0;
+	current := list;
+	while (current != null)
+	{
+		s := s + current.1;
+		current := current.2;
+	}
+	return (s);
+}
+\end{lstlisting}
+
+\end{document}
