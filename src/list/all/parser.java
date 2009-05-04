@@ -1,6 +1,8 @@
 package list.all;
 
 
+import happy.parser.bnf.Term;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
@@ -127,13 +129,21 @@ public class parser {
 			addSpace();
 		}
 	}
-
+	/**
+	 * 
+	 * @return le prochain terminal de la liste, cad un terminal
+	 * du bon type avec name comme value.
+	 */
+	public Term getNextTerm(){
+		return null;
+	}
 	/**
 	 * @return La linkedList contenant tout les tokens.
 	 * @throws LexicalError
 	 * 
 	 * Cette methode permet de parser caractère par caractère tout le programme et de renvoyer une linkedlist correspondante.
 	 */
+	
 	public LinkedList<Token> getList() throws LexicalError {
 		char newchar;
 		StringBuffer current = new StringBuffer("");

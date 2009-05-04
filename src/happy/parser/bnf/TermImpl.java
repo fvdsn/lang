@@ -1,12 +1,19 @@
 package happy.parser.bnf;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class TermImpl implements Term {
 	String term;
+	String value;
 	boolean terminal;
+	List <Term> childList;
 	
 	public TermImpl(String term, boolean terminal) {
 		this.term = term;
 		this.terminal = terminal;
+		this.value = term;
+		this.childList = new LinkedList();
 	}
 	
 	@Override
@@ -19,6 +26,14 @@ public class TermImpl implements Term {
 	public String toString() {
 		return term;
 	}
+	public String getValue(){
+		return value;
+	}
+	public Term setValue(String v){
+		this.value = v;
+		return this;
+	}
+	
 	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
@@ -48,5 +63,10 @@ public class TermImpl implements Term {
 		if (terminal != other.terminal)
 			return false;
 		return true;
+	}
+
+	@Override
+	public List<Term> getChildList() {
+		return childList;
 	}
 }
