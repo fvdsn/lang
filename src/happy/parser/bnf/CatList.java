@@ -9,14 +9,13 @@ import java.util.List;
  * This list contains Terms 
  *
  */
-public class CatList implements Term {
+public class CatList {
 	List<Term> list;
 	
 	public CatList() {
 		list = new ArrayList<Term>();
 	}
 	
-	@Override
 	public boolean isTerminal() {
 		return false;
 	}

@@ -1,6 +1,5 @@
 package happy.checker;
 import java.util.List;
-import happy.checker.*;
 import happy.parser.bnf.*;
 
 public class CheckLambda {

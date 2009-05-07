@@ -31,7 +31,7 @@ public class OrList {
 		
 		boolean first = true;
 		StringBuilder res = new StringBuilder("");
-		for(Term t : list) {
+		for(CatList t : list) {
 			if(first) {
 				res.append(t);
 				first = false;
