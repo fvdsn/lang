@@ -1,5 +1,6 @@
 package slip.internal; 
 
+import slip.internal.error.SlipError;
 import slip.internal.representation.Env;
 import slip.internal.representation.Store;
 
@@ -84,12 +85,17 @@ public class Method extends Stmt
    }
    
 
-   public Stmt execute(Env env, Store st) {
+   public Stmt execute(Env env, Store st) throws SlipError {
 	   //System.out.println(l);
 	  Stmt next = l;
 	  while(next != null && ! (next instanceof Method)) {
-	
-		  next = next.execute(env, st);
+		  try {
+			  next = next.execute(env, st);
+		  }
+		  catch(SlipError e) {
+			  e.add("at " + m + "/" + level);
+			  throw e;
+		  }
 	  }
 	  
 	  //System.out.println("end of method");

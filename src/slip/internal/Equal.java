@@ -8,17 +8,21 @@ public class  Equal extends Cop
   
   @Override
 	public boolean eval(Val v1, Val v2) {
-		if(!(v1.type == v2.type)) {
+		if(!(v1.getType() == v2.getType())) {
 			return false;
 		}
-		if(v1.type == Val.UNKNOW || v2.type == Val.UNKNOW) {
+		if(v1.getType() == Val.UNKNOW || v2.getType() == Val.UNKNOW) {
 			return false;
 		}
-		if(v1.type == Val.ERROR || v2.type == Val.ERROR) {
+		if(v1.getType() == Val.ERROR || v2.getType() == Val.ERROR) {
 			return false;
 		}
 		
-		return v1.val == v2.val;
+		if(v1.getType() == Val.OBJECT) {
+			return v1.getVal() == v2.getVal();
+		}
+		
+		return v1.getIntval().equals(v2.getIntval());
 		
 	}
 }

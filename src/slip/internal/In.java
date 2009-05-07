@@ -1,5 +1,6 @@
 package slip.internal;
 
+import java.math.BigInteger;
 import java.util.Scanner;
 
 import slip.internal.representation.Env;
@@ -17,8 +18,8 @@ public class In extends Cmd // read(x)
   
   @Override
 	public void execute(Env env, Store st) {
-	  int i = in.nextInt();
-	   env.set(x, new Val(Val.INTEGER, i));
+	  String i = in.nextLine();
+	   env.set(x, new Val(new BigInteger(i)));
 	   
 		
 	}

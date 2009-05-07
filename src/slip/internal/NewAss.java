@@ -18,7 +18,7 @@ public class NewAss extends Ass// x = new/i ;
   @Override
 	public void execute(Env env, Store store) {
 		int ref = store.newObject(i);
-		env.set(x, new Val(Val.OBJECT, ref));
+		env.set(x, new Val(ref));
 		
 	}
 }

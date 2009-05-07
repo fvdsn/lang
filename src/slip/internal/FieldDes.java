@@ -1,5 +1,6 @@
 package slip.internal;
 
+import slip.internal.error.SlipError;
 import slip.internal.representation.Env;
 import slip.internal.representation.Store;
 
@@ -11,47 +12,53 @@ public class FieldDes extends Des
 	}
 
 
-	public void assign(Expr e, Env env, Store store) {
-		Val v = env.get(x);
-		if(v.type != Val.OBJECT) {
-			System.out.println("Error : cannot acces to a field on non object variable");
-			System.exit(3);
-		}
-		if(v.val == 0) {
-			System.out.println("Error : cannot acces to a field on a null reference");
-			System.exit(4);
-		}
-		Object o = store.get(env.get(x).val);
-		Val v2 = o.get(i);
-		Val newVal = e.getVal(env, store);
-		//System.out.println("debug");
-		//System.out.println(v2.type);
-		//System.out.println(newVal.type);
+	public void assign(Expr e, Env env, Store store) throws SlipError {
+		try {
+			Val v = env.get(x);
+			if(v.getType() != Val.OBJECT) {
+				throw new SlipError("Error : cannot acces to a field on non object variable");
+			}
+			if(v.getVal() == 0) {
+				
+			}
+			Object o = store.get(env.get(x).getVal());
+			Val v2 = o.get(i);
 		
-		if(v2.type != Val.UNKNOW && v2.type != newVal.type) {
-			System.out.println("Error : assignement on different type");
-			System.exit(6);
+			Val newVal = e.getVal(env, store);
+			if(v2.getType() != Val.UNKNOW && v2.getType() != newVal.getType()) {
+				throw new SlipError("Error : assignement on different type");
+			}
+			else {
+				o.set(i, newVal);
+			}
 		}
-		else {
-			o.set(i, newVal);
+		catch(SlipError ex) {
+			ex.add("at FieldDes " + x + "." + i);
+			throw ex;
+		}
 
-		}
+		
+		
 
 	}
 
 	@Override
-	public Val getVal(Env e, Store st) {
-		Val v = e.get(x);
-		if(v.type != Val.OBJECT) {
-			System.out.println("Error : cannot acces to a field on non object variable");
-			System.exit(3);
+	public Val getVal(Env e, Store st) throws SlipError {
+		try {
+			Val v = e.get(x);
+			if(v.getType() != Val.OBJECT) {
+				throw new SlipError("Error : cannot acces to a field on non object variable");
+			}
+			if(v.getVal() == 0) {
+				throw new SlipError("Error : cannot acces to a field on a null reference");
+			}
+			Object o = st.get(e.get(x).getVal());
+			return o.get(i);
 		}
-		if(v.val == 0) {
-			System.out.println("Error : cannot acces to a field on a null reference");
-			System.exit(4);
+		catch(SlipError ex) {
+			ex.add("at FieldDes " + x + "." + i);
+			throw ex;
 		}
-		Object o = st.get(e.get(x).val);
-		return o.get(i);
 	}
 }
 

@@ -14,7 +14,7 @@ public class Null extends Sexpr // null (the famous null reference)
 
 	@Override
 	public Val getVal(Env e, Store st) {
-		return new Val(Val.OBJECT, 0);
+		return new Val(0);
 	}
 }
 

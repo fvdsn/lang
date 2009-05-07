@@ -1,16 +1,19 @@
 package slip.internal;
 
+import java.math.BigInteger;
+
+import slip.internal.error.SlipError;
+
 public class Divide extends Aop // arithmetic operator /
 {
   public Divide()
   { super('/'); }
   @Override
-	public int val(int v1, int v2) {
-		if(v2 == 0) {
-			System.out.println("Error divide by 0");
-			System.exit(3);
+	public BigInteger val(BigInteger v1, BigInteger v2) throws SlipError {
+		if(v2.equals(BigInteger.ZERO)) {
+			throw new SlipError("Error divide by 0");
 		}
-		return v1 / v2;
+		return v1.divide(v2);
 	}
 }
 

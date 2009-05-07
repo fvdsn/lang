@@ -1,5 +1,6 @@
 package slip.internal ;
 
+import slip.internal.error.SlipError;
 import slip.internal.representation.Env;
 import slip.internal.representation.Store;
 
@@ -39,9 +40,16 @@ public class CmdStmt extends Stmt // l cmd l
     return res ; 
   }
   
-  public Stmt execute(Env env, Store st) {
-	  cmd.execute(env, st);
-	  return next;	  
+  public Stmt execute(Env env, Store st) throws SlipError {
+	  try {
+		  cmd.execute(env, st);
+		  return next;
+	  }
+	  catch(SlipError e) {
+
+		  e.add("at CmdStmt " + toComment());
+		  throw e;
+	  }
   }
 }
 

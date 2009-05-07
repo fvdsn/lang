@@ -1,5 +1,6 @@
 package slip.internal;
 
+import slip.internal.error.SlipError;
 import slip.internal.representation.Env;
 import slip.internal.representation.Store;
 
@@ -24,10 +25,16 @@ public class Cond extends AbstractNode
   }
   
   //TODO 
-  public boolean evalue(Env env, Store st) {
-	  Val v1 = expr1.getVal(env, st);
-	  Val v2 = expr2.getVal(env, st);
-	  return cop.eval(v1, v2);
+  public boolean evalue(Env env, Store st) throws SlipError {
+	  try {
+		  Val v1 = expr1.getVal(env, st);
+		  Val v2 = expr2.getVal(env, st);
+		  return cop.eval(v1, v2);
+	  }
+	  catch(SlipError e) {
+		  e.add("At cond " + this.toString());
+		  throw e;
+	  }
   }
 
 }

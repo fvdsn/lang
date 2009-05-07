@@ -1,7 +1,10 @@
 package slip.internal;
 
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Iterator;
+
+import slip.internal.error.SlipError;
 
 public class Object implements Iterable<Val> {
 	private int size;
@@ -15,21 +18,19 @@ public class Object implements Iterable<Val> {
 		}
 	}
 	
-	public Val get(int i) {
+	public Val get(int i) throws SlipError {
 		if(i > size || i < 0) {
-			System.out.println("ERROR : out of level access");
-			System.exit(5);
+			throw new SlipError("ERROR : out of level access");
 		}
 		if(i == 0) {
-			return new Val(Val.INTEGER, size);
+			return new Val(new BigInteger(size + ""));
 		}
 		return val[i - 1];
 	}
 	
-	public void set(int i, Val v) {
+	public void set(int i, Val v) throws SlipError {
 		if(i > size || i <= 0) {
-			System.out.println("ERROR : out of level access");
-			System.exit(5);
+			throw new SlipError("ERROR : out of level access");
 		}
 		val[i - 1] = v;
 		

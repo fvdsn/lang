@@ -1,5 +1,6 @@
 package slip.internal;
 
+import slip.internal.error.SlipError;
 import slip.internal.representation.Env;
 import slip.internal.representation.Store;
 
@@ -23,6 +24,6 @@ public abstract class Des extends Sexpr
 		  return r ;
 		}
 
-  public abstract void assign(Expr e, Env env, Store store);
+  public abstract void assign(Expr e, Env env, Store store) throws SlipError;
 }
 

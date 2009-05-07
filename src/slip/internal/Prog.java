@@ -1,5 +1,6 @@
 package slip.internal; 
 
+import slip.internal.error.SlipError;
 import slip.internal.representation.Env;
 import slip.internal.representation.Store;
 
@@ -34,8 +35,12 @@ public class Prog extends AbstractNode // Program
 			   Store st = new Store();
 			   Env env = new Env(-1,  method.getNumberVar());
 			   st.push(env);
-			  
-			   method.execute(env, st);
+			   try {
+				   method.execute(env, st);
+			   }
+			   catch(SlipError e) {
+				   e.printStack();
+			   }
 			   
 			   st.end();
 		   }

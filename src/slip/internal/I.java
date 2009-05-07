@@ -1,5 +1,7 @@
 package slip.internal;
 
+import java.math.BigInteger;
+
 import slip.internal.representation.Env;
 import slip.internal.representation.Store;
 
@@ -15,7 +17,7 @@ public class I extends Sexpr // An integral value
   @Override
 	public Val getVal(Env e, Store st) {
 		
-		return new Val(Val.INTEGER, i);
+	  return new Val(new BigInteger(new Integer(i).toString()));
 	}
 
 }

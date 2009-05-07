@@ -1,5 +1,6 @@
 package slip.internal;
 
+import slip.internal.error.SlipError;
 import slip.internal.representation.Env;
 import slip.internal.representation.Store;
 
@@ -21,9 +22,14 @@ public class NormalAss extends Ass
   
   
   @Override
-  public void execute(Env env, Store store) {
-	  left.assign(right, env, store);
-		
+  public void execute(Env env, Store store) throws SlipError {
+	  try {
+		  left.assign(right, env, store);
+	  }
+	  catch(SlipError e) {
+		  e.add("at Ass " + this.toString());
+		  throw e;
+	  }
   }
 }
 

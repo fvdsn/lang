@@ -2,6 +2,7 @@ package slip.internal ;
 
 import java.util.HashMap;
 
+import slip.internal.error.SlipError;
 import slip.internal.representation.Env;
 import slip.internal.representation.Store;
 import slip.interpreter.Interpreter;
@@ -17,14 +18,14 @@ public class VariableCall extends Call
   String target(){ return varName(target) + "." + m ; }
   
   @Override
-	public void execute(Env env, Store store) {
+	public void execute(Env env, Store store) throws SlipError {
 		//x valeur de retour
 	  	Val tar = env.get(target);
 	  	//TODO vérifie que 
-	  	if(tar.type != Val.OBJECT || tar.val == 0) {
-	  		System.out.println("Error : dynamic call on a non object variable or null");
+	  	if(tar.getType() != Val.OBJECT || tar.getVal() == 0) {
+	  		throw new SlipError("Error : dynamic call on a non object variable or null");
 	  	}
-	  	Object ob = store.get(tar.val);
+	  	Object ob = store.get(tar.getVal());
 	  	
 	  	
 	  	HashMap<Integer, Method> list = new HashMap<Integer, Method>();
@@ -41,8 +42,7 @@ public class VariableCall extends Call
 			}
 		}
 		if(lev == -1) {
-			System.out.println("Unknow Procedure or function");
-			System.exit(1);
+			throw new SlipError("Unknow Procedure or function");
 		}
 		//System.out.println("level " + lev + " method " + list.get(lev).m );
 		

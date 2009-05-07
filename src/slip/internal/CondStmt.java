@@ -1,5 +1,6 @@
 package slip.internal;
 
+import slip.internal.error.SlipError;
 import slip.internal.representation.Env;
 import slip.internal.representation.Store;
 
@@ -43,13 +44,20 @@ public class CondStmt extends Stmt // l if cond then l else l
 
 	@Override
 	//TODO avoid stack overflow
-	Stmt execute(Env env, Store st) {
-		boolean con = cond.evalue(env, st);
+	Stmt execute(Env env, Store st) throws SlipError {
+		try {
+			boolean con = cond.evalue(env, st);
+			if(con) 
+				return ltrue;
+			else
+				return lfalse;
+		}
+		catch(SlipError e) {
+			e.add("at condStmt " + toComment());
+			throw e;
+		}
 
-		if(con) 
-			return ltrue;
-		else
-			return lfalse;
+		
 
 	}
 }

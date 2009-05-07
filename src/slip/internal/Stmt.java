@@ -1,5 +1,6 @@
 package slip.internal;
 
+import slip.internal.error.SlipError;
 import slip.internal.representation.Env;
 import slip.internal.representation.Store;
 
@@ -13,6 +14,6 @@ public abstract class Stmt extends AbstractNode
 		
   abstract String toComment() ;
   
-  abstract Stmt execute(Env env, Store st);
+  abstract Stmt execute(Env env, Store st) throws SlipError;
 }
 
