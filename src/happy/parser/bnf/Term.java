@@ -10,7 +10,12 @@ public interface Term {
 	public boolean isTerminal();
 	public String getValue();
 	public Term setValue(String v);
+	int	   getLine();
+	void   setLine(int line);
+	int		getCollumn();
+	void	setCollumn(int col);
 	public List<Term> getChildList();
+	void	printTree(int indent);
 	@Override
 	public int hashCode();
 	
