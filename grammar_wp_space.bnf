@@ -1,10 +1,9 @@
 <number>		::=  <number> | 'pnumber'		
 <meth_or_fun> 	::=  <methode> | <function>
 <Program> 		::=  <meth_or_fun> | <Program> 'esp' <meth_or_fun>
-
-<function> 		::= '(' 'esp' 'fun' 'esp' <arglist>  'esp' <instr_list> 'esp'  ')' 
 <methode> 		::= '(' 'esp' 'method' '.' 'pnumber' 'esp' <arglist> 'esp' <instr_list> 'esp'  ')' 
 
+<function> 		::= '(' 'esp' 'fun' 'esp' <arglist>  'esp' <instr_list> 'esp'  ')' 
 <arglist>		::= '(' 'esp' <arglist_np> 'esp'  ')'
 <arglist_np> 	::=  ''id'' | 'id' 'esp' <arglist_np>
 
