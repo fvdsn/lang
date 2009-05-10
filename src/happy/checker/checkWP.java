@@ -6,6 +6,9 @@ import happy.parser.bnf.*;
 
 public class checkWP {
 	public static boolean checkAll(List<Rule> grammar){
+		if(CheckUtility.check(grammar)) {
+			System.out.println("Félicitations, La grammaire ne contient pas de symbole inutile");
+		}
 		if(CheckLambda.checkLambda(grammar)){
 			System.out.println("Félicitations, La grammaire ne contient pas d'expensions vide");
 		}else{
