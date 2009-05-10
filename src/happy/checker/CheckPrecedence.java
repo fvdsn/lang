@@ -79,7 +79,7 @@ public class CheckPrecedence {
 		System.out.println("Check conflit suffix : ");
 		
 		for(RulesTuple r : CheckSuffix.checkSuffix(grammar, table)) {
-			System.out.println("conflit avec " + r.prob + "\n" + r.r1 + "\n" + r.r2 + " \n");
+			System.out.println("conflit avec \n " + r.prob + "  <<>>  " + r.prob2 + "\n" + r.r1.getLeftSide() + "\n" + r.r2.getLeftSide() + " \n");
 			validity = false;
 		}
 		
