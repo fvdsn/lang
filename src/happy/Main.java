@@ -31,10 +31,8 @@ public class Main {
 		wpvalid = CheckPrecedence.precTable(bnfp.getRules(),prectable );
 	}
 	public void interpret(String codefile){
-		CodeLoader cl = null;
 		try{
-			cl = new CodeLoader(codefile);
-			lp = new ParserIterator(cl.getRep());
+			lp = new ParserIterator(codefile);
 		}catch(Exception e){
 			e.printStackTrace();
 		}

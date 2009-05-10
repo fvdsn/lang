@@ -8,7 +8,7 @@ import happy.parser.bnf.*;
 
 
 public class CheckPrecedence {
-	public static String NOTHING = " ";		/* aucune relation */
+	public static String NOTHING = "_";		/* aucune relation */
 	public static String LE 	= "<.";		
 	public static String LEQ 	= "<="; 
 	public static String GE 	= ".>";

@@ -46,6 +46,7 @@ public class SyntaxParser {
 			if(i < stack.size() -1){
 				System.out.print(prec(i,i+1));
 			}
+			i++;
 		}
 		System.out.println("");
 	}
@@ -99,7 +100,7 @@ public class SyntaxParser {
 			if(s >= 2){
 				if(prec(s-2,s-1).equals(CheckPrecedence.NOTHING)
 						|| prec(s-2,s-1).equals(CheckPrecedence.ERROR)){
-					System.out.println("illegal grammar");
+					System.out.println("illegal grammar :"+prec(s-2,s-1));
 					return;
 				}
 				while(prec(s-2,s-1).equals(CheckPrecedence.GE)){
