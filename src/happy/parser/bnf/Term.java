@@ -8,6 +8,7 @@ public interface Term {
 	 * @return true if the term is a terminal term
 	 */
 	public boolean isTerminal();
+	public String getType();
 	public String getValue();
 	public Term setValue(String v);
 	int	   getLine();

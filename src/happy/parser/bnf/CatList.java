@@ -23,6 +23,9 @@ public class CatList {
 	public void add(Term t) {
 		list.add(t);
 	}
+	public boolean match(CatList other){
+		return this.stringRep().equals(other.stringRep());
+	}
 	
 	public List<Term> getTermList() {
 		return list;
@@ -77,6 +80,4 @@ public class CatList {
 			return false;
 		}
 	}
-	
-
 }

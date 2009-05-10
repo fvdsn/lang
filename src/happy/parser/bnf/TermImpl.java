@@ -25,6 +25,9 @@ public class TermImpl implements Term {
 		// TODO Auto-generated method stub
 		return terminal;
 	}
+	public String getType(){
+		return term;
+	}
 	
 	@Override
 	public String toString() {

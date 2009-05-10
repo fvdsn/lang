@@ -170,7 +170,9 @@ public class Rule {
 	public int hashCode() {
 		return toString().hashCode();
 	}
-
+	public String getName(){
+		return name;
+	}
 	public List<CatList> getOrList(){
 		
 		return list.getTerm();
