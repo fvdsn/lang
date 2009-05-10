@@ -6,6 +6,7 @@ import happy.parser.bnf.Rule;
 import happy.parser.bnf.Term;
 import happy.parser.bnf.TermImpl;
 import happy.parser.lexical.LexicalParser;
+import happy.parser.lexical.ParserIterator;
 
 import java.util.Hashtable;
 import java.util.List;
@@ -13,10 +14,11 @@ import java.util.Stack;
 
 public class SyntaxParser {
 	private Stack<Term> stack = null;
-	private LexicalParser lexParser = null;
+	private ParserIterator lexParser = null;
 	private Hashtable<Term,Hashtable<Term,String>> prectable = null ;
 	private List<Rule> grammar = null;
 	private Term tree = null;
+
 	
 	public SyntaxParser(LexicalParser lexParser, List<Rule> grammar, 
 			Hashtable<Term,Hashtable<Term,String>> prectable ){
@@ -46,6 +48,7 @@ public class SyntaxParser {
 			if(i < stack.size() -1){
 				System.out.print(prec(i,i+1));
 			}
+			i++;
 		}
 		System.out.println("");
 	}
@@ -99,7 +102,7 @@ public class SyntaxParser {
 			if(s >= 2){
 				if(prec(s-2,s-1).equals(CheckPrecedence.NOTHING)
 						|| prec(s-2,s-1).equals(CheckPrecedence.ERROR)){
-					System.out.println("illegal grammar");
+					System.out.println("illegal grammar :"+prec(s-2,s-1));
 					return;
 				}
 				while(prec(s-2,s-1).equals(CheckPrecedence.GE)){

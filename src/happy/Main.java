@@ -14,13 +14,14 @@ import happy.parser.lexical.LexicalParser;
 import happy.parser.lexical.ParserIterator;
 import happy.parser.syntax.SyntaxParser;
 public class Main {
-	private LexicalParser lp = null;
-	private ParserIterator sp  = null; 
+	private ParserIterator lp = null;
+	private SyntaxParser sp  = null; 
 	private BnfParser bnfp   = null;
 	private Hashtable<Term,Hashtable<Term,String>> prectable = null;
 	private boolean wpvalid = false;
 	
 	public Main(String bnfSyntax){
+		List<Term> allTerm = null;
 		try {
 			bnfp = new BnfParser(bnfSyntax);
 		} catch (Exception e) {
@@ -30,14 +31,12 @@ public class Main {
 		wpvalid = CheckPrecedence.precTable(bnfp.getRules(),prectable );
 	}
 	public void interpret(String codefile){
-		CodeLoader cl = null;
 		try{
-			cl = new CodeLoader(codefile);
+			lp = new ParserIterator(codefile);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		if(wpvalid){
-			lp = new LexicalParser(cl.getRep());
 			sp = new SyntaxParser(lp,bnfp.getRules(),prectable);
 			sp.parse();
 		}else{
