@@ -44,7 +44,7 @@ public class Main {
 		}
 	}
 	public static void main(String args[]){
-		Main m = new Main("grammar_wp.bnf");
+		Main m = new Main("grammar_wp_space.bnf");
 		m.interpret("test1");
 	}
 }

@@ -20,7 +20,7 @@ public class SyntaxParser {
 	private Term tree = null;
 
 	
-	public SyntaxParser(LexicalParser lexParser, List<Rule> grammar, 
+	public SyntaxParser(ParserIterator lexParser, List<Rule> grammar, 
 			Hashtable<Term,Hashtable<Term,String>> prectable ){
 		this.grammar   = grammar;
 		this.lexParser = lexParser;
