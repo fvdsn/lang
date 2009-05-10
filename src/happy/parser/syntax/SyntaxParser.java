@@ -17,6 +17,7 @@ public class SyntaxParser {
 	private Hashtable<Term,Hashtable<Term,String>> prectable = null ;
 	private List<Rule> grammar = null;
 	private Term tree = null;
+	
 	public SyntaxParser(LexicalParser lexParser, List<Rule> grammar, 
 			Hashtable<Term,Hashtable<Term,String>> prectable ){
 		this.grammar   = grammar;
