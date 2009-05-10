@@ -11,16 +11,16 @@ import happy.parser.bnf.Rule;
 import happy.parser.bnf.Term;
 import happy.parser.lexical.CodeLoader;
 import happy.parser.lexical.LexicalParser;
+import happy.parser.lexical.ParserIterator;
 import happy.parser.syntax.SyntaxParser;
 public class Main {
 	private LexicalParser lp = null;
-	private SyntaxParser sp  = null; 
+	private ParserIterator sp  = null; 
 	private BnfParser bnfp   = null;
 	private Hashtable<Term,Hashtable<Term,String>> prectable = null;
 	private boolean wpvalid = false;
 	
 	public Main(String bnfSyntax){
-		List<Term> allTerm = null;
 		try {
 			bnfp = new BnfParser(bnfSyntax);
 		} catch (Exception e) {
