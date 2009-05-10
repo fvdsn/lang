@@ -19,6 +19,13 @@ public class checkWP {
 			return false;
 		}
 		
+		if(CheckAccess.check(grammar)) {
+			System.out.println("2) Ok : La grammaire ne contient pas de symbole inaccessible");
+		}
+		else {
+			System.out.println("2) FAIL : La grammaire contient des symbole inaccessibles");
+		}
+		
 		if(CheckRevertible.check(grammar)){
 			System.out.println("3) OK : La grammaire est réversible");
 		}else{

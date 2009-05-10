@@ -24,7 +24,7 @@ public class Main {
 		
 		try {
 			bnfp = new BnfParser(bnfSyntax);
-			checkWP.checkAll(bnfp.getRules());
+			
 		} catch (Exception e) {
 				e.printStackTrace();
 		}

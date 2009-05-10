@@ -14,7 +14,7 @@ public class CheckUtility {
 		for(Term t:term){
 			if(!t.isTerminal()) {
 				nT.add(t);
-				System.out.print(t.toString()+" ");
+				System.out.print(t.toString() + " ");
 			}
 		}
 		

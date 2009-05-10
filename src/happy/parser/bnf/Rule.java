@@ -6,7 +6,7 @@ import happy.parser.util.CharIdentifier;
 
 /**
  * This class provide a tool to parse a single line of a bnf file and transform it into a rule
- * @author mythrys
+ * @author Thibault Francois
  *
  */
 public class Rule {

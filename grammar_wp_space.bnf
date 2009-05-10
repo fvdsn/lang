@@ -1,3 +1,4 @@
 <programm> ::= '(' <fun_list> ')' 
 <fun_list> ::= <fun> |  <fun> <fun_list> 
-<fun> ::= 'd1' | 'd2'
+<fun> ::= 'd1' | 'd2' | <decl>
+<decl> ::= 'd4'
