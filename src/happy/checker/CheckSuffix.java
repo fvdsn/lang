@@ -2,12 +2,10 @@ package happy.checker;
 
 import happy.parser.bnf.CatList;
 import happy.parser.bnf.Rule;
-import happy.parser.bnf.Term;
 
 
 
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 
 public class CheckSuffix {
@@ -129,7 +127,7 @@ public class CheckSuffix {
 	 * @return the catlist with the biggest number of Term, that one where we should take 
 	 * the element before the suffix
 	 */
-	private static CatList getTermBeforeSuffix(CatList c1, CatList c2) {
+	public static CatList getTermBeforeSuffix(CatList c1, CatList c2) {
 		int size1 = c1.getTermList().size();
 		int size2 = c2.getTermList().size();
 		if(size1 > size2) {

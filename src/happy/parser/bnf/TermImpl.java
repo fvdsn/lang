@@ -15,7 +15,7 @@ public class TermImpl implements Term {
 		this.term = term;
 		this.terminal = terminal;
 		this.value = term;
-		this.childList = new LinkedList();
+		this.childList = new LinkedList<Term>();
 		this.line = 0;
 		this.collumn = 0;
 	}
