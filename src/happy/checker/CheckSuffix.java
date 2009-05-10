@@ -17,7 +17,7 @@ public class CheckSuffix {
 	 * @param table The precedence table
 	 * @return a list of tuple (triple) that contains the two conflicting rules and the suffix the cause the conflict
 	 */
-	public static List<RulesTuple> check(List<Rule> rules) {
+	public static boolean check(List<Rule> rules) {
 		
 		List<RulesTuple> problem = new ArrayList<RulesTuple>(); 
 		List<Pair> AllCat = new ArrayList<Pair>();
