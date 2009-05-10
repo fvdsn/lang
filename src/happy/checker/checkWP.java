@@ -32,9 +32,9 @@ public class checkWP {
 			return false;
 		}
 		if(CheckPrecedence.checkPrecedence(grammar)){
-			System.out.println("4) OK : La grammaire n'a pas de conflit de précédence ");
+			System.out.println("5) OK : La grammaire n'a pas de conflit de précédence ");
 		}else{
-			System.out.println("4) FAIL : La grammaire a des conflits de précédence");
+			System.out.println("5) FAIL : La grammaire a des conflits de précédence");
 			return false;
 		}
 		

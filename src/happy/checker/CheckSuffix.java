@@ -49,7 +49,6 @@ public class CheckSuffix {
 				}
 			}
 		}
-		System.out.println("Check conflit suffix : ");
 		
 		for(RulesTuple r : problem) {
 			System.out.println("conflit avec \n " + r.prob + "  <<>>  " + r.prob2 + "\n" + r.r1.getLeftSide() + "\n" + r.r2.getLeftSide() + " \n");

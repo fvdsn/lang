@@ -10,11 +10,9 @@ public class CheckUtility {
 	public static boolean check(List<Rule> grammar) {
 		List<Term> term = CheckPrecedence.getAllTerm(grammar);
 		List<Term> nT = new ArrayList<Term>();
-		System.out.println("\nList of all Non-Terminals");
 		for(Term t:term){
 			if(!t.isTerminal()) {
 				nT.add(t);
-				System.out.print(t.toString()+" ");
 			}
 		}
 		
@@ -30,9 +28,11 @@ public class CheckUtility {
 				nT.remove(temp);
 			}
 		}
-		System.out.println("Symbole inutile :");
-		for(Term t : nT) {
-			System.out.println(t);
+		if(!nT.isEmpty()){
+			System.out.println("Symboles inutile :");
+			for(Term t : nT) {
+				System.out.println(t);
+			}
 		}
 		return nT.size() == 0;
 		
