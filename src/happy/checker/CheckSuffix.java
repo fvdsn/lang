@@ -17,7 +17,7 @@ public class CheckSuffix {
 	 * @param table The precedence table
 	 * @return a list of tuple (triple) that contains the two conflicting rules and the suffix the cause the conflict
 	 */
-	public static List<RulesTuple> checkSuffix(List<Rule> rules, Hashtable<Term,Hashtable<Term,String>> table) {
+	public static boolean check(List<Rule> rules) {
 		
 		List<RulesTuple> problem = new ArrayList<RulesTuple>(); 
 		List<Pair> AllCat = new ArrayList<Pair>();
@@ -87,9 +87,14 @@ public class CheckSuffix {
 				}
 			}
 		}
+		System.out.println("Check conflit suffix : ");
 		
+		for(RulesTuple r : problem) {
+			System.out.println("conflit avec \n " + r.prob + "  <<>>  " + r.prob2 + "\n" + r.r1.getLeftSide() + "\n" + r.r2.getLeftSide() + " \n");
+			
+		}
 		
-		return problem;
+		return problem.size() == 0;
 	}
 	
 	/**
