@@ -38,11 +38,22 @@ public class CheckSuffix {
 			for(CatList c : r.getOrList()) {
 				for(Pair p : AllCat) {
 					if(isSuffix(c, p.cat)) {
+						
 						//si une règle est suffix d'une autre, que ce n'est pas la même règle
-						if(!p.cat.stringRep().equals(c.stringRep())) {
+						if(!(
+								(p.cat.stringRep().equals(c.stringRep())) 
+								&& 
+								(r.getLeftSide().equals(p.r1.getLeftSide()))
+							)) {
+							/*
+							System.out.println(r.getLeftSide());
+							System.out.println(c);
+							System.out.println(p.r1.getLeftSide());
+							System.out.println(p.cat);*/
+							problem.add(new RulesTuple(r, p.r1, c, p.cat));
 							//on vérifie les critères de la table précédence. 
 							
-							CatList before = getTermBeforeSuffix(p.cat, c);
+							/**CatList before = getTermBeforeSuffix(p.cat, c);
 							CatList little = null;
 							Term rule = null;
 							if(before == p.cat) {
@@ -59,17 +70,15 @@ public class CheckSuffix {
 							if(rule != null) {
 								Term precedent = before.getTermList().get(before.getTermList().size() - 2);
 								
-								//conflit si suffix et que precedent < rule ou = , Leq étant les deux. 
-								if(table.get(precedent).get(rule).equals(CheckPrecedence.EQ) 
-										|| table.get(precedent).get(rule).equals(CheckPrecedence.LE)
-										|| table.get(precedent).get(rule).equals(CheckPrecedence.LEQ)) {
+								
+								
 									System.out.println("----------------------------");
 									System.out.println(rule + "   " + precedent);
 									System.out.println(table.get(precedent).get(rule));
 									System.out.println("----------------------------");
-									problem.add(new RulesTuple(r, p.r1, little));
-								}
-							}
+							
+								
+							}**/
 							
 							
 							
@@ -91,9 +100,10 @@ public class CheckSuffix {
 	 */
 	private static boolean isSuffix(CatList c1, CatList c2) {
 		int size = c2.getTermList().size();
+		//System.out.println(c1);
+		//System.out.println(c2);
 		//ne peut être suffix car plus grand que l'autre
 		if(size > c1.getTermList().size()) {
-			
 			return false;
 		}
 		int compteur = size - 1;
