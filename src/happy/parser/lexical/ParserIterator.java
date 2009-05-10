@@ -1,5 +1,8 @@
 package happy.parser.lexical;
 
+import happy.parser.bnf.Term;
+import happy.parser.bnf.TermImpl;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -51,7 +54,20 @@ public class ParserIterator implements Iterator{
 		return !list.isEmpty();
 	}
 
+	public Term getNextTerm(){
+		Token tok = (Token)next();
+		if(tok==null){
+			return null;
+		}
+		TermImpl term = new TermImpl(tok.type,true);
+		term.setValue(tok.name);
+		return term;
+	}
+	
 	public Object next() {
+		if(end){
+			return null;
+		}
 		if(!list.isEmpty()){
 			return list.pop();
 		}
@@ -60,6 +76,8 @@ public class ParserIterator implements Iterator{
 				addToken();
 			} catch (LexicalError e) {
 				e.printStackTrace();
+				end = true;
+				return null;
 			}
 			return next();
 		}

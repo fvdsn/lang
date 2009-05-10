@@ -1,5 +1,7 @@
 package happy.parser.lexical;
 
+import happy.parser.bnf.TermImpl;
+
 import java.util.LinkedList;
 
 public class test {
@@ -8,13 +10,52 @@ public class test {
 	 * @param args
 	 */
 	public static void main(String[] args) throws Exception {
-		String str = ".(fun (test A B)((return 3) ))";
-		System.out.println(str);
-		LexicalParser p = new LexicalParser(str);
-		LinkedList<Token> l = p.getList();
-		for(int i=0;i<l.size();i++){
-			System.out.println("token "+i+" : "+l.get(i).name+"\t"+l.get(i).type+"\n");
-		}
+		ParserIterator pi = new ParserIterator("test1");
+		TermImpl ti = (TermImpl)pi.getNextTerm();
+		System.out.println(ti.getValue());
+		ti = (TermImpl)pi.getNextTerm();
+		System.out.println(ti.getValue());
+		ti = (TermImpl)pi.getNextTerm();
+		System.out.println(ti.getValue());
+		ti = (TermImpl)pi.getNextTerm();
+		System.out.println(ti.getValue());
+		ti = (TermImpl)pi.getNextTerm();
+		System.out.println(ti.getValue());
+		ti = (TermImpl)pi.getNextTerm();
+		System.out.println(ti.getValue());
+		ti = (TermImpl)pi.getNextTerm();
+		System.out.println(ti.getValue());
+		ti = (TermImpl)pi.getNextTerm();
+		System.out.println(ti.getValue());
+		ti = (TermImpl)pi.getNextTerm();
+		System.out.println(ti.getValue());
+		ti = (TermImpl)pi.getNextTerm();
+		System.out.println(ti.getValue());
+		ti = (TermImpl)pi.getNextTerm();
+		System.out.println(ti.getValue());
+		ti = (TermImpl)pi.getNextTerm();
+		System.out.println(ti.getValue());
+		ti = (TermImpl)pi.getNextTerm();
+		System.out.println(ti.getValue());
+		ti = (TermImpl)pi.getNextTerm();
+		System.out.println(ti.getValue());
+		ti = (TermImpl)pi.getNextTerm();
+		System.out.println(ti.getValue());
+		ti = (TermImpl)pi.getNextTerm();
+		System.out.println(ti.getValue());
+		ti = (TermImpl)pi.getNextTerm();
+		System.out.println(ti.getValue());
+		ti = (TermImpl)pi.getNextTerm();
+		System.out.println(ti.getValue());
+		ti = (TermImpl)pi.getNextTerm();
+		System.out.println(ti.getValue());
+		ti = (TermImpl)pi.getNextTerm();
+		System.out.println(ti.getValue());
+		ti = (TermImpl)pi.getNextTerm();
+		System.out.println(ti.getValue());
+		
+		
+		
 	}
 
 }
