@@ -1,18 +1,18 @@
 package happy;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
+
 import java.util.Hashtable;
 import java.util.List;
 
 import happy.checker.CheckPrecedence;
 import happy.parser.bnf.BnfParser;
-import happy.parser.bnf.Rule;
+
 import happy.parser.bnf.Term;
-import happy.parser.lexical.CodeLoader;
-import happy.parser.lexical.LexicalParser;
+
 import happy.parser.lexical.ParserIterator;
 import happy.parser.syntax.SyntaxParser;
+import happy.checker.checkWP;
+
 public class Main {
 	private ParserIterator lp = null;
 	private SyntaxParser sp  = null; 
@@ -20,10 +20,11 @@ public class Main {
 	private Hashtable<Term,Hashtable<Term,String>> prectable = null;
 	private boolean wpvalid = false;
 	
-	public Main(String bnfSyntax){
-		List<Term> allTerm = null;
+	public Main(String bnfSyntax) {
+		
 		try {
 			bnfp = new BnfParser(bnfSyntax);
+			//checkWP.checkAll(bnfp.getRules());
 		} catch (Exception e) {
 				e.printStackTrace();
 		}

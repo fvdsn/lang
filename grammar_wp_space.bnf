@@ -9,7 +9,7 @@
 <arglist_np> 	::=  ''id'' | 'id' 'esp' <arglist_np>
 
 <instr_list> 	::=  <instr> | '(' 'esp' <instr_list_np> 'esp'  ')' 
-<instr_list_np> ::=  <instr> | <instr> 'esp' <instr_list_np>
+<instr_list_np> ::=  <instr> | <instr> <instr_list_np>
 
 <instr> 		::=  <conditional> | <while_block> | <call> | '('  'esp' 'return' 'esp' <expr> 'esp' ')' | '(' 'esp'  'skip' 'esp' ')'
 <conditional> 	::= '(' 'esp' 'if' 'esp' <expr> 'esp' <instr_list> 'esp' <instr_list> 'esp' ')' 

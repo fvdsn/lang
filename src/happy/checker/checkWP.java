@@ -2,6 +2,8 @@ package happy.checker;
 import java.util.List;
 
 import happy.parser.bnf.*;
+
+
 public class checkWP {
 	public static boolean checkAll(List<Rule> grammar){
 		if(CheckLambda.checkLambda(grammar)){
