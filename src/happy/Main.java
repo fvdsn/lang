@@ -16,8 +16,7 @@ public class Main {
 	private LexicalParser lp = null;
 	private SyntaxParser sp  = null; 
 	private BnfParser bnfp   = null;
-	private Hashtable<Term,Hashtable<Term,String>> prectable = 
-		new Hashtable<Term,Hashtable<Term,String>>();
+	private Hashtable<Term,Hashtable<Term,String>> prectable = null;
 	private boolean wpvalid = false;
 	
 	public Main(String bnfSyntax){
@@ -27,14 +26,7 @@ public class Main {
 		} catch (Exception e) {
 				e.printStackTrace();
 		}
-		allTerm = CheckPrecedence.getAllTerm(bnfp.getRules());
-		for(Term l: allTerm){
-			Hashtable<Term,String> line = new Hashtable<Term,String>();
-			prectable.put(l,line);
-			for(Term col:allTerm){
-				line.put(col, CheckPrecedence.NOTHING);
-			}
-		}
+		prectable = CheckPrecedence.createTable(bnfp.getRules());
 		wpvalid = CheckPrecedence.precTable(bnfp.getRules(),prectable );
 	}
 	public void interpret(String codefile){

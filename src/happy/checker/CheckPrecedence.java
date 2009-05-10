@@ -344,6 +344,18 @@ public class CheckPrecedence {
 		System.out.println("   Pos:"+pos);
 		System.out.println("   XY:"+X+" "+Y);
 	}
+	public static Hashtable<Term,Hashtable<Term,String>> createTable(List<Rule> grammar){
+		List<Term> allTerm = getAllTerm(grammar);
+		Hashtable<Term,Hashtable<Term,String>> prectable = new Hashtable<Term,Hashtable<Term,String>>();
+		for(Term l: allTerm){
+			Hashtable<Term,String> line = new Hashtable<Term,String>();
+			prectable.put(l,line);
+			for(Term col:allTerm){
+				line.put(col, CheckPrecedence.NOTHING);
+			}
+		}
+		return prectable;
+	}
 	public static  boolean precTable(List<Rule> grammar, Hashtable<Term,Hashtable<Term,String>> table){
 		Hashtable<Term,Set<Term>> First = FirstSet(grammar);
 		Hashtable<Term,Set<Term>> Last = LastSet(grammar);
