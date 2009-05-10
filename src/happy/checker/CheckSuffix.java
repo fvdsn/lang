@@ -2,12 +2,12 @@ package happy.checker;
 
 import happy.parser.bnf.CatList;
 import happy.parser.bnf.Rule;
-import happy.parser.bnf.Term;
+
 
 
 
 import java.util.ArrayList;
-import java.util.Hashtable;
+
 import java.util.List;
 
 public class CheckSuffix {
@@ -45,43 +45,9 @@ public class CheckSuffix {
 								&& 
 								(r.getLeftSide().equals(p.r1.getLeftSide()))
 							)) {
-							/*
-							System.out.println(r.getLeftSide());
-							System.out.println(c);
-							System.out.println(p.r1.getLeftSide());
-							System.out.println(p.cat);*/
+							
 							problem.add(new RulesTuple(r, p.r1, c, p.cat));
-							//on vérifie les critères de la table précédence. 
-							
-							/**CatList before = getTermBeforeSuffix(p.cat, c);
-							CatList little = null;
-							Term rule = null;
-							if(before == p.cat) {
-								rule = r.getLeftSide();
-								
-								little = c;
-							}
-							else if(before == c) {
-								rule =  p.r1.getLeftSide();
-								little = p.cat;
-							}
-								
-							
-							if(rule != null) {
-								Term precedent = before.getTermList().get(before.getTermList().size() - 2);
-								
-								
-								
-									System.out.println("----------------------------");
-									System.out.println(rule + "   " + precedent);
-									System.out.println(table.get(precedent).get(rule));
-									System.out.println("----------------------------");
-							
-								
-							}**/
-							
-							
-							
+													
 						}
 					}
 				}
@@ -120,28 +86,5 @@ public class CheckSuffix {
 			cpt1--;
 		}
 		return suffix;
-	}
-	
-	/**
-	 * 
-	 * @param c1 catlist
-	 * @param c2 catlist
-	 * @return the catlist with the biggest number of Term, that one where we should take 
-	 * the element before the suffix
-	 */
-	private static CatList getTermBeforeSuffix(CatList c1, CatList c2) {
-		int size1 = c1.getTermList().size();
-		int size2 = c2.getTermList().size();
-		if(size1 > size2) {
-			return c1;
-		}
-		else if(size1 < size2) {
-			return c2;
-		}
-		else 
-			return null;
-		
-	}
-	
-	
+	}	
 }
