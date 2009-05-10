@@ -6,6 +6,7 @@ import happy.parser.bnf.Rule;
 import happy.parser.bnf.Term;
 import happy.parser.bnf.TermImpl;
 import happy.parser.lexical.LexicalParser;
+import happy.parser.lexical.ParserIterator;
 
 import java.util.Hashtable;
 import java.util.List;
@@ -13,11 +14,11 @@ import java.util.Stack;
 
 public class SyntaxParser {
 	private Stack<Term> stack = null;
-	private LexicalParser lexParser = null;
+	private ParserIterator lexParser = null;
 	private Hashtable<Term,Hashtable<Term,String>> prectable = null ;
 	private List<Rule> grammar = null;
 	private Term tree = null;
-	public SyntaxParser(LexicalParser lexParser, List<Rule> grammar, 
+	public SyntaxParser(ParserIterator lexParser, List<Rule> grammar, 
 			Hashtable<Term,Hashtable<Term,String>> prectable ){
 		this.grammar   = grammar;
 		this.lexParser = lexParser;
