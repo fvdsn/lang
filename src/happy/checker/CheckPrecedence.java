@@ -69,25 +69,6 @@ public class CheckPrecedence {
 		}
 		validity = precTable(grammar,table);
 		printTable(table,allTerm);
-		if(validity){
-			System.out.println("\nNo conflicts in table");
-		}else{
-			System.out.println("\nConflicts in table !");
-		}
-		
-		System.out.println("Validity precedence : " + validity);
-		System.out.println("Check conflit suffix : ");
-		
-		for(RulesTuple r : CheckSuffix.checkSuffix(grammar, table)) {
-			System.out.println("conflit avec \n " + r.prob + "  <<>>  " + r.prob2 + "\n" + r.r1.getLeftSide() + "\n" + r.r2.getLeftSide() + " \n");
-			validity = false;
-		}
-		
-		System.out.println("Validity grammar : " + validity);
-		
-		
-		
-		
 		return validity;
 	}
 	/**
