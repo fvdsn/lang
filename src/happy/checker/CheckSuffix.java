@@ -3,11 +3,7 @@ package happy.checker;
 import happy.parser.bnf.CatList;
 import happy.parser.bnf.Rule;
 
-
-
-
 import java.util.ArrayList;
-
 import java.util.List;
 
 public class CheckSuffix {
@@ -53,7 +49,6 @@ public class CheckSuffix {
 				}
 			}
 		}
-		System.out.println("Check conflit suffix : ");
 		
 		for(RulesTuple r : problem) {
 			System.out.println("conflit avec \n " + r.prob + "  <<>>  " + r.prob2 + "\n" + r.r1.getLeftSide() + "\n" + r.r2.getLeftSide() + " \n");
@@ -86,5 +81,5 @@ public class CheckSuffix {
 			cpt1--;
 		}
 		return suffix;
-	}	
+	}
 }
