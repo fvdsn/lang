@@ -44,8 +44,12 @@ public class Main {
 			System.out.println("Syntax is not WP");
 		}
 	}
+	public void checkGrammar(){
+		checkWP.checkAll(bnfp.getRules());
+	}
 	public static void main(String args[]){
 		Main m = new Main("grammar_wp_space.bnf");
+		m.checkGrammar();
 		//m.interpret("test1");
 	}
 }

@@ -20,12 +20,17 @@ public class CheckLambda {
 		}
 		for (Rule r:grammar){
 			if (r.getOrList() == null){
+				System.out.println("La règle -"+r.getName()+"- n'a pas de production");
 				valid = false;
 			}else if(r.getOrList().isEmpty()){
+
+				System.out.println("La règle -"+r.getName()+"- n'a pas de production");
 				valid = false;
 			}else{
 				for(CatList cl:r.getOrList()){
 					if (cl.getTermList().isEmpty()){
+
+						System.out.println("La règle -"+r.getName()+"- a une production vide");
 						valid = false;
 					}
 				}
