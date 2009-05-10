@@ -24,7 +24,7 @@ public class Main {
 		
 		try {
 			bnfp = new BnfParser(bnfSyntax);
-			//checkWP.checkAll(bnfp.getRules());
+			checkWP.checkAll(bnfp.getRules());
 		} catch (Exception e) {
 				e.printStackTrace();
 		}
@@ -46,6 +46,6 @@ public class Main {
 	}
 	public static void main(String args[]){
 		Main m = new Main("grammar_wp_space.bnf");
-		m.interpret("test1");
+		//m.interpret("test1");
 	}
 }
