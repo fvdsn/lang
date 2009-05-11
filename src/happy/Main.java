@@ -2,9 +2,7 @@ package happy;
 
 
 import java.util.Hashtable;
-import java.util.List;
 
-import happy.checker.CheckPrecedence;
 import happy.parser.bnf.BnfParser;
 
 import happy.parser.bnf.Term;
@@ -48,7 +46,7 @@ public class Main {
 		checkWP.checkAll(bnfp.getRules());
 	}
 	public static void main(String args[]){
-		Main m = new Main("grammar_new.bnf");
+		Main m = new Main("temp.bnf");
 		m.checkGrammar();
 		//m.interpret("test1");
 	}
