@@ -28,8 +28,8 @@ public class Main {
 		} catch (Exception e) {
 				e.printStackTrace();
 		}
-		prectable = CheckPrecedence.createTable(bnfp.getRules());
-		wpvalid = CheckPrecedence.precTable(bnfp.getRules(),prectable );
+		//prectable = CheckPrecedence.createTable(bnfp.getRules());
+		//wpvalid = CheckPrecedence.precTable(bnfp.getRules(),prectable );
 	}
 	public void interpret(String codefile){
 		try{
@@ -48,7 +48,7 @@ public class Main {
 		checkWP.checkAll(bnfp.getRules());
 	}
 	public static void main(String args[]){
-		Main m = new Main("grammar_wp_space.bnf");
+		Main m = new Main("grammar_new.bnf");
 		m.checkGrammar();
 		//m.interpret("test1");
 	}

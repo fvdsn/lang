@@ -24,6 +24,7 @@ public class checkWP {
 		}
 		else {
 			System.out.println("2) FAIL : La grammaire contient des symbole inaccessibles");
+			return false;
 		}
 		
 		if(CheckRevertible.check(grammar)){
