@@ -13,5 +13,15 @@ public class CharIdentifier {
 		return false;
 	}
 	
+	public static int isReserved(char c) {
+		if(c == '(') {
+			return (int) '(';
+		}
+		if(c == ')') {
+			return (int) ')';
+		}
+		return -1;
+	}
+	
 	
 }

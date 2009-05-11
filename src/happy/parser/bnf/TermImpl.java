@@ -5,7 +5,7 @@ import java.util.List;
 
 public class TermImpl implements Term {
 	String term;
-	String value;
+	protected String value;
 	boolean terminal;
 	int	line;
 	int collumn;
