@@ -2,6 +2,7 @@ package happy.parser.newlexical;
 
 import happy.parser.bnf.Term;
 import happy.parser.util.CharIdentifier;
+import happy.parser.util.WordIdentifier;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -57,9 +58,14 @@ public class LexicalParser implements Iterable<Term>, Iterator<Term> {
 				if(c == -1) {
 					
 					hasNext = false;
+					if(level != 0) {
+						System.out.println("Unexpected end");
+						System.exit(0);
+					}
 					if(str.length() == 0) {
 						return null;
 					}
+					
 					return new LexicalTerm(findTerm(str.toString()), true, findLexicalTerm(str.toString()), str.toString());
 				}
 				char ca = (char) c;
@@ -88,6 +94,10 @@ public class LexicalParser implements Iterable<Term>, Iterator<Term> {
 							if(car == ')') {
 								level--;
 							}
+							if(level < 0) {
+								System.out.println("Too much ) ");
+								System.exit(2);
+							}
 							return new LexicalTerm(new Character(car).toString(), true, new Character(car).toString(), new Character(car).toString());
 						}
 						next = new LexicalTerm(new Character(car).toString(), true, new Character(car).toString(), new Character(car).toString());
@@ -97,6 +107,10 @@ public class LexicalParser implements Iterable<Term>, Iterator<Term> {
 						}
 						if(car == ')') {
 							level--;
+						}
+						if(level < 0) {
+							System.out.println("Too much ) ");
+							System.exit(2);
 						}
 						return t;
 					}
@@ -128,7 +142,40 @@ public class LexicalParser implements Iterable<Term>, Iterator<Term> {
 	}
 	
 	private String findLexicalTerm(String value) {
-		return "";
+		if(value.contains(".")) {
+			String[] s = value.split("[.]");
+			if(s.length != 2) {
+				System.out.println("erreur de syntaxe at " + value);
+				System.exit(1);
+			}
+			
+			return WordIdentifier.getDotExpr(s[0], s[1]);
+		}
+		
+		
+		String rWord = WordIdentifier.isReservedWord(value);
+		if(rWord != null) {
+			//System.out.println(rWord);
+			if(WordIdentifier.isBinaryOp(rWord)) {
+				return LexicalTerm.BINARY_OP;
+			}
+			if(WordIdentifier.isUnaryOP(rWord)) {
+				return LexicalTerm.UNARY_OP;
+			}
+			
+			return rWord;
+		}
+		else {
+			try {
+				Integer.parseInt(value);
+				return "number";
+				
+				
+			}
+			catch(NumberFormatException e) {
+				return "id";
+			}
+		}
 	}
 	
 	public static void main(String[] args) throws FileNotFoundException {
@@ -136,8 +183,9 @@ public class LexicalParser implements Iterable<Term>, Iterator<Term> {
 		LexicalParser p = new LexicalParser("test1");
 		
 		for(Term t : p) {
+			LexicalTerm t1 = (LexicalTerm) t;
 			if(t != null) {
-				System.out.println(t.getValue() + "  " + t.getType());
+				System.out.println(t.getValue() + "\t\t" + t.getType() + "\t" + t1.lexicalTerm);
 				
 			}
 		}

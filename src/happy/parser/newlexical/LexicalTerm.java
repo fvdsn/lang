@@ -23,4 +23,7 @@ public class LexicalTerm extends TermImpl {
 		}
 		return false;
 	}
+	
+	public static final String BINARY_OP = "binary_op";
+	public static final String UNARY_OP = "unary_op";
 }
