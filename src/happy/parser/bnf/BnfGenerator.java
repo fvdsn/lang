@@ -19,6 +19,7 @@ public class BnfGenerator {
 		FileWriter writer = new FileWriter(file);
 		for(int i = 0; i < level; i++) {
 			writer.write(getLi(i) + "\n");
+			writer.write(getLiBlock(i) + "\n");
 			writer.write(getLiList(i) + "\n");
 			
 		}
@@ -29,7 +30,7 @@ public class BnfGenerator {
 	}
 	
 	private String getLi(int i) {
-		return "<l"+ i + "> ::= '(' <l" + i + "_list>  ')' | 'l" + i + "_id'";
+		return "<l"+ i + "> ::= <l" + i + "_block>  ')' | 'l" + i + "_id'";
 	}
 	
 	private String getLiList(int i) {
@@ -40,8 +41,15 @@ public class BnfGenerator {
 		return "<l"+ n + "> ::= 'l" + n + "_id'";
 	}
 	
-	public static void main(String[] args) throws IOException {
-		new BnfGenerator(4).Generate("temp.bnf");
+	private String getLiBlock(int i) {
+		return "<l"+ i + "_block> ::= '(' <l" + i  + "_list>";
 	}
+	
+	public static void main(String[] args) throws IOException {
+		new BnfGenerator(5).Generate("temp.bnf");
+	}
+	
+	
+	
 
 }

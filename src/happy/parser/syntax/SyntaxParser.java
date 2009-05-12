@@ -38,7 +38,7 @@ public class SyntaxParser {
 			else {
 		
 				stack.push(next);
-				System.out.println("Token : "+ next.getValue()+":"+next.toString());
+				//System.out.println("Token : "+ next.getValue()+":"+next.toString());
 				return true;
 			}
 		}else{
@@ -86,7 +86,7 @@ public class SyntaxParser {
 					stack.pop();
 				}
 				stack.push(t);
-				printStack();
+				//printStack();
 				return true;
 				
 			}
@@ -100,78 +100,40 @@ public class SyntaxParser {
 			for (CatList c:r.getOrList()){
 				List<Term> l = c.getTermList();
 				
-				//System.out.println("--------------");
+				
 				int start = stack.size() - l.size() - 1;
 				if(start >= 0) {
-					//System.out.println(stack.get(start));
-					//System.out.println(r.getLeftSide() + "   " + l.get(0));
-					//System.out.println("--------------");
+					
 					boolean match = true;
 					for(int i = 0; i < l.size(); i++) {
 						if(!stack.get(start + i).getType().equals(l.get(i).getType())) {
 							match = false;
-							//System.out.println("NOT MATCH !!!!");
+							
 						}
 					}
 					if(match) {
-						System.out.println("MATCHHH");
-						//System.out.println(stack.size() - start);
-						//System.out.println(stack.size() - start - l.size());
+						
 						
 						Term t = new TermImpl(r.getLeftSide().toString(), false);
 						List<Term> Rchild = t.getChildList();
-						//System.out.println(Rchild.size() + " "  + l.size());
+						
 						for(int i = 0; i < l.size(); i++) {
 							Rchild.add(stack.get(start + i));
 						}
-						//System.out.println(Rchild.size() + " "  + l.size());
+						
 						Term temp = stack.pop();
 						for(int i = 0; i < l.size(); i++) {
 							stack.pop();
 						}
 						stack.push(t);
 						stack.push(temp);
-						printStack();
+						//printStack();
 						return true;
 					}
 					
 				}
 				
-				/*int llen = l.size();
-				int slen = stack.size();
-				int start = slen - llen;
-				int i = 0;
-				System.out.println(llen + "  " + slen + "   " + start);
-				boolean match = true;
-				if(slen >= llen){
-					while(i < llen){	// check if the top of the stack matches a right side 
-						System.out.println(stack.get(start + i).toString() + l.get(start + i).toString() );
-						if(!stack.get(start + i).equals(l.get(start + i))){
-							match = false;
-							break;
-						}
-						i++;
-					}
-					if(match){
-						hasReduced = true;
-						// we create a new Term R with the matched ones as childs 
-						Term R = new TermImpl(r.getLeftSide().toString(),false);
-						List<Term> Rchild = R.getChildList();
-						i = 0;
-						while(i <llen){
-							Rchild.add(stack.get(start + i));
-							i++;
-						}
-						// we remove the matched ones from the stack 
-						i = 0;
-						while(i < llen){
-							stack.pop();
-							i++;
-						}
-						//we add R on top of the stack 
-						stack.push(R);
-					}
-				}*/
+				
 			}
 		}
 		return hasReduced;
@@ -179,7 +141,7 @@ public class SyntaxParser {
 	}
 	public void parse(){
 		while(shift()){
-			printStack();
+			//printStack();
 			int s = stack.size();
 			if(s >= 2){
 				if(prec(s-2,s-1).equals(CheckPrecedence.NOTHING)
@@ -193,34 +155,21 @@ public class SyntaxParser {
 						System.out.println("couldn't reduce ...");
 						return;
 					}
-					printStack();
+					//printStack();
 					s = stack.size();
 				}
 				
-				System.out.println(prec(s-2,s-1));
-				boolean red = true;
-				while(red) {
-					if(prec(s-2,s-1).equals(CheckPrecedence.EQ)) {
-						System.out.println("entre");
-						if(!reduce()) {
-							System.out.println("pas réduit");
-							red = false;
-						}
-						else {
-							printStack();
-							s = stack.size();
-						}
-					}
-					else {
-						red = false;
-					}
-				}
+				//System.out.println(prec(s-2,s-1));
+				
 			}
 		}
 		if(stack.size() == 1){
 			System.out.println("Success");
 			tree = stack.pop();
 			tree.printTree(0);
+			TreeOrganiser to = new TreeOrganiser(tree);
+			to.contract();
+			to.printTree();
 		}else{
 			System.out.println("program too long ... ");
 		}

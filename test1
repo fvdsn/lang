@@ -1,6 +1,9 @@
-( 
-	(fun (main) ((test)))
-	(fun (test) ((read)))
-)
- 
+(
+(fun (main) ((write 42) (read a)) )
+(method.4 (salut a)  
+	(
+		(super.salut 7)
+	)
 
+)
+)

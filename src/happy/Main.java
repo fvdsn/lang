@@ -18,7 +18,7 @@ public class Main {
 	private SyntaxParser sp  = null; 
 	private BnfParser bnfp   = null;
 	private Hashtable<Term,Hashtable<Term,String>> prectable = null;
-	private boolean wpvalid = false;
+	
 	
 	public Main(String bnfSyntax) {
 		
