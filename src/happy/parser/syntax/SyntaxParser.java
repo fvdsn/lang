@@ -31,10 +31,16 @@ public class SyntaxParser {
 	public boolean shift(){
 		if(lexParser.hasNext()) {
 			Term next = lexParser.next();
+			if(next == null) {
+				lastReduce();
+				return false;
+			}
+			else {
 		
-			stack.push(next);
-			System.out.println("Token : "+ next.getValue()+":"+next.toString());
-			return true;
+				stack.push(next);
+				System.out.println("Token : "+ next.getValue()+":"+next.toString());
+				return true;
+			}
 		}else{
 			System.out.println("End of Program");
 			return false;
@@ -55,18 +61,51 @@ public class SyntaxParser {
 		}
 		System.out.println("");
 	}
+	
+	public boolean lastReduce() {
+
+		for(Rule r:grammar) {
+			for (CatList c:r.getOrList()){
+				List<Term> l = c.getTermList();
+				int start = 0;
+				boolean match = true;
+				for(int i = 0; i < l.size(); i++) {
+					if(!stack.get(start + i).getType().equals(l.get(i).getType())) {
+						match = false;
+						
+					}
+				}
+				System.out.println("LAST MATCHHH");
+				Term t = new TermImpl(r.getLeftSide().toString(), false);
+				List<Term> Rchild = t.getChildList();
+				for(int i = 0; i < l.size(); i++) {
+					Rchild.add(stack.get(start + i));
+				}
+				
+				for(int i = 0; i < l.size(); i++) {
+					stack.pop();
+				}
+				stack.push(t);
+				printStack();
+				return true;
+				
+			}
+		}
+		return false;
+	}
+	
 	public boolean reduce(){
 		boolean hasReduced = false;
 		for(Rule r:grammar){
 			for (CatList c:r.getOrList()){
 				List<Term> l = c.getTermList();
 				
-				System.out.println("--------------");
+				//System.out.println("--------------");
 				int start = stack.size() - l.size() - 1;
 				if(start >= 0) {
-					System.out.println(stack.get(start));
-					System.out.println(r.getLeftSide() + "   " + l.get(0));
-					System.out.println("--------------");
+					//System.out.println(stack.get(start));
+					//System.out.println(r.getLeftSide() + "   " + l.get(0));
+					//System.out.println("--------------");
 					boolean match = true;
 					for(int i = 0; i < l.size(); i++) {
 						if(!stack.get(start + i).getType().equals(l.get(i).getType())) {
@@ -76,18 +115,19 @@ public class SyntaxParser {
 					}
 					if(match) {
 						System.out.println("MATCHHH");
-						System.out.println(stack.size() - start);
-						System.out.println(stack.size() - start - l.size());
+						//System.out.println(stack.size() - start);
+						//System.out.println(stack.size() - start - l.size());
 						
 						Term t = new TermImpl(r.getLeftSide().toString(), false);
 						List<Term> Rchild = t.getChildList();
+						//System.out.println(Rchild.size() + " "  + l.size());
 						for(int i = 0; i < l.size(); i++) {
 							Rchild.add(stack.get(start + i));
 						}
-						
+						//System.out.println(Rchild.size() + " "  + l.size());
 						Term temp = stack.pop();
 						for(int i = 0; i < l.size(); i++) {
-							Rchild.add(stack.pop());
+							stack.pop();
 						}
 						stack.push(t);
 						stack.push(temp);
@@ -147,6 +187,7 @@ public class SyntaxParser {
 					System.out.println("illegal grammar :"+prec(s-2,s-1));
 					return;
 				}
+				
 				while(prec(s-2,s-1).equals(CheckPrecedence.GE)){
 					if(!reduce()){
 						System.out.println("couldn't reduce ...");
@@ -154,6 +195,25 @@ public class SyntaxParser {
 					}
 					printStack();
 					s = stack.size();
+				}
+				
+				System.out.println(prec(s-2,s-1));
+				boolean red = true;
+				while(red) {
+					if(prec(s-2,s-1).equals(CheckPrecedence.EQ)) {
+						System.out.println("entre");
+						if(!reduce()) {
+							System.out.println("pas réduit");
+							red = false;
+						}
+						else {
+							printStack();
+							s = stack.size();
+						}
+					}
+					else {
+						red = false;
+					}
 				}
 			}
 		}

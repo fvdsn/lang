@@ -14,7 +14,10 @@ public class TermImpl implements Term {
 	public TermImpl(String term, boolean terminal) {
 		this.term = term;
 		this.terminal = terminal;
-		this.value = term;
+		if(terminal) 
+			this.value = term;
+		else 
+			this.value = null;
 		this.childList = new LinkedList<Term>();
 		this.line = 0;
 		this.collumn = 0;
@@ -97,7 +100,9 @@ public class TermImpl implements Term {
 		}
 	}
 	public void printTree(int indent){
+		
 		indent(indent);
+		
 		if(value != null){
 			System.out.println(value+" ("+term+") "+line);
 		}else{

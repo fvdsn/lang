@@ -26,4 +26,9 @@ public class LexicalTerm extends TermImpl {
 	
 	public static final String BINARY_OP = "binary_op";
 	public static final String UNARY_OP = "unary_op";
+	
+	
+	public static LexicalTerm espFactory() {
+		return new LexicalTerm("esp", true, "esp", "esp");
+	}
 }

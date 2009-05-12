@@ -1,1 +1,6 @@
-(fun (main) (write 42))
+( 
+	(fun (main) ((test)))
+	(fun (test) ((read)))
+)
+ 
+

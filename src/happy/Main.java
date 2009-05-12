@@ -48,12 +48,12 @@ public class Main {
 	}
 	public static void main(String args[]){
 		Main m = new Main("temp.bnf");
-		if(m.checkGrammar()) {
+		//if(m.checkGrammar()) {
 			m.interpret("test1");
-		}
-		else {
-			System.out.println("Grammaire non wp");
-		}
+		//}
+		//else {
+			//System.out.println("Grammaire non wp");
+		//}
 		
 	}
 }
