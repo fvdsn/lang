@@ -6,6 +6,7 @@ import happy.parser.bnf.Rule;
 import happy.parser.bnf.Term;
 import happy.parser.bnf.TermImpl;
 import happy.parser.newlexical.LexicalParser;
+import happy.parser.newlexical.LexicalTerm;
 
 
 import java.util.Hashtable;
@@ -59,13 +60,52 @@ public class SyntaxParser {
 		for(Rule r:grammar){
 			for (CatList c:r.getOrList()){
 				List<Term> l = c.getTermList();
-				int llen = l.size();
+				
+				System.out.println("--------------");
+				int start = stack.size() - l.size() - 1;
+				if(start >= 0) {
+					System.out.println(stack.get(start));
+					System.out.println(r.getLeftSide() + "   " + l.get(0));
+					System.out.println("--------------");
+					boolean match = true;
+					for(int i = 0; i < l.size(); i++) {
+						if(!stack.get(start + i).getType().equals(l.get(i).getType())) {
+							match = false;
+							//System.out.println("NOT MATCH !!!!");
+						}
+					}
+					if(match) {
+						System.out.println("MATCHHH");
+						System.out.println(stack.size() - start);
+						System.out.println(stack.size() - start - l.size());
+						
+						Term t = new TermImpl(r.getLeftSide().toString(), false);
+						List<Term> Rchild = t.getChildList();
+						for(int i = 0; i < l.size(); i++) {
+							Rchild.add(stack.get(start + i));
+						}
+						
+						Term temp = stack.pop();
+						for(int i = 0; i < l.size(); i++) {
+							Rchild.add(stack.pop());
+						}
+						stack.push(t);
+						stack.push(temp);
+						printStack();
+						return true;
+					}
+					
+				}
+				
+				/*int llen = l.size();
 				int slen = stack.size();
 				int start = slen - llen;
 				int i = 0;
+				System.out.println(llen + "  " + slen + "   " + start);
 				boolean match = true;
 				if(slen >= llen){
-					while(i < llen){	/* check if the top of the stack matches a right side */
+					while(i < llen){	// check if the top of the stack matches a right side 
+						System.out.println(stack.get(start + i).toString() + l.get(start + i).toString() );
 						if(!stack.get(start + i).equals(l.get(start + i))){
 							match = false;
 							break;
@@ -74,7 +114,7 @@ public class SyntaxParser {
 					}
 					if(match){
 						hasReduced = true;
-						/* we create a new Term R with the matched ones as childs */
+						// we create a new Term R with the matched ones as childs 
 						Term R = new TermImpl(r.getLeftSide().toString(),false);
 						List<Term> Rchild = R.getChildList();
 						i = 0;
@@ -82,16 +122,16 @@ public class SyntaxParser {
 							Rchild.add(stack.get(start + i));
 							i++;
 						}
-						/* we remove the matched ones from the stack */
+						// we remove the matched ones from the stack 
 						i = 0;
 						while(i < llen){
 							stack.pop();
 							i++;
 						}
-						/* we add R on top of the stack */
+						//we add R on top of the stack 
 						stack.push(R);
 					}
-				}
+				}*/
 			}
 		}
 		return hasReduced;
