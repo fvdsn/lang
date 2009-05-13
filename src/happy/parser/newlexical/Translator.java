@@ -22,7 +22,21 @@ public class Translator {
 		child.remove(0);
 		child.remove(child.size() - 1);
 		for(LexicalTerm tt : t.getLexChildList()) {
-			System.out.println(tt);
+			if(tt.lexicalTerm == null) {
+				System.out.println("list");
+			}
+			else if(tt.lexicalTerm.equals("fun")) {
+				System.out.println("fun");
+			}
+			else if(tt.lexicalTerm.equals("method_int")) {
+				
+				System.out.println("method");
+			}
+			else {
+				System.out.println("Erreur de syntaxe");
+				System.exit(0);
+			}
+			
 		}
 		return null;
 		

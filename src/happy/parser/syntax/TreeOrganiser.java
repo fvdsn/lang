@@ -20,13 +20,30 @@ public class TreeOrganiser {
 		printTree();
 		//contract(tree);
 		removeLastBlock(tree);
-		//printTree();
+		
 		phase2(tree);
+		printTree();
+		
+		check(tree);
 		lexTree = new LexicalTerm(tree.getType(), tree.getChildList());
 		lexTree.printLexTree(0);
+		
 		return lexTree;
 		
 		
+	}
+	
+	private void check(Term t) {
+		
+		System.out.println(t.getType());
+		char last = t.getType().charAt(t.getType().length() - 1);
+		if(last == 't') {
+			System.out.println("Erreur de syntaxe");
+			System.exit(0);
+		}
+		for(Term tt : t.getChildList()){
+			check(tt);
+		}
 	}
 	
 	private void contract(Term tree) {

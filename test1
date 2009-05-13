@@ -1,8 +1,10 @@
 (
-	(fun (main) (
+	(fun (salut main) (
 		(write 42) 
 		(read a)
-	))
+		(read a (test a))
+		)
+	)
 	
 	(method.4 (salut a) (
 		(super.salut 7)
