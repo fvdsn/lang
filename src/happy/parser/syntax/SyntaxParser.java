@@ -7,6 +7,7 @@ import happy.parser.bnf.Term;
 import happy.parser.bnf.TermImpl;
 import happy.parser.newlexical.LexicalParser;
 import happy.parser.newlexical.LexicalTerm;
+import happy.parser.newlexical.Translator;
 
 
 import java.util.Hashtable;
@@ -168,8 +169,8 @@ public class SyntaxParser {
 			tree = stack.pop();
 			tree.printTree(0);
 			TreeOrganiser to = new TreeOrganiser(tree);
-			to.contract();
-			to.printTree();
+			new Translator(to.contract());
+			//to.printTree();
 		}else{
 			System.out.println("program too long ... ");
 		}

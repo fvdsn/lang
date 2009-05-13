@@ -1,4 +1,4 @@
-<number>		::=  <number> | 'pnumber'		
+		
 <meth_or_fun> 	::=  <methode> | <function>
 <Program> 		::=  <meth_or_fun> | <Program>  <meth_or_fun>
 <function> 		::= '(' 'fun' '(' <arglist> ')' 'esp' <instr_list> 'esp' ')' 

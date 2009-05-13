@@ -66,14 +66,14 @@ public class LexicalParser implements Iterable<Term>, Iterator<Term> {
 						return null;
 					}
 					
-					return new LexicalTerm(findTerm(str.toString()), true, findLexicalTerm(str.toString()), str.toString());
+					return new LexicalTerm(findTerm(str.toString()), findLexicalTerm(str.toString()), str.toString());
 				}
 				char ca = (char) c;
 				//System.out.println(ca);
 				if(CharIdentifier.isSpace(ca)) {
 					if(!start) {
 					
-						return new LexicalTerm(findTerm(str.toString()), true, findLexicalTerm(str.toString()), str.toString());
+						return new LexicalTerm(findTerm(str.toString()), findLexicalTerm(str.toString()), str.toString());
 					}					
 				}
 				else {
@@ -98,10 +98,10 @@ public class LexicalParser implements Iterable<Term>, Iterator<Term> {
 								System.out.println("Too much ) ");
 								System.exit(2);
 							}
-							return new LexicalTerm(new Character(car).toString(), true, new Character(car).toString(), new Character(car).toString());
+							return new LexicalTerm(new Character(car).toString(), new Character(car).toString(), new Character(car).toString());
 						}
-						next = new LexicalTerm(new Character(car).toString(), true, new Character(car).toString(), new Character(car).toString());
-						LexicalTerm t = new LexicalTerm(findTerm(str.toString()), true, findLexicalTerm(str.toString()), str.toString());
+						next = new LexicalTerm(new Character(car).toString(), new Character(car).toString(), new Character(car).toString());
+						LexicalTerm t = new LexicalTerm(findTerm(str.toString()), findLexicalTerm(str.toString()), str.toString());
 						if(car == '(') {							
 							level++;
 						}

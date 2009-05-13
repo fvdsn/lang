@@ -4,21 +4,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 import happy.parser.bnf.Term;
+import happy.parser.newlexical.LexicalTerm;
 import happy.parser.util.CharIdentifier;
 
 public class TreeOrganiser {
 	Term tree;
+	LexicalTerm lexTree;
+	
 	public TreeOrganiser(Term tree) {
 		this.tree = tree;
 	}
 	
-	public void contract() {
+	public LexicalTerm contract() {
 		contract(tree);
 		printTree();
 		//contract(tree);
 		removeLastBlock(tree);
-		printTree();
+		//printTree();
 		phase2(tree);
+		lexTree = new LexicalTerm(tree.getType(), tree.getChildList());
+		lexTree.printLexTree(0);
+		return lexTree;
+		
+		
 	}
 	
 	private void contract(Term tree) {
@@ -60,7 +68,7 @@ public class TreeOrganiser {
 				List<Term> child = t.getChildList();
 				if(child.size() == 1) {
 					list.set(i, t.getChildList().get(0));
-					System.out.println("c'est un id on reduit");
+					//System.out.println("c'est un id on reduit");
 				}
 				if(child.size() == 2) {
 					
@@ -120,4 +128,6 @@ public class TreeOrganiser {
 	public void printTree() {
 		tree.printTree(0);
 	}
+	
+	
 }

@@ -1,14 +1,32 @@
 package happy.parser.newlexical;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import happy.parser.bnf.Term;
 import happy.parser.bnf.TermImpl;
 
 public class LexicalTerm extends TermImpl {
 	String lexicalTerm;
+	List<LexicalTerm> child = new LinkedList<LexicalTerm>();
 	
-	public LexicalTerm(String term, boolean terminal, String lexicalTerm, String value) {
-		super(term, terminal);
+	public LexicalTerm(String term, String lexicalTerm, String value) {
+		super(term, true);
 		this.lexicalTerm = lexicalTerm;
 		this.value = value;
+	}
+	
+	public LexicalTerm(String term, List<Term> child) {
+		super(term, false);
+		for(Term t : child) {
+			if(t.isTerminal()) {
+				LexicalTerm tt = (LexicalTerm) t;
+				this.child.add(tt);
+			}
+			else {
+				this.child.add(new LexicalTerm(t.getType(), t.getChildList()));
+			}
+		}
 	}
 	
 	@Override
@@ -28,7 +46,30 @@ public class LexicalTerm extends TermImpl {
 	public static final String UNARY_OP = "unary_op";
 	
 	
-	public static LexicalTerm espFactory() {
-		return new LexicalTerm("esp", true, "esp", "esp");
+	
+	public List<LexicalTerm> getLexChildList() {
+		
+		return child;
+	}
+	
+	private void indent(int level){
+		while(level-- >= 0){
+			System.out.print(":  ");
+		}
+	}
+	public void printLexTree(int indent){
+		
+		indent(indent);
+		
+		if(value != null){
+			System.out.println(value+" ("+lexicalTerm+") ");
+		}else{
+			System.out.println("<"+getType()+">");
+			
+		}
+		for(LexicalTerm t :child){
+			
+			t.printLexTree(indent + 1);
+		}
 	}
 }
