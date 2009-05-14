@@ -19,26 +19,26 @@ public class LexicalParser implements Iterable<Term>, Iterator<Term> {
 	BufferedReader reader;
 	boolean hasNext = true;
 	LexicalTerm next = null;
-	
+
 	public LexicalParser(String file) throws FileNotFoundException {
 		File f = new File(file);
 		this.reader = new BufferedReader(new FileReader(f));
 	}
-	
-	
+
+
 
 	@Override
 	public Iterator<Term> iterator() {
-		
+
 		return this;
 	}
-	
+
 	@Override
 	public boolean hasNext() {
-		
+
 		return hasNext;
 	}
-	
+
 	@Override
 	public Term next()  {
 		if(next != null) {
@@ -47,15 +47,16 @@ public class LexicalParser implements Iterable<Term>, Iterator<Term> {
 			return temp;
 		}
 		boolean start = true;
+		boolean comment = false;
 		StringBuilder str = new StringBuilder();
 
 		while(true) {
 			try {
 				int c = this.reader.read();
-			
-			
+
+
 				if(c == -1) {
-					
+
 					hasNext = false;
 					if(level != 0) {
 						System.out.println("Unexpected end");
@@ -64,30 +65,53 @@ public class LexicalParser implements Iterable<Term>, Iterator<Term> {
 					if(str.length() == 0) {
 						return null;
 					}
-					
+
 					return new LexicalTerm(findTerm(str.toString()), findLexicalTerm(str.toString()), str.toString());
 				}
 				char ca = (char) c;
-				//System.out.println(ca);
-				if(CharIdentifier.isSpace(ca)) {
-					if(!start) {
-					
-						return new LexicalTerm(findTerm(str.toString()), findLexicalTerm(str.toString()), str.toString());
-					}					
+				
+				if(ca=='['){
+					comment = true;
 				}
-				else {
-					int cha = CharIdentifier.isReserved(ca);
-					if(cha == -1) {
-						start = false;
-						str.append(ca);
+				if(ca==']'){
+					comment = false;
+				}
+
+				if(!comment){
+
+					if(CharIdentifier.isSpace(ca)) {
+						if(!start) {
+
+							return new LexicalTerm(findTerm(str.toString()), findLexicalTerm(str.toString()), str.toString());
+						}					
 					}
 					else {
-						
-						char car = (char) cha;
-						
-						if(str.length() == 0) {
-							if(car == '(') {
-								
+						int cha = CharIdentifier.isReserved(ca);
+						if(cha == -1) {
+							start = false;
+							str.append(ca);
+						}
+						else {
+
+							char car = (char) cha;
+
+							if(str.length() == 0) {
+								if(car == '(') {
+
+									level++;
+								}
+								if(car == ')') {
+									level--;
+								}
+								if(level < 0) {
+									System.out.println("Too much ) ");
+									System.exit(2);
+								}
+								return new LexicalTerm(new Character(car).toString(), new Character(car).toString(), new Character(car).toString());
+							}
+							next = new LexicalTerm(new Character(car).toString(), new Character(car).toString(), new Character(car).toString());
+							LexicalTerm t = new LexicalTerm(findTerm(str.toString()), findLexicalTerm(str.toString()), str.toString());
+							if(car == '(') {							
 								level++;
 							}
 							if(car == ')') {
@@ -97,21 +121,8 @@ public class LexicalParser implements Iterable<Term>, Iterator<Term> {
 								System.out.println("Too much ) ");
 								System.exit(2);
 							}
-							return new LexicalTerm(new Character(car).toString(), new Character(car).toString(), new Character(car).toString());
+							return t;
 						}
-						next = new LexicalTerm(new Character(car).toString(), new Character(car).toString(), new Character(car).toString());
-						LexicalTerm t = new LexicalTerm(findTerm(str.toString()), findLexicalTerm(str.toString()), str.toString());
-						if(car == '(') {							
-							level++;
-						}
-						if(car == ')') {
-							level--;
-						}
-						if(level < 0) {
-							System.out.println("Too much ) ");
-							System.exit(2);
-						}
-						return t;
 					}
 				}
 			}
@@ -129,7 +140,7 @@ public class LexicalParser implements Iterable<Term>, Iterator<Term> {
 	public void remove() throws NotImplementedException {
 		throw new NotImplementedException();		
 	}
-	
+
 	/**
 	 * On sait qu'on a pas affaire au paranthèse donc, c'est forcément un id
 	 * reste à connaitre le niveau
@@ -139,7 +150,7 @@ public class LexicalParser implements Iterable<Term>, Iterator<Term> {
 	private String findTerm(String value) {
 		return "l_id";
 	}
-	
+
 	private String findLexicalTerm(String value) {
 		if(value.contains(".")) {
 			String[] s = value.split("[.]");
@@ -147,11 +158,11 @@ public class LexicalParser implements Iterable<Term>, Iterator<Term> {
 				System.out.println("erreur de syntaxe at " + value);
 				System.exit(1);
 			}
-			
+
 			return WordIdentifier.getDotExpr(s[0], s[1]);
 		}
-		
-		
+
+
 		String rWord = WordIdentifier.isReservedWord(value);
 		if(rWord != null) {
 			//System.out.println(rWord);
@@ -161,31 +172,31 @@ public class LexicalParser implements Iterable<Term>, Iterator<Term> {
 			if(WordIdentifier.isUnaryOP(rWord)) {
 				return LexicalTerm.UNARY_OP;
 			}
-			
+
 			return rWord;
 		}
 		else {
 			try {
 				Integer.parseInt(value);
 				return "number";
-				
-				
+
+
 			}
 			catch(NumberFormatException e) {
 				return "id";
 			}
 		}
 	}
-	
+
 	public static void main(String[] args) throws FileNotFoundException {
-		
+
 		LexicalParser p = new LexicalParser("test1");
-		
+
 		for(Term t : p) {
 			LexicalTerm t1 = (LexicalTerm) t;
 			if(t != null) {
 				System.out.println(t.getValue() + "\t\t" + t.getType() + "\t" + t1.lexicalTerm);
-				
+
 			}
 		}
 	}
