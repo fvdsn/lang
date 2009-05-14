@@ -46,6 +46,7 @@ public class FieldDes extends Des
 	public Val getVal(Env e, Store st) throws SlipError {
 		try {
 			Val v = e.get(x);
+			
 			if(v.getType() != Val.OBJECT) {
 				throw new SlipError("Error : cannot acces to a field on non object variable");
 			}

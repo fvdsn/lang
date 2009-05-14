@@ -1,0 +1,55 @@
+emptyTree(){ return(new/0) ; }
+
+inTree/0(x){ return (0) ; }
+
+inTree/3(x)
+{ 
+  y = this ; 
+  if (x == y.3) return (1) ;
+  if (x < y.3)  z = y.1 ; else z = y.2 ; 
+  return (z.inTree(x)) ; 
+}
+  
+addToTree/0(x)
+{ 
+  y = new/3 ;
+  y.1 = this ;
+  y.2 = this ;
+  y.3 = x ;
+  return(y);
+}
+
+addToTree/3(x)
+{ 
+  y = this ; 
+  if (x < y.3)
+    {z = y.1 ; y.1 = z.addToTree(x) ; }
+  else if (y.3 < x)
+    {z = y.2 ; y.2 = z.addToTree(x) ; }
+  return (this) ; 
+}
+
+writeTree/0(){ }
+
+writeTree/3()
+{
+  x = this ; 
+  y = x.1 ;
+  y = y.writeTree() ;
+  write(x.3) ;
+  y = x.2 ;
+  y = y.writeTree() ;
+}
+
+main()
+{
+  x = emptyTree() ;
+  x = x.addToTree(6) ;
+  x = x.addToTree(4) ;
+  x = x.addToTree(5) ;
+  x = x.addToTree(3) ;
+  x = x.addToTree(7) ;
+  x = x.addToTree(5) ;
+  x = x.writeTree() ;
+}
+

@@ -31,7 +31,7 @@ public class TreeOrganiser {
 			System.exit(0);
 		}
 		lexTree = new LexicalTerm(tree.getType(), tree.getChildList());
-		//lexTree.printLexTree(0);
+		lexTree.printLexTree(0);
 		
 		return lexTree;
 		

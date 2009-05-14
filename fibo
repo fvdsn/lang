@@ -1,0 +1,21 @@
+(
+	(fun (main) (
+		
+		
+		(write (fib 42))
+	))
+	
+	(fun (fib a) (
+		(if (<= a 0) 
+			(
+				(return 1)
+			)
+			(
+				(return (+ (fib (- a 1)) (fib (- a 2))))
+			)
+		)
+		
+	))
+	
+	
+)

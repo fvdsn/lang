@@ -1,0 +1,71 @@
+emptyStack()
+{ 
+  x = new/2 ;
+  x.1 = null ;
+  return (x) ;
+}
+
+isEmptyStack/0()
+{ 
+  x = this ;
+  if (x.1 == null) return (1) ; 
+  else return (0) ;
+}
+
+push/1(x) 
+{ 
+  y = this ;
+  x.1 = y.1 ;
+  y.1 = x ;
+}
+
+pop/1()
+{
+  y = this ;
+  z = y.1 ;
+  y.1 = z.1 ;
+}
+
+cell2Int(x) 
+{ 
+  y = new/2 ;
+  y.2 = x ;
+  return (y) ;
+}
+
+push/2(x) 
+{
+  return (super.push(cell2Int(x))) ;
+}
+
+pop/2()
+{ 
+  y = this ;
+  z = y.1 ;
+  v = z.2 ;
+  x = super.pop() ;
+  return (v) ;
+}
+
+main()
+{
+
+  z = emptyStack() ;
+  t = z.push(1) ;
+  t = z.push(25) ;
+  t = z.push(-5) ;
+  t = z.push(-22) ;
+
+  S = 0 ;
+  P = 1 ;
+  while(z.isEmptyStack()==0)
+  {
+    v = z.pop() ;
+    write (v) ; 
+    S = S + v ; 
+    P = P * v ;
+  }
+  write(S, P) ;
+}
+
+

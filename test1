@@ -1,15 +1,30 @@
 (
 	(fun (main) (
-		(if (= a b) (div 6 7))
-		(write (+ 3 4))
-		(write (div 8 2))		
-		)
-	)
+		(set a (new 2))
+		(set a.1 2)
+		(set a.2 6)
+		(set b (new 1))
+		(b.test)
+		(a.test)		
+		(write a.1)	
+		
+	))
 	
-	(fun (div a b) (
+	(method.2 (test) (
+		(write this.1)
+		(set a this)	
+		(write a.1)
+		(this.salut 6)
+		(super.test)
+	))
+	
+	(method.1 (test) (
+		(write 42)
+		
+	))
+	
+	(method.1 (salut a) (
 		(write a)
-		(write b)
-		(return (/ a b))
 	))
 	
 	

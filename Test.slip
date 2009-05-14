@@ -1,0 +1,21 @@
+main() {
+	a = new/3 ;
+	b = a ;
+	a.1 = 4 ;
+	write(a.1) ;
+	c = a.test() ;
+}
+
+
+test/1() {
+	write(this.1) ;
+	b = this ;
+	c = b.test2() ;
+	return(0) ;
+}
+
+test2/1() {
+	write(this.1) ;
+	return(0) ;
+	
+}
