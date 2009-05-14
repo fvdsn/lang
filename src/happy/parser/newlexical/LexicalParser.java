@@ -48,8 +48,7 @@ public class LexicalParser implements Iterable<Term>, Iterator<Term> {
 		}
 		boolean start = true;
 		StringBuilder str = new StringBuilder();
-		String term = "";
-		String lexicalTerm = "";
+
 		while(true) {
 			try {
 				int c = this.reader.read();

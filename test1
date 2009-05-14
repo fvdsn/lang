@@ -1,13 +1,17 @@
 (
-	(fun (salut main) (
-		(write 42) 
-		(read a)
-		(read a (test a))
+	(fun (main) (
+		(write (+ 3 4))
+		(write (div 8 2))
+		
+		
 		)
 	)
 	
-	(method.4 (salut a) (
-		(super.salut 7)
-		(set a (+ 3 4))
+	(fun (div a b) (
+		(write a)
+		(write b)
+		(return (/ a b))
 	))
+	
+	
 )
