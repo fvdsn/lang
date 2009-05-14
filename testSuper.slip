@@ -1,0 +1,39 @@
+main()
+{
+  x = new/0 ;
+  write(x.somme()) ;
+
+  x = new/1 ;
+  x.1 = 237 ;
+  write(x.somme()) ;
+
+  x = new/2 ;
+  x.1 = 237 ;
+  x.2 = -235 ;
+  write(x.somme()) ;
+  
+  
+  x = new/5 ;
+  x.1 = 237 ;
+  x.2 = -235 ;
+  x.3 = 237 ;
+  x.4 = -235 ;
+  x.5 = 237 ;
+  write(x.somme()) ;
+}
+
+somme/0(){  return (0) ; }
+
+somme/1(){  x = this ; return (super.somme()+ x.1) ; }
+
+somme/2(){  x = this ; return (x.2 + super.somme()) ; }
+
+somme/3(){  x = this ; return (x.3 + super.somme()) ; }
+
+somme/4(){  x = this ; return (x.4 + super.somme()) ; }
+
+somme/6(){  x = this ; return (x.6 + super.somme()) ; }
+
+somme/5(){  x = this ; return (x.5 + super.somme()) ; }
+
+

@@ -169,8 +169,9 @@ public class SyntaxParser {
 			tree = stack.pop();
 			//tree.printTree(0);
 			TreeOrganiser to = new TreeOrganiser(tree);
+			
 			new Translator(to.contract());
-			//to.printTree();
+			
 		}else{
 			System.out.println("program too long ... ");
 		}

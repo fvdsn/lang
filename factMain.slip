@@ -1,0 +1,14 @@
+main () 
+{  
+   read (x) ; 
+   z = 1 ;
+
+   while ( x != 0 ) 
+   { 
+     z = z * x ;
+     x = x - 1 ; 
+   }
+
+   write (z) ;      
+}
+

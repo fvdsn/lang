@@ -1,0 +1,9 @@
+main() {
+	y = crea();	
+}
+
+crea() {
+	x = new/4;
+	return(x);
+}
+

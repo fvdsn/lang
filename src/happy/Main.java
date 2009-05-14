@@ -10,12 +10,14 @@ import happy.parser.bnf.Term;
 
 import happy.parser.newlexical.LexicalParser;
 import happy.parser.syntax.SyntaxParser;
+import happy.parser.syntax.SyntaxParserNextGen;
 import happy.checker.CheckPrecedence;
 import happy.checker.checkWP;
 
 public class Main {
 	private LexicalParser lp = null;
-	private SyntaxParser sp  = null; 
+	private SyntaxParser sp  = null;
+	private SyntaxParserNextGen spn  = null; 
 	private BnfParser bnfp   = null;
 	private Hashtable<Term,Hashtable<Term,String>> prectable = null;
 	
@@ -43,6 +45,15 @@ public class Main {
 			sp.parse();
 		
 	}
+	public void interpret2(String codefile){
+		try{
+			lp = new LexicalParser(codefile);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		spn = new SyntaxParserNextGen(lp,bnfp.getRules(),prectable);
+		spn.parse();
+	}
 	public boolean checkGrammar(){
 		return checkWP.checkAll(bnfp.getRules());
 	}
@@ -51,7 +62,6 @@ public class Main {
 		//if(m.checkGrammar()) {
 			m.interpret("test1");
 		//}
-		//m.checkGrammar();
 		//else {
 			//System.out.println("Grammaire non wp");
 		//}
