@@ -1,0 +1,3 @@
+<l0> ::= <l_block>  ')' | 'l_id'
+<l_block> ::= '(' <l_list>
+<l_list> ::= <l0> | <l0> <l_list>
