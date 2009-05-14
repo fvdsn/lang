@@ -1,7 +1,7 @@
 package happy.parser.newlexical;
 
 
-import happy.parser.bnf.Term;
+
 import happy.parser.syntax.AnonymousCounter;
 import happy.parser.util.WordIdentifier;
 
@@ -10,24 +10,35 @@ import java.util.LinkedList;
 import java.util.List;
 
 import slip.internal.Prog;
+import slip.internal.ThisFieldDes;
 import slip.interpreter.Interpreter;
 import slip.parser.Cand;
 import slip.parser.Cass;
 import slip.parser.Ccmd;
 import slip.parser.Ccond;
+import slip.parser.Cfield;
 import slip.parser.Ci;
+import slip.parser.Cif;
 import slip.parser.Cinput;
 import slip.parser.Clexpr;
 import slip.parser.Cmethod;
+import slip.parser.Cminus;
+import slip.parser.Cnew;
 import slip.parser.Cnot;
 import slip.parser.Cor;
 import slip.parser.Coutput;
 import slip.parser.Cprog;
+import slip.parser.CsuperCall;
+import slip.parser.Cthis;
+import slip.parser.CvariableCall;
+
 import slip.parser.Creturn;
 import slip.parser.Crexpr;
 import slip.parser.Cseq;
 import slip.parser.CsimpleCall;
+import slip.parser.CthisField;
 import slip.parser.Cvar;
+import slip.parser.Cwhile;
 import slip.translation.MethodTable;
 
 
@@ -87,7 +98,7 @@ public class Translator {
 	
 	public Cmethod addMethod(LexicalTerm args, LexicalTerm cmd, int level) {
 		removeBrackets(args);
-		removeBrackets(cmd);
+		//removeBrackets(cmd);
 		//System.out.println(args);
 		//System.out.println(cmd);
 		int i = -1;
@@ -124,9 +135,10 @@ public class Translator {
 	private Cseq addBody(LexicalTerm cmd, MethodTable table ) {
 		AnonymousCounter counter = new AnonymousCounter();
 		ArrayList<Ccmd> seq = new ArrayList<Ccmd>();
-		for(LexicalTerm t : cmd.getLexChildList()) {
-			exploreCmd(t, table, seq,counter);
-		}
+		
+	
+			exploreCmd(cmd, table, seq,counter);
+		
 		Ccmd[] t =  new Ccmd[seq.size()];
 		for(int i = 0; i < seq.size(); i++) {
 			t[i] = seq.get(i);
@@ -140,8 +152,30 @@ public class Translator {
 		List<LexicalTerm> child = cmd.getLexChildList();
 		
 		if(!child.get(0).isTerminal()) {
-			System.out.println("Erreur de syntaxe expected id or operator");
-			System.exit(12);
+			
+			if(child.get(0).getLexChildList().get(0).getValue().equals("(")) {
+				
+				
+				for(LexicalTerm t : child) {
+					for(Ccmd c : getInnerBody(t, table, counter).cmd) {
+						body.add(c);
+					}
+				}
+				
+				Crexpr r = new Ci(0);
+				String name = counter.getAnonymousName();
+				Cvar v = new Cvar(name);
+				table.addLocal(name);
+				Cass ass = new Cass(v,r );
+				body.add(ass);
+				return v;
+				
+			}
+			else {
+				
+				System.out.println("Erreur de syntaxe expected id or operator");
+				System.exit(12);
+			}
 		}
 		int id = identifier(child.get(0), child.size());
 		if(id == -1) {
@@ -163,7 +197,19 @@ public class Translator {
 		case IF:
 			return addIf(child, table, body, counter);
 		case IF_ELSE:
-			return addIf(child, table, body, counter);
+			return addIfElse(child, table, body, counter);
+		case WHILE :
+			return addWhile(child, table, body, counter);
+		case NEW :
+			return addNew(child, table, body, counter);
+		case NEG :
+			return addNeg(child, table, body, counter);
+		case ID_ID : 
+			return addMethodCall(child, table, body, counter);
+		case THIS_ID : 
+			return addThisCall(child, table, body, counter);
+		case SUPER_ID : 
+			return addSuperCall(child, table, body, counter);
 		}
 		
 			
@@ -185,10 +231,27 @@ public class Translator {
 	}
 	
 	private Cvar addAssignement(List<LexicalTerm> child, MethodTable table, List<Ccmd> body, AnonymousCounter counter) {
-		if(!child.get(1).isTerminal() || !child.get(1).lexicalTerm.equals("id")) {
+		if(!child.get(1).isTerminal() || (!child.get(1).lexicalTerm.equals("id") && !WordIdentifier.isLexpr(child.get(1)))) {
+			System.out.println(child.get(0));
+			System.out.println(child.get(1));
 			System.out.println("Expected id after a set");
+			System.exit(9);
 		}
-		Cvar v1 = new Cvar(child.get(1).getValue());
+		Clexpr v1;
+		if(WordIdentifier.isLexpr(child.get(1))) {
+			LexicalTerm t = child.get(1);
+			if(t.getLexicalTerm().equals("this_int")) {
+				String[] field = WordIdentifier.getLexpr(t);
+				v1 = new CthisField(Integer.parseInt(field[1]));
+			}
+			else  {
+				String[] field = WordIdentifier.getLexpr(t);
+				v1 = new Cfield(field[0], Integer.parseInt(field[1]));
+			}
+		}
+		else {
+			v1 = new Cvar(child.get(1).getValue());
+		}
 		table.addLocal(child.get(1).getValue());
 		Cass ass;
 		if(child.get(2).isTerminal()) {
@@ -214,7 +277,13 @@ public class Translator {
 			ass = new Cass(v1,v2);
 			body.add(ass);
 		}
-		return v1;
+		
+		String name = counter.getAnonymousName();
+		Cvar v = new Cvar(name);
+		table.addLocal(name);
+		Cass assi = new Cass(v,v1 );
+		body.add(assi);
+		return v;
 	}
 	
 	private Cvar addOutput(List<LexicalTerm> child, MethodTable table, List<Ccmd> body, AnonymousCounter counter) {
@@ -330,6 +399,141 @@ public class Translator {
 		return v2;
 	}
 	
+	
+	private Cvar addMethodCall(List<LexicalTerm> child, MethodTable table, List<Ccmd> body, AnonymousCounter counter) {
+		String[] nom = child.get(0).getValue().split("[.]");
+		Crexpr[] args = new Crexpr[child.size() - 1];
+		for(int i = 1; i < child.size(); i++) {
+			if(child.get(i).isTerminal()) {
+				Cvar v1 = null;
+				if(WordIdentifier.isRexpr(child.get(i))) {
+					Crexpr r = WordIdentifier.getRexpr(child.get(i)); 
+					String name = counter.getAnonymousName();
+					table.addLocal(name);
+					v1 = new Cvar(name);				
+					body.add(new Cass(v1,r ));
+					args[i - 1] = v1; 
+					
+					
+				}
+				else if(child.get(1).lexicalTerm.equals("id")) {
+					v1 = new Cvar(child.get(i).getValue());
+					table.addLocal(child.get(i).getValue());
+					args[i - 1] = v1; 
+				}
+				
+				else {
+					System.out.println("Expected number id or expr");
+					System.exit(15);
+				}	
+				
+				
+				
+			}
+			else {
+				Cvar v1 = exploreCmd(child.get(1), table, body, counter);
+				args[i - 1] = v1; 
+				
+			}
+		}
+		String name = counter.getAnonymousName();
+		table.addLocal(name);
+		Cvar v2 = new Cvar(name);				
+		body.add(new Cass(v2, new CvariableCall(nom[0], nom[1], args)));
+		return v2;
+	}
+	
+	
+	private Cvar addThisCall(List<LexicalTerm> child, MethodTable table, List<Ccmd> body, AnonymousCounter counter) {
+		String[] nom = child.get(0).getValue().split("[.]");
+		Crexpr[] args = new Crexpr[child.size() - 1];
+		for(int i = 1; i < child.size(); i++) {
+			if(child.get(i).isTerminal()) {
+				Cvar v1 = null;
+				if(WordIdentifier.isRexpr(child.get(i))) {
+					Crexpr r = WordIdentifier.getRexpr(child.get(i)); 
+					String name = counter.getAnonymousName();
+					table.addLocal(name);
+					v1 = new Cvar(name);				
+					body.add(new Cass(v1,r ));
+					args[i - 1] = v1; 
+					
+					
+				}
+				else if(child.get(1).lexicalTerm.equals("id")) {
+					v1 = new Cvar(child.get(i).getValue());
+					table.addLocal(child.get(i).getValue());
+					args[i - 1] = v1; 
+				}
+				
+				else {
+					System.out.println("Expected number id or expr");
+					System.exit(15);
+				}	
+				
+				
+				
+			}
+			else {
+				Cvar v1 = exploreCmd(child.get(1), table, body, counter);
+				args[i - 1] = v1; 
+				
+			}
+		}
+		String tempName = counter.getAnonymousName();
+		Cvar temp = new Cvar(tempName);
+		table.addLocal(tempName);
+		body.add(new Cass(temp, new Cthis()));
+		String name = counter.getAnonymousName();
+		table.addLocal(name);
+		Cvar v2 = new Cvar(name);				
+		body.add(new Cass(v2, new CvariableCall(tempName, nom[1], args)));
+		return v2;
+	}
+	
+	private Cvar addSuperCall(List<LexicalTerm> child, MethodTable table, List<Ccmd> body, AnonymousCounter counter) {
+		String[] nom = child.get(0).getValue().split("[.]");
+		Crexpr[] args = new Crexpr[child.size() - 1];
+		for(int i = 1; i < child.size(); i++) {
+			if(child.get(i).isTerminal()) {
+				Cvar v1 = null;
+				if(WordIdentifier.isRexpr(child.get(i))) {
+					Crexpr r = WordIdentifier.getRexpr(child.get(i)); 
+					String name = counter.getAnonymousName();
+					table.addLocal(name);
+					v1 = new Cvar(name);				
+					body.add(new Cass(v1,r ));
+					args[i - 1] = v1; 
+					
+					
+				}
+				else if(child.get(1).lexicalTerm.equals("id")) {
+					v1 = new Cvar(child.get(i).getValue());
+					table.addLocal(child.get(i).getValue());
+					args[i - 1] = v1; 
+				}
+				
+				else {
+					System.out.println("Expected number id or expr");
+					System.exit(15);
+				}	
+				
+				
+				
+			}
+			else {
+				Cvar v1 = exploreCmd(child.get(1), table, body, counter);
+				args[i - 1] = v1; 
+				
+			}
+		}
+		String name = counter.getAnonymousName();
+		table.addLocal(name);
+		Cvar v2 = new Cvar(name);				
+		body.add(new Cass(v2, new CsuperCall(nom[1], args)));
+		return v2;
+	}
+	
 	private Cvar addArithmeticOp(List<LexicalTerm> child, MethodTable table, List<Ccmd> body, AnonymousCounter counter) {
 		Cvar[] v1 = new Cvar[2];
 		
@@ -374,7 +578,7 @@ public class Translator {
 		Ccond cond = getCond(child.get(1), table, body, counter);
 		Ccmd b = getInnerBody(child.get(2), table, counter);
 		
-		
+		body.add(new Cif(cond, b));
 		
 		//pour la compatibilité on renvoie rezo.
 		Crexpr r = new Ci(0);
@@ -391,7 +595,7 @@ public class Translator {
 		Ccond cond = getCond(child.get(1), table, body, counter);
 		Ccmd b = getInnerBody(child.get(2), table, counter);
 		Ccmd c = getInnerBody(child.get(3), table, counter);
-		
+		body.add(new Cif(cond, b, c));
 		
 		
 		
@@ -403,6 +607,86 @@ public class Translator {
 		Cass ass = new Cass(v,r );
 		body.add(ass);
 		return v;
+	}
+	
+	private Cvar addWhile(List<LexicalTerm> child, MethodTable table, List<Ccmd> body, AnonymousCounter counter) {
+		
+		Ccond cond = getCond(child.get(1), table, body, counter);
+		Ccmd b = getInnerBody(child.get(2), table, counter);
+		
+		body.add(new Cwhile(cond, b));
+		
+		//pour la compatibilité on renvoie rezo.
+		Crexpr r = new Ci(0);
+		String name = counter.getAnonymousName();
+		Cvar v = new Cvar(name);
+		table.addLocal(name);
+		Cass ass = new Cass(v,r );
+		body.add(ass);
+		return v;
+	}
+	
+	private Cvar addNew(List<LexicalTerm> child, MethodTable table, List<Ccmd> body, AnonymousCounter counter) {
+		if(!child.get(1).isTerminal() || !child.get(1).lexicalTerm.equals("number")) {
+			System.out.println("Expected Number after new");
+			System.exit(0);
+		}
+		
+		int level = Integer.parseInt(child.get(1).getValue());
+		if(level <= 0) {
+			System.out.println("Level should be strict positive numbere at new");
+			System.exit(0);
+		}
+			
+		Cnew expr = new Cnew(level);
+		
+		
+		
+		//pour la compatibilité on renvoie rezo.
+		
+		String name = counter.getAnonymousName();
+		Cvar v = new Cvar(name);
+		table.addLocal(name);
+		Cass ass = new Cass(v,expr );
+		body.add(ass);
+		return v;
+	}
+	
+	private Cvar addNeg(List<LexicalTerm> child, MethodTable table, List<Ccmd> body, AnonymousCounter counter) {
+		if(child.get(1).isTerminal()) {
+			Cvar v1 = null;
+			if(WordIdentifier.isRexpr(child.get(1))) {
+				Crexpr r = WordIdentifier.getRexpr(child.get(1)); 
+				String name = counter.getAnonymousName();
+				table.addLocal(name);
+				v1 = new Cvar(name);				
+				body.add(new Cass(v1,r ));
+				
+				
+			}
+			else if(child.get(1).lexicalTerm.equals("id")) {
+				v1 = new Cvar(child.get(1).getValue());
+				table.addLocal(child.get(1).getValue());
+			}
+			
+			else {
+				System.out.println("Expected number id or expr");
+				System.exit(15);
+			}	
+			
+			String name = counter.getAnonymousName();
+			Cvar v = new Cvar(name);
+			table.addLocal(name);
+			Cass ass = new Cass(v,new Cminus(v1));
+			body.add(ass);
+			
+			return v;
+		}
+		else {
+			Cvar v1 = exploreCmd(child.get(1), table, body, counter);
+			body.add(new Creturn(v1));
+			return v1;
+		}
 	}
 	
 	
@@ -451,11 +735,11 @@ public class Translator {
 			return WHILE;
 		}
 		if(term.equals("if")) {
-			if(size == 3) {
+			if(size == 4) {
 				return IF_ELSE;
 				
 			}
-			if(size == 2) {
+			if(size == 3) {
 				return IF;
 			}
 			else {
@@ -479,6 +763,37 @@ public class Translator {
 		}
 		if(term.equals("id")) {
 			return SIMPLE_CALL;
+		}
+		if(term.equals("id_id")) {
+			return ID_ID;
+			
+		}
+		if(term.equals("this_id")) {
+			return THIS_ID;
+			
+		}
+		
+		if(term.equals("super_id")) {
+			return SUPER_ID;			
+		}
+		
+		
+		if(term.equals(LexicalTerm.UNARY_OP)) {
+			
+			if(t.getValue().equals("new")) {
+				if(size != 2) {
+					System.out.println("Expected int for a new");
+					return ERROR;
+				}
+				return NEW;
+			}
+			if(t.getValue().equals("neg")) {
+				if(size != 2) {
+					System.out.println("Expected int for a neg");
+					return ERROR;
+				}
+				return NEG;
+			}
 		}
 		if(term.equals(LexicalTerm.BINARY_OP)) {
 			if(WordIdentifier.isBinaryArithmetic(t)) {
@@ -507,7 +822,7 @@ public class Translator {
 			}
 			return getNot(child, table, body, counter);
 		}
-		if(op.equals("not")) {
+		if(op.equals("!")) {
 			if(child.size() != 2) {
 				System.out.println("Syntax error in condition not");
 				System.exit(16);
@@ -529,41 +844,83 @@ public class Translator {
 			return getOr(child, table, body, counter);
 		}
 		if(WordIdentifier.isBinaryLog(child.get(0))) {
+			if(child.size() != 3) {
+				System.out.println("Syntax error in condition OP");
+				System.exit(17);
+			}
 			System.out.println("oooooook");
+			return addLogOp(child, table, body, counter);
 		}
 		System.out.println(op);
 		return null;
 	}
 	
 	private Ccond getNot(List<LexicalTerm> child, MethodTable table, List<Ccmd> body, AnonymousCounter counter) {
-		if(child.get(2).isTerminal()) {
+		if(child.get(1).isTerminal()) {
 			System.out.println("Syntax error at not, expected condition");
 			System.exit(16);
 		}
-		return new Cnot(getCond(child.get(2), table, body, counter));
+		return new Cnot(getCond(child.get(1), table, body, counter));
 		
 		
 	}
 	
 	private Ccond getAnd(List<LexicalTerm> child, MethodTable table, List<Ccmd> body, AnonymousCounter counter) {
-		if(child.get(2).isTerminal() || child.get(3).isTerminal()) {
+		if(child.get(1).isTerminal() || child.get(2).isTerminal()) {
 			System.out.println("Syntax error at AND, expected condition");
 			System.exit(16);
 		}
-		return new Cand(getCond(child.get(2), table, body, counter),getCond(child.get(3), table, body, counter));
+		return new Cand(getCond(child.get(1), table, body, counter),getCond(child.get(2), table, body, counter));
 		
 		
 	}
 	
 	private Ccond getOr(List<LexicalTerm> child, MethodTable table, List<Ccmd> body, AnonymousCounter counter) {
-		if(child.get(2).isTerminal() || child.get(3).isTerminal()) {
+		if(child.get(1).isTerminal() || child.get(2).isTerminal()) {
 			System.out.println("Syntax error at AND, expected condition");
 			System.exit(16);
 		}
-		return new Cor(getCond(child.get(2), table, body, counter),getCond(child.get(3), table, body, counter));
+		return new Cor(getCond(child.get(1), table, body, counter),getCond(child.get(2), table, body, counter));
 		
 		
 		
+	}
+	
+	
+	private Ccond addLogOp(List<LexicalTerm> child, MethodTable table, List<Ccmd> body, AnonymousCounter counter) {
+		Cvar[] v1 = new Cvar[2];
+		
+		for(int i = 1; i < child.size(); i++) {
+			
+			if(child.get(i).isTerminal()) {
+				if(WordIdentifier.isRexpr(child.get(i))) {
+					Crexpr r = WordIdentifier.getRexpr(child.get(i)); 
+					String name = counter.getAnonymousName();
+					Cvar v = new Cvar(name);
+					table.addLocal(name);
+					Cass ass = new Cass(v,r );
+					body.add(ass);
+					v1[i - 1] = v;
+				}
+				else if(child.get(i).lexicalTerm.equals("id")) {
+					Cvar v = new Cvar(child.get(i).getValue());
+					table.addLocal(child.get(i).getValue());
+					v1[i - 1] = v;
+				}
+				else {
+					System.out.println("Expected number id or expr");
+					System.exit(15);
+				}			
+			}
+			else {
+				Cvar v = exploreCmd(child.get(i), table, body, counter);
+				v1[i - 1] = v;
+			}
+		}
+		
+		
+		
+		return WordIdentifier.getBinaryLog(child.get(0), v1[0], v1[1]);
 	}
 	
 	public static final int ERROR = -1;
@@ -576,7 +933,11 @@ public class Translator {
 	public static final int RETURN = 6;
 	public static final int SIMPLE_CALL = 7;
 	public static final int ARITHMETIC_OP = 8;
-	
+	public static final int NEW = 9;
+	public static final int NEG = 10;
+	public static final int ID_ID = 11;
+	public static final int THIS_ID = 12;
+	public static final int SUPER_ID = 13;
 	
 	
 	

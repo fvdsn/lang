@@ -1,11 +1,14 @@
 package happy.parser.util;
 
 import slip.parser.Cbinary;
+import slip.parser.Cfield;
 import slip.parser.Ci;
 import slip.parser.Clexpr;
 import slip.parser.Cnull;
 import slip.parser.Crel;
 import slip.parser.Crexpr;
+import slip.parser.Cthis;
+import slip.parser.CthisField;
 import slip.parser.Cvar;
 import happy.parser.newlexical.LexicalTerm;
 
@@ -105,8 +108,24 @@ public class WordIdentifier {
 	}
 	
 	
+	
 	public static int getLevel(String methodId) {
 		return Integer.parseInt(methodId.split("[.]")[1]);
+	}
+	
+	public static boolean isLexpr(LexicalTerm term) {
+		String t = term.getLexicalTerm();
+		if(t.equals("this_int")) {
+			return true;
+		}
+		if(t.equals("id_int")) {
+			return true;
+		}
+		return false;
+	}
+	
+	public static String[] getLexpr(LexicalTerm t) {
+		return t.getValue().split("[.]");
 	}
 	
 	public static boolean isRexpr(LexicalTerm term) {
@@ -119,9 +138,16 @@ public class WordIdentifier {
 			return true;
 		if(t.equals("false"))
 			return true;
-			
+		if(t.equals("id_int"))
+			return true;
+		if(t.equals("this_int"))
+			return true;
+		if(t.equals("this"))
+			return true;
 		return false;
 	}
+	
+	
 	
 	public static Crexpr getRexpr(LexicalTerm term) {
 		String t = term.getLexicalTerm();
@@ -133,6 +159,19 @@ public class WordIdentifier {
 			return new Cnull();
 		if(t.equals("false"))
 			return new Ci(0);
+		if(t.equals("id_int")) {
+			String[] field = WordIdentifier.getLexpr(term);
+			return new Cfield(field[0], Integer.parseInt(field[1]));
+		}
+		if(t.equals("this_int")) {
+			String[] field = WordIdentifier.getLexpr(term);
+			return new CthisField(Integer.parseInt(field[1]));
+		}
+		if(t.equals("this")) {
+			System.out.println("this");
+			return new Cthis();
+		}
+			
 		return null;
 	}
 	

@@ -51,7 +51,6 @@ public class Main {
 		//if(m.checkGrammar()) {
 			m.interpret("test1");
 		//}
-		//m.checkGrammar();
 		//else {
 			//System.out.println("Grammaire non wp");
 		//}
