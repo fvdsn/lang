@@ -148,7 +148,7 @@ public class LexicalParser implements Iterable<Term>, Iterator<Term> {
 	 * @return
 	 */
 	private String findTerm(String value) {
-		return "l" + level + "_id";
+		return "l_id";
 	}
 
 	private String findLexicalTerm(String value) {
