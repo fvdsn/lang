@@ -46,7 +46,7 @@ public class BnfGenerator {
 	}
 	
 	public static void main(String[] args) throws IOException {
-		new BnfGenerator(5).Generate("temp.bnf");
+		new BnfGenerator(8).Generate("temp.bnf");
 	}
 	
 	

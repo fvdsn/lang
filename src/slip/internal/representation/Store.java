@@ -75,7 +75,8 @@ public class Store {
 				}
 				else {
 					
-					store.remove(all[i]);
+					if(all[i] != null)
+						store.remove(all[i]);
 				}
 			}
 		}		

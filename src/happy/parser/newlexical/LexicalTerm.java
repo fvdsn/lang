@@ -72,4 +72,22 @@ public class LexicalTerm extends TermImpl {
 			t.printLexTree(indent + 1);
 		}
 	}
+	
+	/**
+	 * @deprecated
+	 */
+	public List<Term> getChildList() {
+		// TODO Auto-generated method stub
+		return super.getChildList();
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return super.toString() + "=> " + value + " => " + lexicalTerm;
+	}
+	
+	public String getLexicalTerm() {
+		return lexicalTerm;
+	}
 }

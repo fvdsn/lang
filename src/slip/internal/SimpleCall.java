@@ -17,6 +17,7 @@ public class SimpleCall extends Call // x = m(x, ..., x);
 	@Override
 	public void execute(Env env, Store st) throws SlipError {
 		Method m1 = null;
+		
 		for(Method m : Interpreter.pro.meths) {
 			if(m.m.equals(this.m) && m.isStatic) {
 				m1 = m;
