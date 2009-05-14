@@ -14,7 +14,7 @@
 		(if (= (% n i) O)(
 			(return i)
 		)
-		(+ i 1)
+		(set i (+ i 1))
 	))
 	(return n)
 ))

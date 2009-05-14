@@ -15,7 +15,7 @@
 		(if (= (% n i) 0) (
 			(set isPrime false)
 		))
-		(+ i 1)
+		(set i (+ i 1))
 	))
 	(return isPrime)
 ))

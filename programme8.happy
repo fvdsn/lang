@@ -1,0 +1,23 @@
+[* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * 3n+1 terms sum
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *]
+
+
+(fun (main)(
+	(write (sum3np1 22 ))
+	(write (sum3np1 42 ))
+))
+
+(fun (sum3np1 n)(
+	(set sum 1)
+	(while (! (= n 1)) (
+		(set sum (+ sum 1))
+		(if (! (= (%n 2) 0) ) (
+			(set n (* 3 (+ n 1)))
+		)(
+			(set n (/ n 2))
+		))
+	))
+	(return sum)
+))
+

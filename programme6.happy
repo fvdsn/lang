@@ -12,7 +12,7 @@
 (fun (pgcd a b) (
 	(set pgcd (max a b))
 	(while (! (and (= (% a pgcd) 0) (= (% b pgcd) 0)))(
-		(- pgcd 1)
+		(set pgcd (- pgcd 1))
 	)
 	(return pgcd)
 ))
