@@ -1,0 +1,23 @@
+[* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Somme des n premiers entiers positifs
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *]
+
+(fun (main)(
+	(set i 0)
+	(while (<= i 10)
+		(
+			(write (sum i))
+			(- i 1)
+		)
+	)
+))
+
+
+(fun (main n) (
+	(if (== n 0)
+		(
+		(return 0)
+		)
+	)
+	(return (+ n (sum (- n 1))))
+))

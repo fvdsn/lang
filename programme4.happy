@@ -1,0 +1,21 @@
+[* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Primalité d'un entier positif
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *]
+
+
+(fun (main) (
+	(write (isPrime 267))
+	(write (isPrime 271))
+))
+
+(fun (isPrime n)(
+	(set isPrime true)
+	(set i 2)
+	(while (and (< i n) (= isPrime true))
+		(if (= (% n i) 0) (
+			(set isPrime false)
+		))
+		(+ i 1)
+	))
+	(return isPrime)
+))

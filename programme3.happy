@@ -1,0 +1,26 @@
+[* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Maximum de trois entiers
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *]
+
+
+(fun (main) (
+	(set a -12)
+	(set b 9)
+	(set c 0)
+	(write (max3 a b c))
+))
+
+(fun (max a b)(
+	(if (>= a b)(
+		(return a)
+	))
+	(return b)
+))
+
+(fun (max2 a b) (
+	(return (max a b))
+))
+
+(fun (max3 a b c) (
+	(return (max2 (max2 a b) c)
+))
