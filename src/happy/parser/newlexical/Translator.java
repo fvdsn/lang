@@ -1,6 +1,7 @@
 package happy.parser.newlexical;
 
 
+import happy.parser.bnf.Term;
 import happy.parser.syntax.AnonymousCounter;
 import happy.parser.util.WordIdentifier;
 
@@ -8,16 +9,18 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-
-import slip.internal.Cexpr;
 import slip.internal.Prog;
 import slip.interpreter.Interpreter;
+import slip.parser.Cand;
 import slip.parser.Cass;
 import slip.parser.Ccmd;
+import slip.parser.Ccond;
 import slip.parser.Ci;
 import slip.parser.Cinput;
 import slip.parser.Clexpr;
 import slip.parser.Cmethod;
+import slip.parser.Cnot;
+import slip.parser.Cor;
 import slip.parser.Coutput;
 import slip.parser.Cprog;
 import slip.parser.Creturn;
@@ -157,11 +160,14 @@ public class Translator {
 			return addSimpleCall(child, table, body, counter);
 		case ARITHMETIC_OP:
 			return addArithmeticOp(child, table, body, counter);
+		case IF:
+			return addIf(child, table, body, counter);
+		case IF_ELSE:
+			return addIf(child, table, body, counter);
 		}
 		
-		for(LexicalTerm t : cmd.getLexChildList()) {
-			System.out.println(t);
-		}
+			
+		
 		
 		return null;
 	}
@@ -284,7 +290,6 @@ public class Translator {
 	private Cvar addSimpleCall(List<LexicalTerm> child, MethodTable table, List<Ccmd> body, AnonymousCounter counter) {
 		String nom = child.get(0).getValue();
 		Crexpr[] args = new Crexpr[child.size() - 1];
-		System.out.println("testtt");
 		for(int i = 1; i < child.size(); i++) {
 			if(child.get(i).isTerminal()) {
 				Cvar v1 = null;
@@ -364,6 +369,58 @@ public class Translator {
 		return v2;
 	}
 	
+	private Cvar addIf(List<LexicalTerm> child, MethodTable table, List<Ccmd> body, AnonymousCounter counter) {
+		
+		Ccond cond = getCond(child.get(1), table, body, counter);
+		Ccmd b = getInnerBody(child.get(2), table, counter);
+		
+		
+		
+		//pour la compatibilité on renvoie rezo.
+		Crexpr r = new Ci(0);
+		String name = counter.getAnonymousName();
+		Cvar v = new Cvar(name);
+		table.addLocal(name);
+		Cass ass = new Cass(v,r );
+		body.add(ass);
+		return v;
+	}
+	
+	private Cvar addIfElse(List<LexicalTerm> child, MethodTable table, List<Ccmd> body, AnonymousCounter counter) {
+		
+		Ccond cond = getCond(child.get(1), table, body, counter);
+		Ccmd b = getInnerBody(child.get(2), table, counter);
+		Ccmd c = getInnerBody(child.get(3), table, counter);
+		
+		
+		
+		
+		//pour la compatibilité on renvoie rezo.
+		Crexpr r = new Ci(0);
+		String name = counter.getAnonymousName();
+		Cvar v = new Cvar(name);
+		table.addLocal(name);
+		Cass ass = new Cass(v,r );
+		body.add(ass);
+		return v;
+	}
+	
+	
+	private Cseq getInnerBody(LexicalTerm cmd, MethodTable table, AnonymousCounter counter) {
+		
+		ArrayList<Ccmd> body = new ArrayList<Ccmd>();
+		
+		exploreCmd(cmd, table, body,counter);
+		
+		Ccmd[] t =  new Ccmd[body.size()];
+		for(int i = 0; i < body.size(); i++) {
+			t[i] = body.get(i);
+		}
+		
+		return new Cseq(t);
+	}
+	
+	
 	private void removeBrackets(LexicalTerm t) {
 		LexicalTerm t1 = t.getLexChildList().remove(0);
 		LexicalTerm t2 = t.getLexChildList().remove(t.getLexChildList().size() -1);
@@ -371,7 +428,7 @@ public class Translator {
 	
 	private int identifier(LexicalTerm t, int size) {
 		String term = t.lexicalTerm;
-		System.out.println(term);
+		
 		if(term.equals("read")) {
 			if(size != 1) {
 				System.out.println("No args expected for input");
@@ -439,13 +496,73 @@ public class Translator {
 	}
 	
 	
-	private Cass getAss(Cvar v1, Cvar v2) {
-		return new Cass(v1,v2);
+	private Ccond getCond(LexicalTerm term, MethodTable table, List<Ccmd> body, AnonymousCounter counter) {
+		removeBrackets(term);
+		List<LexicalTerm> child = term.getLexChildList();
+		String op = child.get(0).getValue();
+		if(op.equals("not")) {
+			if(child.size() != 2) {
+				System.out.println("Syntax error in condition not");
+				System.exit(16);
+			}
+			return getNot(child, table, body, counter);
+		}
+		if(op.equals("not")) {
+			if(child.size() != 2) {
+				System.out.println("Syntax error in condition not");
+				System.exit(16);
+			}
+			return getNot(child, table, body, counter);
+		}
+		if(op.equals("and")) {
+			if(child.size() != 3) {
+				System.out.println("Syntax error in condition not");
+				System.exit(16);
+			}
+			return getAnd(child, table, body, counter);
+		}
+		if(op.equals("or")) {
+			if(child.size() != 3) {
+				System.out.println("Syntax error in condition not");
+				System.exit(16);
+			}
+			return getOr(child, table, body, counter);
+		}
+		if(WordIdentifier.isBinaryLog(child.get(0))) {
+			System.out.println("oooooook");
+		}
+		System.out.println(op);
+		return null;
+	}
+	
+	private Ccond getNot(List<LexicalTerm> child, MethodTable table, List<Ccmd> body, AnonymousCounter counter) {
+		if(child.get(2).isTerminal()) {
+			System.out.println("Syntax error at not, expected condition");
+			System.exit(16);
+		}
+		return new Cnot(getCond(child.get(2), table, body, counter));
+		
 		
 	}
 	
-	private Cass getAss(Cvar v1, Ci v2) {
-		return new Cass(v1,v2);
+	private Ccond getAnd(List<LexicalTerm> child, MethodTable table, List<Ccmd> body, AnonymousCounter counter) {
+		if(child.get(2).isTerminal() || child.get(3).isTerminal()) {
+			System.out.println("Syntax error at AND, expected condition");
+			System.exit(16);
+		}
+		return new Cand(getCond(child.get(2), table, body, counter),getCond(child.get(3), table, body, counter));
+		
+		
+	}
+	
+	private Ccond getOr(List<LexicalTerm> child, MethodTable table, List<Ccmd> body, AnonymousCounter counter) {
+		if(child.get(2).isTerminal() || child.get(3).isTerminal()) {
+			System.out.println("Syntax error at AND, expected condition");
+			System.exit(16);
+		}
+		return new Cor(getCond(child.get(2), table, body, counter),getCond(child.get(3), table, body, counter));
+		
+		
 		
 	}
 	

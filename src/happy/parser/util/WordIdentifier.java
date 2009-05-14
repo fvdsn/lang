@@ -4,6 +4,7 @@ import slip.parser.Cbinary;
 import slip.parser.Ci;
 import slip.parser.Clexpr;
 import slip.parser.Cnull;
+import slip.parser.Crel;
 import slip.parser.Crexpr;
 import slip.parser.Cvar;
 import happy.parser.newlexical.LexicalTerm;
@@ -11,12 +12,15 @@ import happy.parser.newlexical.LexicalTerm;
 public class WordIdentifier {
 	private static String[] RESERVED_WORD = {"fun", "method", "+", "-", "/", "*", "%", "set", 
 		"write" , "read", "this", "super", "null", "if", "else", "while", "true", "false", "and",
-		"or", "<", ">", "=", "<=", ">=", "!", "new", "return", "neg", "skip"};
-	private static String[] BINARY_OP = {"or", "<", ">", "=", "<=", ">=", "and", "+", "-", "/", "*", "%" };
+		"or", "<", ">", "=", "<=", ">=", "!", "new", "return", "neg", "skip", "!="};
+	private static String[] BINARY_OP = {"or", "<", ">", "=", "<=", ">=", "and", "+", "-", "/", "*", "%", "!=" };
 	
 	private static String[] UNARY_OP = {"!", "neg" , "new"};
 	
 	private static String[] BINARY_ARI = { "+", "*", "-", "/", "%"};
+	private static String[] BINARY_REL = {  "=", "!=", "<", ">", "<=", ">="};
+	
+	
 	
 	private static String[] FORBID_DOT_EXPR = {"fun", "+", "-", "/", "*", "%", "set", 
 		"write" , "read", "null", "if", "else", "while", "true", "false", "and",
@@ -142,10 +146,30 @@ public class WordIdentifier {
 		return false;
 	}
 	
+	
 	public static Cbinary getBinary(LexicalTerm term, Cvar v1, Cvar v2) {
 		for(int i = 0; i < BINARY_ARI.length; i++) {
 			if(term.getValue().equals(BINARY_ARI[i])) {
 				return new Cbinary(v1, i, v2);
+			}
+		}
+		
+		return null;
+	}
+	
+	public static boolean isBinaryLog(LexicalTerm term) {
+		for(String s : BINARY_REL) {
+			if(term.getValue().equals(s)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public static Crel getBinaryLog(LexicalTerm term, Cvar v1, Cvar v2) {
+		for(int i = 0; i < BINARY_REL.length; i++) {
+			if(term.getValue().equals(BINARY_REL[i])) {
+				return new Crel(v1, i, v2);
 			}
 		}
 		

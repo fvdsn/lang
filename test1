@@ -1,9 +1,8 @@
 (
 	(fun (main) (
+		(if (= a b) (div 6 7))
 		(write (+ 3 4))
-		(write (div 8 2))
-		
-		
+		(write (div 8 2))		
 		)
 	)
 	

@@ -16,22 +16,22 @@ public class TreeOrganiser {
 	
 	public LexicalTerm contract() {
 		contract(tree);
-		printTree();
+		//printTree();
 		//contract(tree);
 		removeLastBlock(tree);
 		
 		phase2(tree);
-		System.out.println("\n\n\n\n ----------------------------------");
-		printTree();
+		//System.out.println("\n\n\n\n ----------------------------------");
+		//printTree();
 		phase2(tree);
-		printTree();
+		//printTree();
 		
 		if(!check(tree)) {
 			System.out.println("erreur de syntaxe 11 ");
 			System.exit(0);
 		}
 		lexTree = new LexicalTerm(tree.getType(), tree.getChildList());
-		lexTree.printLexTree(0);
+		//lexTree.printLexTree(0);
 		
 		return lexTree;
 		
@@ -58,7 +58,7 @@ public class TreeOrganiser {
 		for(int i = 0; i < list.size(); i++) {
 			Term t = list.get(i);
 			//c'est un id
-			System.out.println(t.getType());
+			//System.out.println(t.getType());
 			char last = t.getType().charAt(t.getType().length() - 1);
 			//if(CharIdentifier.isDigit(last) && t.getChildList().size() == 1 ) {
 				//list.set(i, t.getChildList().get(0));
@@ -66,15 +66,12 @@ public class TreeOrganiser {
 				
 			//}
 			
-			if(last == 'k') {
-				System.out.println("on a un block");
-			}
 			
 			if(last == 't') {
-				System.out.println("on a une liste");
+				//System.out.println("on a une liste");
 				List<Term> child = t.getChildList();
 				if(child.size() == 2) { // toujours une liste
-					System.out.println(">>>>>>>");
+					//System.out.println(">>>>>>>");
 					Term tt = child.remove(1);
 					for(Term ttt : tt.getChildList()) {
 						child.add(ttt);
@@ -121,7 +118,7 @@ public class TreeOrganiser {
 	}
 	
 	public void phase2(Term tree) {
-		System.out.println(tree);
+		//System.out.println(tree);
 		List<Term> list = tree.getChildList();
 		for(int i = 0; i < list.size(); i++) {
 			Term t = list.get(i);
@@ -135,8 +132,8 @@ public class TreeOrganiser {
 					if(list.size() > i + 1) {
 						Term temp = list.remove(i+1);
 						List<Term> child = list.remove(i).getChildList();
-						System.out.println(t.getType());
-						System.out.println("on a une liste");
+						//System.out.println(t.getType());
+						//System.out.println("on a une liste");
 						for(Term tt : child) {
 							list.add(tt);
 						}
@@ -144,8 +141,8 @@ public class TreeOrganiser {
 					}
 					else  {
 						List<Term> child = list.remove(i).getChildList();
-						System.out.println(t.getType());
-						System.out.println("on a une liste");
+						//System.out.println(t.getType());
+						//System.out.println("on a une liste");
 						for(Term tt : child) {
 							list.add(tt);
 						}

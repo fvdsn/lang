@@ -167,7 +167,7 @@ public class SyntaxParser {
 		if(stack.size() == 1){
 			System.out.println("Success");
 			tree = stack.pop();
-			tree.printTree(0);
+			//tree.printTree(0);
 			TreeOrganiser to = new TreeOrganiser(tree);
 			new Translator(to.contract());
 			//to.printTree();
