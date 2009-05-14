@@ -19,10 +19,12 @@ public class CheckCycles {
 			Nodes.add(tr);
 			Edges.put(tr,new HashSet<Term>());
 			for(CatList c:r.getOrList()){
-				for(Term t:c.getTermList()){
-					if (!t.equals(tr)){
-						if(!t.isTerminal()){
-							Edges.get(tr).add(t);
+				if(c.getTermList().size()==1){
+					for(Term t:c.getTermList()){
+						if (!t.equals(tr)){
+							if(!t.isTerminal()){
+								Edges.get(tr).add(t);
+							}
 						}
 					}
 				}
