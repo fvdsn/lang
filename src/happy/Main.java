@@ -58,13 +58,19 @@ public class Main {
 		return checkWP.checkAll(bnfp.getRules());
 	}
 	public static void main(String args[]){
-		Main m = new Main("temp.bnf");
-		//if(m.checkGrammar()) {
-			m.interpret("test1");
-		//}
-		//else {
-			//System.out.println("Grammaire non wp");
-		//}
+		//System.out.println(args[0]+"  "+args[1]);
+		Main m = new Main(args[0]);
+		if(args[2].equals("check")){
+			if(m.checkGrammar()) {
+				m.interpret(args[1]);
+			}
+			else {
+				System.out.println("Grammaire non wp");
+			}
+		}else{
+			m.interpret(args[1]);
+		}
+
 		
 	}
 }
