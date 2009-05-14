@@ -122,8 +122,10 @@ public class CheckPrecedence {
 	 */
 	public static boolean tableSet(Hashtable<Term,Hashtable<Term,String>> table, Term X, Term Y, String rel, Rule rule){
 		String old_rel = table.get(X).get(Y);
+		//System.out.println( old_rel + " " + rel);
 		if(old_rel.equals(NOTHING) || old_rel.equals(rel)){
 			table.get(X).put(Y, rel);
+			return true;
 		}else if(old_rel.equals(LEQ)){
 			if(rel.equals(LE) || rel.equals(EQ)){
 				return true;
@@ -131,21 +133,39 @@ public class CheckPrecedence {
 		}else if(old_rel.equals(LE)){
 			if(rel.equals(EQ)){
 				table.get(X).put(Y, LEQ);
+				return true;
 			}
 		}else if(old_rel.equals(EQ)){
 			if(rel.equals(LE)){
 				table.get(X).put(Y,LEQ);
+				return true;
 			}
 		}else if(old_rel.equals(ERROR)){
 			return false;
-		}else{
-			System.out.println("Conflict in Rule:" + rule.getLeftSide());
-			System.out.println("   Was :"+X.toString()+old_rel+Y.toString());
-			System.out.println("   Is  :"+X.toString()+rel+Y.toString());
-			table.get(X).put(Y, ERROR);
-			return false;
 		}
-		return true;
+		System.out.println("Conflict in Rule:" + rule.getLeftSide());
+		System.out.println("   Was :"+X.toString()+old_rel+Y.toString());
+		System.out.println("   Is  :"+X.toString()+rel+Y.toString());
+		table.get(X).put(Y, ERROR);
+		return false;
+	}
+	public boolean areEqual(Term X, Term Y, List<Rule> grammar){
+		for(Rule r: grammar){
+			for(CatList c:r.getOrList()){
+				List<Term> L = c.getTermList();
+				int i = 0;
+				int len = L.size();
+				while(i < len - 1){
+					if (L.get(i).getType().equals(X.getType())){
+						if(L.get(i+1).getType().equals(Y.getType())){
+							return true;
+						}
+					}
+					i++;
+				}
+			}
+		}
+		return false;
 	}
 	/**
 	 * Imprime une table de précédence à la sortie standard.
@@ -340,6 +360,11 @@ public class CheckPrecedence {
 	public static  boolean precTable(List<Rule> grammar, Hashtable<Term,Hashtable<Term,String>> table){
 		Hashtable<Term,Set<Term>> First = FirstSet(grammar);
 		Hashtable<Term,Set<Term>> Last = LastSet(grammar);
+		//System.out.println("FirstSet");
+		//printSet(First);
+		//System.out.println("LastSet");
+		//printSet(Last);
+		
 		//List<Term> allTerm = getAllTerm(grammar);
 		boolean validity = true;
 		/*
@@ -397,6 +422,8 @@ public class CheckPrecedence {
 								}
 							}else{
 								/*5*/
+								//System.out.println("yo");
+								//System.out.println(s.getType() + " " + Y.getType());
 								if(!tableSet(table,s,Y,GE,r)){validity = false;printError(r,tl,i,X,Y);}
 							}
 						}
