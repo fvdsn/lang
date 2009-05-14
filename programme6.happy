@@ -1,0 +1,25 @@
+[* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Plus Grand Commun Diviseur
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *]
+
+
+(fun (main) (
+	(write (pgcd 12 42))
+	(write (pgcd 271 191))
+))
+
+
+(fun (pgcd a b) (
+	(set pgcd (max a b))
+	(while (! (and (= (% a pgcd) 0) (= (% b pgcd) 0)))(
+		(- pgcd 1)
+	)
+	(return pgcd)
+))
+
+(fun (max a b)(
+	(if (>= a b)(
+		(return a)
+	))
+	(return b)
+))
