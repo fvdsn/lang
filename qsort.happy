@@ -1,3 +1,9 @@
+[
+	Ce programme montre un exemple
+	de quick sort avec une générère avec
+	une fonction "pseudo alétoire"
+]
+
 (
 	(fun (# val) (
 		(set n (new 2))
@@ -6,6 +12,10 @@
 		(return n)
 	)) 
 	
+	[
+		@param N une liste 
+		@post imprime la liste
+	]
 	(fun (Print N)(
 		
 		(if (! (= N null)) ( 
@@ -14,10 +24,16 @@
 		))
 	))
 	
+	[
+		Ajoute la valeur val à la liste N2
+	]
 	(fun (#> Val N2) 
 		(return (-> (# Val) N2)) 
 	)
 	
+	[
+		ajoute N2 à la suite du noeud N1
+	]
 	(fun (-> N1 N2) (
 		(set N1.2 N2)
 		(return N1)
@@ -61,18 +77,23 @@
 
 
 	(fun (main) (
-		(write (random 100 3))
+		(set i (read))
+		(write (random 1000 3))
 		(set List (# 2))
-		(set i 7000)
+		[(set i b)]
 		(set seed 8)
 		(while (> i 0) (
-			(set seed (random 100 seed))
+			(set seed (random 1000 seed))
 			(set List (#> seed List)) 
 			(set i (- i 1))
 		))
 		
-		(write -3)
-		(Qsort List)
+		
+		[(Print List)]
+		(write -3)	
+		(set a (Qsort List))
+		[(Print List)]
+
 		
 		(write 0)
 		
@@ -80,6 +101,11 @@
 		
 	))
 
+	[******************************************
+		Fonction pseudo random
+		@param max : le nombre max
+		@param seed : la graine de départ
+	******************************************]
 	(fun (random max seed)  
 		(return (% (+ 67 (* 13 seed)) max))
 	) 
