@@ -1,0 +1,42 @@
+(
+(fun (-> N1 N2) (
+	(set N1.2 N2)
+	(return N1)
+))
+(fun (# Val) (
+	(set n (new 2))
+	(set n.1 val)
+	(set n.2 null)
+	(return n)
+)) 
+(fun (#> Val N2) (return (-> (# Val) N2)) )
+(fun (Print N)(
+	(if N (write N.1))
+	(Print N.2)
+))
+(fun (BubbleSort Node) (
+	(set Sorted 1)
+	(while (!(= Sorted 0)) (
+		(set N Node)
+		(set Sorted 1)
+		(while (!(= N null))(
+			(if N.2 (
+				(set N2 N.2)
+				(if ( > N.1 N2.1) (
+					(set tmp N.1)
+					(set N.1 N2.1)
+					(set N2.1 tmp)
+					(set Sorted 0)
+				)))
+			)
+			(set N N.2)
+		))
+	))
+)) 
+(fun main (
+	(set List (#> 10 (#> 9 (#> 8 (#> 2 (# 3))))))
+	(Print List)
+	(BubbleSort List)
+	(Print List)
+))
+)
