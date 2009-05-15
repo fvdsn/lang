@@ -1,3 +1,5 @@
+
+(
 [* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Plus Grand Commun Diviseur
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *]
@@ -11,9 +13,16 @@
 
 (fun (pgcd a b) (
 	(set pgcd (max a b))
-	(while (! (and (= (% a pgcd) 0) (= (% b pgcd) 0)))(
+	(write pgcd)
+	(set d (% a pgcd))
+	(set e (% b pgcd))
+	(while (! (and (= d 0) (= e 0) ))
+	(
 		(set pgcd (- pgcd 1))
-	)
+		(set d (% a pgcd))
+		(set e (% b pgcd))
+	
+	))
 	(return pgcd)
 ))
 
@@ -23,3 +32,4 @@
 	))
 	(return b)
 ))
+)

@@ -17,17 +17,17 @@ public class Store {
 	
 	private long t = System.currentTimeMillis();
 	
-	public static final int INTERVAL_GC = 200; 
+	public static final int INTERVAL_GC = 2000; 
 	
 	public Store() {
 		refStack = new Stack<Env>();
 		store = new TreeMap<Integer, Object>();
-		c = new GarbageCollector();
-		c.start();
+		//c = new GarbageCollector();
+		//c.start();
 	}
 	
 	public synchronized void end() {
-		c.end();
+		//c.end();
 		//System.out.println(System.currentTimeMillis() - t);
 	}
 	
@@ -41,6 +41,10 @@ public class Store {
 		store.put(id, new Object(size));
 		return id;
 		
+	}
+	
+	public String toString() {
+		return "" + store.size();
 	}
 	
 	public synchronized void destroy(int ref) {

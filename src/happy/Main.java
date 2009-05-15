@@ -60,7 +60,7 @@ public class Main {
 	public static void main(String args[]){
 		//System.out.println(args[0]+"  "+args[1]);
 		Main m = new Main(args[0]);
-		if(args[2].equals("check")){
+		if(args.length >= 3 && args[2].equals("check")){
 			if(m.checkGrammar()) {
 				m.interpret(args[1]);
 			}

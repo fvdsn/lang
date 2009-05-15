@@ -1,24 +1,27 @@
-(
+
+
+(	
+	[fonction main]
 	(fun (main) (
 		(set a (new 2))
 		(set a.1 2)
 		(set a.2 6)
 		(set b (new 1))
-		(b.test)
-		(a.test)		
+		(b.++)
+		(a.++)		
 		(write a.1)	
 		
 	))
 	
-	(method.2 (test) (
+	(method.2 (++) (
 		(write this.1)
 		(set a this)	
 		(write a.1)
 		(this.salut 6)
-		(super.test)
+		(super.++)
 	))
 	
-	(method.1 (test) (
+	(method.1 (++) (
 		(write 42)
 		
 	))

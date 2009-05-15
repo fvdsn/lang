@@ -7,6 +7,6 @@ public class AnonymousCounter {
 	}
 	
 	public String getAnonymousName() {		
-		return "ANONYMOUS_____" + counter++;
+		return "A_" + counter++;
 	}
 }

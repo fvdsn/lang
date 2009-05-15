@@ -1,22 +1,26 @@
+
+(
 [* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Puissance d'un entier
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *]
 
 (fun (main) (
 	(set i 0)
-	(while (<=i 10) (
+	(while (<= i 10) (
 		(write (pow 2 i))
-		(set i (- i 1))
+		(set i (+ i 1))
 	))
 ))
 
 (fun (pow x n) (
+	(set a n)
 	(set res 1)
 	(set i 1)
-	(while (<= i n) (
+	(while (<= i a) (
 		(set res (* res x))
 		(set i (+ i 1))
 	))
 	(return res)	
 ))
 		
+)

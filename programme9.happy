@@ -1,3 +1,5 @@
+(
+
 [* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Inverser un nombre entier positif
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *]
@@ -12,8 +14,9 @@
 (fun (reverse n) (
 	(set res 0)
 	(while (! (= n 0)) (
-		(set res (* 10 (+ res (% n 10)))
+		(set res (* 10 (+ res (% n 10))))
 		(set n (/ n 10))
 	))
 	(return (/ res 10))
 ))
+)

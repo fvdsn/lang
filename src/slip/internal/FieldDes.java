@@ -21,7 +21,10 @@ public class FieldDes extends Des
 			if(v.getVal() == 0) {
 				
 			}
+			//System.out.println(env.get(x).getVal());
+			//System.out.println(store);
 			Object o = store.get(env.get(x).getVal());
+			//System.out.println(o);
 			Val v2 = o.get(i);
 		
 			Val newVal = e.getVal(env, store);
@@ -54,6 +57,9 @@ public class FieldDes extends Des
 				throw new SlipError("Error : cannot acces to a field on a null reference");
 			}
 			Object o = st.get(e.get(x).getVal());
+			if(o == null) {
+				return new Val(0);
+			}
 			return o.get(i);
 		}
 		catch(SlipError ex) {
