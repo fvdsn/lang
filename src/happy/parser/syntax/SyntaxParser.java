@@ -145,6 +145,7 @@ public class SyntaxParser {
 			//printStack();
 			int s = stack.size();
 			if(s >= 2){
+				
 				if(prec(s-2,s-1).equals(CheckPrecedence.NOTHING)
 						|| prec(s-2,s-1).equals(CheckPrecedence.ERROR)){
 					System.out.println("illegal grammar :"+prec(s-2,s-1));
