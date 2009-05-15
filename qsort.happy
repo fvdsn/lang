@@ -1,0 +1,86 @@
+(
+	(fun (# val) (
+		(set n (new 2))
+		(set n.1 val)
+		(set n.2 null)
+		(return n)
+	)) 
+	
+	(fun (Print N)(
+		
+		(if (! (= N null)) ( 
+			(write N.1)
+			(Print N.2)
+		))
+	))
+	
+	(fun (#> Val N2) 
+		(return (-> (# Val) N2)) 
+	)
+	
+	(fun (-> N1 N2) (
+		(set N1.2 N2)
+		(return N1)
+	))
+	
+	
+	(fun (Join L1 L2) (
+		
+		(if (= L1 null) (return L2) )
+		(set R L1)
+		(set Temp L1.2)
+		(while (!(= Temp null)) (
+			
+			(set L1 L1.2)
+			(set Temp L1.2)
+		))
+		(set L1.2 L2)
+		(return R)
+	))
+	
+	(fun (Qsort L) (
+		
+		(if (= L null) (return null))
+		(if (= L.2 null) (return L))
+			
+		(set Pivot L.1)
+		(set L L.2)
+		(set L1 null)
+		(set L2 null)
+		(while (!(= L null)) (
+
+		      (if (<= L.1 Pivot) 
+				 
+				(set L1 (#> L.1 L1))
+				(set L2 (#> L.1 L2))
+			)
+			(set L L.2)
+		))
+		(return (Join (Qsort L1) (Join (# Pivot) (Qsort L2 ))))
+	))
+
+
+	(fun (main) (
+		(write (random 100 3))
+		(set List (# 2))
+		(set i 7000)
+		(set seed 8)
+		(while (> i 0) (
+			(set seed (random 100 seed))
+			(set List (#> seed List)) 
+			(set i (- i 1))
+		))
+		
+		(write -3)
+		(Qsort List)
+		
+		(write 0)
+		
+		
+		
+	))
+
+	(fun (random max seed)  
+		(return (% (+ 67 (* 13 seed)) max))
+	) 
+)
