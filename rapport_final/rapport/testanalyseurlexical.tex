@@ -1,0 +1,84 @@
+\section{Test Analyseur Lexical}
+
+Voici quelques tests qui permettent d'illustrer le comportement de l'analyseur lexical .Afin de visualiser la sortie de l'analyseur , on sort le type et le nom du jeton à la sortie standard (stdin).
+
+\subsubsection{Test qui marche}
+Voici le programme que l'analyseur lexical doit prendre en entrée pour ce premier test :
+\begin{verbatim}
+(fun (test A B C)((return (+ A(+ B C)))))
+\end{verbatim}
+Voici ce qu'on obtient en sortie :
+{\tiny
+\begin{verbatim}
+token 0 : (	(
+token 1 :  	esp
+token 2 : fun	fun
+token 3 :  	esp
+token 4 : (	(
+token 5 :  	esp
+token 6 : test	id
+token 7 :  	esp
+token 8 : A	id
+token 9 :  	esp
+token 10 : B	id
+token 11 :  	esp
+token 12 : C	id
+token 13 :  	esp
+token 14 : )	)
+token 15 :  	esp
+token 16 : (	(
+token 17 :  	esp
+token 18 : (	(
+token 19 :  	esp
+token 20 : return	return
+token 21 :  	esp
+token 22 : (	(
+token 23 :  	esp
+token 24 : +	binary
+token 25 :  	esp
+token 26 : A	id
+token 27 :  	esp
+token 28 : (	(
+token 29 :  	esp
+token 30 : +	binary
+token 31 :  	esp
+token 32 : B	id
+token 33 :  	esp
+token 34 : C	id
+token 35 :  	esp
+token 36 : )	)
+token 37 :  	esp
+token 38 : )	)
+token 39 :  	esp
+token 40 : )	)
+token 41 :  	esp
+token 42 : )	)
+token 43 :  	esp
+token 44 : )	)
+token 45 :  	esp
+\end{verbatim}
+}
+L'analyseur lexical marche donc parfaitement , et permet de reconnaitre les différents type de token, ainsio que leurs valeurs.
+
+\subsubsection{Test qui ne marche pas}
+
+Voici un test qui ne marche pas :
+
+(fun (azerty$\mu$ A B)((return 3) ))
+Exception in thread "main" list.all.LexicalError: $\mu$
+
+
+Ce Test ne marche pas car un caractère illégal a été utilisé, et en conséquence l'analyseur lexical le reconnait et l'interdit.
+
+\subsection{Autre Test qui ne marche pas}
+
+Voici un dernier test afin d'illustrer notre analyseur lexical : 
+
+\begin{verbatim}
+.(fun (test A B)((return 3) ))
+Exception in thread "main" list.all.LexicalError: Erreur : No starting point
+\end{verbatim}
+
+Ce test illustre que Un programme ne peut pas démarrer par un point, et cela est bel et bien détecté et catché par notre analyseur lexical.
+
+
