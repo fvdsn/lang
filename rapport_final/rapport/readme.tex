@@ -1,0 +1,50 @@
+\chapter{Mode d'emploi du compilateur}
+La version exécutable du compilateur et interpréteur Happy se trouve dans le jar exécutable \textit{happy.jar}.
+Il prend 2 arguments obligatoire : la grammaire au format BNF et le programme en langage Happy. On peut rajouter \textit{check} à la fin pour vérifier la grammaire en plus.
+Pour faire fonctionner les programmes Happy, il faut passer la grammaire \textit{temp.bnf}. Pour vérifier n'importe quelle grammaire WP, il faut indiquer la grammaire
+un fichier programme bidon et enfin check.
+exemple : \begin{verbatim}
+    java -jar happy.jar temp.bnf programme1.happy 
+    java -jar happy.jar temp.bnf programme1.happy check
+          \end{verbatim}
+
+L'interpréteur sort les informations suivantes dans cet ordre, si le check de la grammaire est demandé, le résultat des tests et la table de précédence.
+Ensuite l'arbre sortit par le parser syntaxique après sa restructuration, ensuite la traduction de l'arbre en SLIP et puis (mais il semble que
+les retour à la ligne ne soit pas conforme ce qui donne des résultats étranges à la sortie dans le shell) la représentation en code interne SLIP. Et finalement
+la sortie du programme interprèté. 
+
+
+\section{Les erreurs}
+Lorsqu'une erreur arrive dans n'importe quelle partie du compilateur l'erreur est affichée (avec plus ou moins de précision) et il s'arrête ensuite.
+\section{Les erreurs du vérificateur}
+  
+
+\section{Les erreurs du parser lexical}
+  Il ne vérifie que deux choses. A la fin de l'analyse si il n'y a pas le même nombre de paranthèse ouvrantes que fermantes, l'erreur \textit{Unexpected end}.
+  Il est aussi capable de vérifier si à tout moment il y a trop de paranthèse fermantes, le messages est dès lors très explicite : \textit{Too much ) }.
+\section{Les erreurs de l'analyseur syntaxique}
+  L'analyseur syntaxique signale trois erreurs. Lorsque deux termes ne peuvent se retrouver côte à côte, lorsqu'il n'arrive pas à trouver une règle pour réduire.
+
+
+Et lorsqu'il a lu tout les caractères, si il reste plus d'un élément dans la pile une erreur est aussi renvoyé.
+\section{Les erreurs du traducteur}
+    Les erreurs que renvoient le traducteur sont d'ordre sémantique. Le programme est valide syntaxiquement mais comme notre grammaire permet beaucoup de chose,
+Il faut remettre les choses en places avec le traducteur. Les erreurs sont du type : quelquechose est attendu dans ce type d'expr et là c'est pas le cas. 
+exemple : textit{Expected id after a set}
+
+
+\section{Les erreurs de l'interpréteur}
+  L'interpréteur reporte les erreurs d'exécutions telles que la division par 0, l'appel à méthode inconnue etc...
+  Les erreurs sont clairement identifié dans le code interne structurée et reporté jusqu'au dessus de la pile d'exécution. Cela permet de retracer l'erreur
+sans trop de difficulté. 
+Voici un exemple : 
+\begin{verbatim}
+Error divide by 0
+	 in Cexpr a#1 / b#2
+	 at Ass A_0#3 := a#1 / b#2
+	 at CmdStmt [ lab9 : A_0#3 := a#1 / b#2 ; go to lab8]
+	 at divide/-1
+	 at Call divide
+	 at CmdStmt [ lab2 : A_0#3 := divide(#4, #5) ; go to lab1]
+	 at main/-1
+\end{verbatim}

@@ -1,0 +1,78 @@
+\chapter{Présentation de Happy:-)}
+\section{Introduction}
+La langage happy, appelé ainsi parce qu'il est très permissif au niveau des caractères permit dans les identifiants comporte de nombreuses autres particularités. Tout d'abord, le langage ressemble très fort au LISP où tout est atom ou liste.
+Mais contrairement au LISP, notre langage est impératif et orienté objet. Un programme est une liste de méthode, une méthode est une liste dont le premier élément est le mot réservé fun le second une list d'argument et le dernier une liste de commande. Même principe pour le while et le if. Dans ce langage tout est fonction, dans le sens que toute instruction renvoie une valeur, y compris les if et le while qui renvoient 0, une fonction qui n'a pas d'instruction return renvoie null, le write renvoie la valeur qu'elle vient d'imprimer etc...
+
+
+
+Les conditions aurait aussi renvoyé une valeur si le langage SLIP dans lequel notre langage est traduit le permettait. 
+
+\section{Grammaire de départ}
+Cette grammaire est la grammaire exhaustive du langage si on rajoute que les id peuvent être formé de tout les caractères UTF-16 sauf des caractères réservés et qu'ils ne doivent pas être égale à un mot réservé.
+
+\begin{verbatim}
+<Program> ::= ( <Prog_list> )
+<Prog_list> ::=  <Meth_or_fun> | <Prog_list> <Meth_or_fun>	
+<Meth_or_fun> ::=  <Method> | <Function>
+
+<Function> := ( fun ( <Arglist> ) <Instr_list> ) 
+<Arglist> ::=  id | id <Arglist>
+<Method> ::= ( <Method_int> ( <Arglist> ) <Instr_list> )
+ 
+<Instr_list> ::=  <Instr> | ( <Instr_list_np> ) 
+<Instr_list_np> ::=  <Instr> | <Instr> <Instr_list_np>
+<Instr> ::=  <Conditional> | <While_block> | <Call> | ( return <Expr> ) 
+
+<Conditional> ::= ( if <Cond> <instr_list> <instr_list>  )  
+<Conditional> ::= ( if <Cond> <instr_list> )
+<While_block> ::= ( while  <Cond> <Instr_list>  ) 
+<call> ::=  <User_call> | <Method_call> | <Builtin_call> 
+<Builtin_call> ::=  <Assignment> | <Read_call> | <Write_call> | <Arithmetic_call>
+<Assignment> ::= ( set id <Expr> ) 
+<Assignment> ::= ( set <Id_int> <Expr> ) | ( set <This_int> <Expr> )
+<Read_call>  ::= ( read )
+<Write_call> ::= ( write <Expr> )
+<Arithmetic_call> ::=  <Binary> | <Unary>
+<Binary> ::= ( <Bin_id> <Expr> <Expr>  )
+<Unary>  ::= ( <Un_id> <Expr>  )
+<User_call>  ::= ( id  <Expr_list_np> ) | ( id ) 
+<Expr_list_np> ::=  <Expr> | <Expr> <Expr_list_np>
+<Method_call>  ::= ( <Id_id> <Expr_list_np>  ) |  ( <Id_id> )   
+<Method_call>  ::= ( <Super_id>  <Expr_list_np>  ) | ( <Super_id>  )
+<Method_call>  ::= ( <This_id>  <Expr_list_np>  ) | ( <This_id> )
+<Expr> ::= number | null | true | false | this | id 
+<Expr> ::= <Id_int> | <This_int> | <Instr>
+<Cond> ::= <Rel> | ( <Log_bin_op> <Cond> <Cond> )
+<Cond> ::= ( <Log_un_op> <Cond> <Cond> )
+<Rel>  ::= ( <Rel_op> <Expr> <Expr> ) 
+<Rel_op> ::= <= | >= | > |  < | =
+<Log_bin_op> ::= and | or
+<Log_un_op> ::= !
+<Bin_id> ::= + | - | * | / | %
+<Un_id> ::= neg
+<Id_int> ::= id . number
+<This_int> ::= this . number
+<Super_id> ::= super . id
+<This_id> := this . id 
+<Id_id> ::= id . id
+<Method_int> ::= method . number
+\end{verbatim}
+Cette grammaire n'est pas wp, mais elle exprime très bien ce qui est syntaxiquement correcte dans ce que nous avons réellement implémenté. 
+
+Voici quelque bout de code permis par cette grammaire :
+
+\begin{verbatim}
+ (while (<= (3 * i) (9)) (write (set i (+ i 1))))
+  
+  (if (! (= i 9)) (return true) (return false))
+
+ (fun (++ i) (return (+ i 1)))
+
+  (set i (++ i))
+\end{verbatim}
+
+
+
+
+
+ 
