@@ -15,63 +15,32 @@ public class TreeOrganiser {
 	}
 	
 	public LexicalTerm contract() {
-		contract(tree);
-		//printTree();
-		//contract(tree);
-		removeLastBlock(tree);
-		
+		contract(tree);		
+		removeLastBlock(tree);		
+		phase2(tree);	
 		phase2(tree);
-		//System.out.println("\n\n\n\n ----------------------------------");
-		//printTree();
-		phase2(tree);
-		//printTree();
 		
-		if(!check(tree)) {
-			System.out.println("erreur de syntaxe 11 ");
-			System.exit(0);
-		}
 		lexTree = new LexicalTerm(tree.getType(), tree.getChildList());
 		lexTree.printLexTree(0);
 		
 		return lexTree;
 		
 		
-	}
+	}	
 	
-	private boolean check(Term t) {
-		
-		//System.out.println(t.getType());
-		char last = t.getType().charAt(t.getType().length() - 1);
-		if(last == 't') {
-			return false;
-		}
-		boolean c = true;
-		for(Term tt : t.getChildList()){
-			if(!check(tt))
-				c = false ;
-		}
-		return c;
-	}
 	
 	private void contract(Term tree) {
 		List<Term> list = tree.getChildList();
 		for(int i = 0; i < list.size(); i++) {
-			Term t = list.get(i);
-			//c'est un id
-			//System.out.println(t.getType());
+			Term t = list.get(i);	
 			char last = t.getType().charAt(t.getType().length() - 1);
-			//if(CharIdentifier.isDigit(last) && t.getChildList().size() == 1 ) {
-				//list.set(i, t.getChildList().get(0));
-				//System.out.println("c'est un id on reduit");
-				
-			//}
 			
 			
 			if(last == 't') {
-				//System.out.println("on a une liste");
+				
 				List<Term> child = t.getChildList();
 				if(child.size() == 2) { // toujours une liste
-					//System.out.println(">>>>>>>");
+					
 					Term tt = child.remove(1);
 					for(Term ttt : tt.getChildList()) {
 						child.add(ttt);
@@ -89,7 +58,7 @@ public class TreeOrganiser {
 				List<Term> child = t.getChildList();
 				if(child.size() == 1) {
 					list.set(i, t.getChildList().get(0));
-					//System.out.println("c'est un id on reduit");
+					
 				}
 				if(child.size() == 2) {
 					
@@ -118,7 +87,7 @@ public class TreeOrganiser {
 	}
 	
 	public void phase2(Term tree) {
-		//System.out.println(tree);
+		
 		List<Term> list = tree.getChildList();
 		for(int i = 0; i < list.size(); i++) {
 			Term t = list.get(i);
@@ -128,12 +97,11 @@ public class TreeOrganiser {
 			phase2(t);
 			
 			if(last == 't') {
-				//if(i == 1) {
+
 					if(list.size() > i + 1) {
 						Term temp = list.remove(i+1);
 						List<Term> child = list.remove(i).getChildList();
-						//System.out.println(t.getType());
-						//System.out.println("on a une liste");
+						
 						for(Term tt : child) {
 							list.add(tt);
 						}
@@ -141,13 +109,11 @@ public class TreeOrganiser {
 					}
 					else  {
 						List<Term> child = list.remove(i).getChildList();
-						//System.out.println(t.getType());
-						//System.out.println("on a une liste");
+						
 						for(Term tt : child) {
 							list.add(tt);
 						}
 					}
-				//}
 			}
 			
 			

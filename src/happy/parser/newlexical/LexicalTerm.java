@@ -91,59 +91,7 @@ public class LexicalTerm extends TermImpl {
 		return lexicalTerm;
 	}
 	
-	@Override
-	public String getValue() {
-		String value = super.getValue();
-		if(lexicalTerm.equals("id")) {
-			
-			
-			if(value.equals("main")) {
-				value = "main";
-			}
-			else {
-				value = hash(value);
-			}
-			
-		}
-		if(lexicalTerm.equals("id_id")) {
-			
-			
-			String[] id = value.split("[.]");
-			
-				value = hash(id[0]) + "." + hash(id[1]);
-			
-			
-		}
-		if(lexicalTerm.equals("this_id")) {
-			
-			
-			String[] id = value.split("[.]");
-			
-				value =  "this." + hash(id[1]);
-			
-			
-		}
-		if(lexicalTerm.equals("super_id")) {
-			
-			System.out.println("test this");
-			String[] id = value.split("[.]");
-			
-				value =  "super." + hash(id[1]);
-			
-			
-		}
-		if(lexicalTerm.equals("id_int")) {
-			
-			
-			String[] id = value.split("[.]");
-			
-				value =  hash(id[0]) + "." + id[1];
-			
-			
-		}
-		
-		return value;
-	}
+	
 	
 	public String hash(String s) {
 		StringBuilder str = new StringBuilder("id");

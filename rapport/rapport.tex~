@@ -1,4 +1,4 @@
-\documentclass[11pt,a4paper]{article}
+\documentclass[11pt,a4paper]{report}
 \usepackage{ifpdf}
 \usepackage[utf8]{inputenc}
 \usepackage[francais]{babel}
@@ -27,7 +27,7 @@
  }
  \lstset{language=python}
 
-%\def\verbatim@font{\small\ttfamily}
+
 
 \begin{document}
 
@@ -43,11 +43,7 @@
 It is now possible with the HAPPY-) programming language !
 \newpage
 
-\input{intro}
-\input{grammar}
-\input{exemple}
-\input{analyseurlexical}
-\input{testanalyseurlexical}
-\input{verificateur}
-\input{testverif}
+
+\include{readme}
+\include{presentation}
 \end{document}

@@ -72,7 +72,7 @@ public class LexicalParser implements Iterable<Term>, Iterator<Term> {
 				
 				if(ca=='['){
 					comment = true;
-					System.out.println("start");
+					
 				}
 				
 				if(!comment){
@@ -125,7 +125,7 @@ public class LexicalParser implements Iterable<Term>, Iterator<Term> {
 				}
 				if(ca==']'){
 					comment = false;
-					System.out.println("end");
+					
 				}
 			}
 			catch(IOException e) {

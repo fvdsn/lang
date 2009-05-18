@@ -1,24 +1,38 @@
-		
-<meth_or_fun> 	::=  <methode> | <function>
-<Program> 		::=  <meth_or_fun> | <Program>  <meth_or_fun>
-<function> 		::= '(' 'fun' '(' <arglist> ')' 'esp' <instr_list> 'esp' ')' 
-<arglist> 		::=  ''id'' | 'id' 'esp' <arglist>
-<methode> 		::= '(' 'method' '(' 'pnumber' ')' 'esp' '(' <arglist> ')' 'esp' <instr_list> 'esp' ')' 
-<instr_list> 	::=  <instr> | '(' <instr_list_np> ')' 
-<instr_list_np> ::=  <instr> | <instr> <instr_list_np>
-<instr> 		::=  <conditional> | <while_block> | <call> | '(' 'return' <expr> ')' | '(' 'skip' ')'
-<conditional> 	::= '(' 'if' <expr>'esp'<instr_list>'esp'<instr_list>  ')' 
-<while_block> 	::= '(' 'while'  <expr> 'esp' <instr_list>  ')' 
-<call> 			::=  <user_call> | <method_call> | <builtin_call> 
-<builtin_call> 	::=  <assignment> | <read_call> | <write_call> | <arithmetic>
-<assignment> 	::= '(' 'set' 'id' 'esp' <expr> ')' | '(' 'set' 'id' '.' <expr> 'esp' <expr> ')' | '(' 'set' 'this' '.' <expr> 'esp' <expr> ')'
-<read_call>  	::= '(' 'read' ')' 
-<write_call> 	::= '(' 'write' <expr> ')'
-<arithmetic> 	::=  <binary> | <unary>
-<binary> 		::= '(' 'bin_id' <expr> 'esp' <expr>  ')'
-<unary>  		::= '(' 'un_id' <expr>  ')'
-<user_call>  	::= '(' 'esp' 'id' 'esp'  <expr_list_np> 'esp'  ')' | '(' 'esp' 'id' 'esp' ')' 
-<expr_list_np> 	::=  <expr> | <expr> 'esp' <expr_list_np>
-<method_call>  	::= '(' 'id''.''id' 'esp' <expr_list_np>  ')' |   '(' 'super''.''id' 'esp' <expr_list_np>  ')' 
-<expr> 			::=  <call>  | <number> | 'null' | 'true' | 'false' | 'this' | 'id' | 'id''.'<expr> | 'this''.'<expr> 
+<Program>       	::= ( <Prog_list> )
+<Prog_list> 		::=  <Meth_or_fun> | <Program>  <Meth_or_fun>	
+<Meth_or_fun> 		::=  <Method> | <Function>
+
+<Function> 			::= ( fun ( <Arglist> ) <Instr_list> ) 
+<Arglist> 			::=  id | id <Arglist>
+<Method> 			::= ( method . number ( <Arglist> ) <Instr_list> )
+ 
+<Instr_list> 		::=  <Instr> | ( <Instr_list_np> ) 
+<Instr_list_np> 	::=  <Instr> | <Instr> <Instr_list_np>
+<Instr> 			::=  <Conditional> | <While_block> | <Call> | ( return <Expr> ) 
+
+<Conditional> 		::= ( if <Cond> <instr_list> <instr_list>  ) |  ( if <Cond> <instr_list> )
+
+<While_block> 		::= ( while  <Cond> <Instr_list>  ) 
+<call> 				::=  <User_call> | <Method_call> | <Builtin_call> 
+<Builtin_call> 		::=  <Assignment> | <Read_call> | <Write_call> | <Arithmetic_call>
+<Assignment> 		::= ( set id <Expr> ) | ( set id . number <Expr> ) | ( set this . number <Expr> )
+<Read_call>  		::= ( read )
+<Write_call> 		::= ( 'write' <Expr> )
+<Arithmetic_call> 	::=  <Binary> | <Unary>
+<Binary> 			::= ( <Bin_id> <Expr> <Expr>  )
+<Unary>  			::= ( <Un_id> <Expr>  )
+<User_call>  		::= ( id  <Expr_list_np> ) | ( id ) 
+<Expr_list_np> 		::=  <Expr> | <Expr> <Expr_list_np>
+<Method_call>  		::= ( id . id <Expr_list_np>  ) |  ( id . id )   
+<Method_call>  		::= ( super . id  <Expr_list_np>  ) | ( super . id  )
+<Method_call>  	 	::= ( this . id  <Expr_list_np>  ) | ( this . id  )
+<Expr> 				::=  <Instr>  | number | null | true | false | this | id | id . number | this . number
+
+<Cond>          	::= <Rel> | ( <Log_bin_op> <Cond> <Cond> ) | ( <Log_un_op> <Cond> <Cond> )
+<Rel>				::= ( <Rel_op> <Expr> <Expr> ) 
+<Rel_op>			::= <= | >= | > |  < | =
+<Log_bin_op>		::= and | or
+<Log_un_op>			::= !
+<Bin_id> 			::= + | - | * | / | %
+<Un_id>				::= neg
 

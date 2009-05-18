@@ -7,7 +7,6 @@ import happy.parser.bnf.Term;
 import happy.parser.bnf.TermImpl;
 import happy.parser.newlexical.LexicalParser;
 import happy.parser.newlexical.LexicalTerm;
-import happy.parser.newlexical.Translator;
 
 
 import java.util.Hashtable;
@@ -76,7 +75,7 @@ public class SyntaxParser {
 						
 					}
 				}
-				System.out.println("LAST MATCHHH");
+				
 				Term t = new TermImpl(r.getLeftSide().toString(), false);
 				List<Term> Rchild = t.getChildList();
 				for(int i = 0; i < l.size(); i++) {
@@ -148,7 +147,7 @@ public class SyntaxParser {
 				
 				if(prec(s-2,s-1).equals(CheckPrecedence.NOTHING)
 						|| prec(s-2,s-1).equals(CheckPrecedence.ERROR)){
-					System.out.println("illegal grammar :"+prec(s-2,s-1));
+					System.out.println("illegal grammar : "+prec(s-2,s-1));
 					return;
 				}
 				
@@ -174,7 +173,7 @@ public class SyntaxParser {
 			new Translator(to.contract());
 			
 		}else{
-			System.out.println("program too long ... ");
+			System.out.println("invalid Syntax, stack too long");
 		}
 	}
 	public Term getParsedTree(){
