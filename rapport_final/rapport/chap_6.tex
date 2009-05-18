@@ -1,0 +1,29 @@
+\section{Analyse syntaxique}
+	\subsection{Grammaire WP du langage} 
+		\begin{verbatim}
+			<l0> ::= <l_block>  ')' | 'l_id'
+			<l_block> ::= '(' <l_list>
+			<l_list> ::= <l0> | <l0> <l_list>
+		\end{verbatim}
+		Étant donné les nombreux déboires et retournement de situations
+		pour rendre notre syntaxe WP nous avons décidé d'utiliser une
+		autre approche qui consiste à seulement différencier les différents
+		niveaux d'imbrication de parenthèses et les 'identifiants' qui 
+		comprennent les identifiants, mais aussi les mots réservés et les 
+		nombres. Ceux ci sont désignés par 'l_id' dans la grammaire, mais
+		en pratique, les symboles gardent leur type donné par l'analyseur
+		lexical. Le gros du travail est donc délégué aux étapes ultérieures.
+	\subsection{Problèmes rencontrés}
+		Le premier problème venait du flou entourant la definition de cycle.
+		Nous avions travaillé sur une mauvaise définition beaucoup trop 
+		restrictive qui nous a amené a différencier chaque niveau d'imbrication.
+		Comme cela n'était pas possible avec la syntaxe de base nous avons utilisé
+		la syntaxe minimaliste présentée ci-dessus. Lorsque nous nous sommes rendu
+		compte de notre erreur, nous avons continué dans notre approche. En effet
+		la validation de la syntaxe n'est pas spécialement plus compliquée au niveau
+		de l'arbre syntaxique. 
+		
+		Le second problème est un conflit de précédence au niveau des parenthèses
+		qui a été résolu en séparant les paires de parenthèses en deux rêgles
+		de production séparées. 
+	\subsection{Code de l'analyseur syntaxique}

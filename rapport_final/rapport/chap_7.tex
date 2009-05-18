@@ -1,0 +1,14 @@
+\section{Traduction du programme en code interne}
+	\subsection{Création de l'arbre syntaxique du programme}
+		L'arbre syntaxique est consitué de \emph{Term} afin
+		qu'il puisse être généré directement par l'analyseur syntaxique. 
+		La méthode getChildList() renvoie la liste des \emph{Term} enfants.
+
+		La première chose à faire avec l'arbre généré par l'arbre brut est
+		de mettre tout ce qui est au même niveau de parenthèses au même niveau
+		dans l'arbre. Pour cela on le parcourt et on fusionne récursivement tous
+		les l_blocks et les l_lists dans leurs parents. Comme les \emph{Term}
+		gardent en mémoire le type donné à l'analyse syntaxique, les terminaux
+		récupèrent automatiquement le bon type. 
+
+			
