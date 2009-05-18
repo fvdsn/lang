@@ -2,27 +2,13 @@
 Nous avons testé notre vérificateur de grammaire avec les grammaires fournie sur icampus 
 pour finalement tester avec notre grammaire. Ici je ne montrerai que le test final pour notre grammaire. 
 
-Teste avec la première grammaire
-{\tiny 
-\begin{verbatim}
- 
-
-
-A --> A a 
-A --> B 
-B --> a 
-B --> A B 
-\end{verbatim}
-}
-
-réécrite en bnf pour notre parser :
+\subsection{Premier Test}
 {\tiny
 \begin{verbatim}
 <A> ::= <A> 'a'
 <A> ::= <B>
 <B> ::= 'a'
 <B> ::= <A> <B>
-
 
 Check conflit suffix : 
 ----------------------------
@@ -62,19 +48,7 @@ A <. A
 }
 
 
-Test avec une autre grammaire WP :
-{\tiny
-\begin{verbatim}
-E --> T 
-E --> + T 
-E --> E + T 
-T --> F 
-T --> T * F 
-F --> x 
-F --> ( E ) 
-\end{verbatim}
-}
-qu'on a réécrit en :
+\subsection{Second Test}:
 {\tiny
 \begin{verbatim}
 <E> ::= <T> 
@@ -116,7 +90,7 @@ Validity grammar : true
 \end{verbatim}
 }
 
-
+\subsection{Troisième Test}
 Dernière grammaire qui est normalement fausse :
 {\tiny
 \begin{verbatim}
@@ -162,15 +136,3 @@ E ::= T:false
 Validity grammar : false
 \end{verbatim}
 }
-Elle est bien fausse et la faute est la même que le test.
-
-
-
-Maintenant que nous pouvons accorder un peu de crédit à notre vérificateur. Testons notre grammaire,
-en épargnant la table de précédence.
-\begin{verbatim}
-No conflicts in table
-Validity precedence : true
-Check conflit suffix : 
-Validity grammar : true
-\end{verbatim}
