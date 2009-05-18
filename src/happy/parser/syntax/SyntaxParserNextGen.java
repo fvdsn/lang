@@ -26,9 +26,11 @@ public class SyntaxParserNextGen {
 		this.stack = new Stack<Term>();
 	}
 	/*
-	 * Takes a terminal from the lexical parser and puts it on the stack
-	 * if there is no terminal left in the lexical parsers, it returns
-	 * false, returns true otherwise.
+	 * @pre :~
+	 * @post: A terminal is read from the lexical parser and put ont
+	 * the top of the stack, and returns true.
+	 * If there is no terminal left to read, it will do nothing and return 
+	 * false
 	 */
 	public boolean shift(){
 		if(next == null && lexParser.hasNext()){
@@ -45,7 +47,10 @@ public class SyntaxParserNextGen {
 		}
 		return false;
 	}
-	/* 
+	/*
+	 * @pre : There is a symbol on the stack.
+	 * @post : ~
+	 * @returns : 
 	 * Returns the precedence relation between the symbol with index
 	 * i and i+1 on the stack. If i is equal to the stack size -1 it
 	 * returns the precedence relation with the symbol that will be
@@ -65,7 +70,8 @@ public class SyntaxParserNextGen {
 		}
 	}
 	/*
-	 * Prints the stack and the next element. 
+	 * @pre : ~
+	 * @post : Prints the stack and the next element. 
 	 */
 	public void printStack(){
 		int i = 0;
@@ -84,7 +90,10 @@ public class SyntaxParserNextGen {
 		}
 	}
 	/* 
-	 * Returns true if there is only the terminal symbol left on the stack.
+	 * @pre: ~
+	 * @post: ~
+	 * @return: true if there is only the start symbol left on the stack, and 
+	 * nothing left to read on the lexical parser.
 	 */
 	public boolean done(){
 		if(stack.size() == 1 && next == null){
@@ -98,12 +107,15 @@ public class SyntaxParserNextGen {
 		return false;
 	}
 	/*
+	 * @pre : There is a symbol on the stack.
+	 * @post :
 	 * Tries to match the stop of the stack with the right side of a rule.
 	 * It will try to match <.= ... > handles first. If it cannot match
 	 * the first <. ... .> handle found, it will stop and return false.
 	 * If it finds a match the handle is removed from the stack, put as
 	 * the child of a new Term corresponding to the left hand of the matching
 	 * rule, and that Term is put on the top of the stack.
+	 * @return : returns true if could reduce, false if it couldn't. 
 	 */
 	public boolean reduce(){
 		int i = stack.size() -1; /* beginning of the handle */
@@ -152,8 +164,11 @@ public class SyntaxParserNextGen {
 		}
 		return false;
 	}
-	/*Tries to parse the input, if successful puts the result in tree and
-	 * returns true. returns false otherwise.
+	/*
+	 * @pre : the object has been correctly initialized with a lexical
+	 * parser and a precedence table.
+	 * @post : Tries to parse the input, if successful puts the result in tree and
+	 * returns true. returns false and prints an error message otherwise. 
 	 */
 	public boolean parse(){
 		while(shift()){
@@ -181,6 +196,10 @@ public class SyntaxParserNextGen {
 			return false;
 		}
 	}
+	/*
+	 * @pre:~
+	 * @return: returns the latest valid syntax tree. 
+	 */
 	public Term getParsedTree(){
 		return tree;
 	}
