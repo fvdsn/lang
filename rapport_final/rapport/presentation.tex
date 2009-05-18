@@ -47,7 +47,7 @@ Cette grammaire est la grammaire exhaustive du langage si on rajoute que les id 
 <Rel>  ::= ( <Rel_op> <Expr> <Expr> ) 
 <Rel_op> ::= <= | >= | > |  < | =
 <Log_bin_op> ::= and | or
-<Log_un_op> ::= !
+<Log_un_op> ::= not
 <Bin_id> ::= + | - | * | / | %
 <Un_id> ::= neg
 <Id_int> ::= id . number
@@ -62,15 +62,53 @@ Cette grammaire n'est pas wp, mais elle exprime très bien ce qui est syntaxique
 Voici quelque bout de code permis par cette grammaire :
 
 \begin{verbatim}
- (while (<= (3 * i) (9)) (write (set i (+ i 1))))
+(while (<= (3 * i) (9)) (write (set i (+ i 1))))
   
-  (if (! (= i 9)) (return true) (return false))
+(if (! (= i 9)) (return true) (return false))
 
- (fun (++ i) (return (+ i 1)))
+(fun (++ i) (return (+ i 1)))
 
-  (set i (++ i))
+(set i (++ i))
+
+(set a (new 2))
 \end{verbatim}
 
+\section{Exemple de programme complet}
+Le premier programme imprime juste l'entier lu à la console.
+
+\begin{verbatim}
+(
+  (fun (main) 
+    (write (read))
+  )
+)
+\end{verbatim}
+
+Le programme suivant fait la somme de 1 à n pour 10 n
+\begin{verbatim}
+(
+  [Programme fait la somme de 1 à n pour n qui va de 0 à 10]
+  (fun (main) (
+    (set i 0)
+    (while (<= i 10)
+    (
+      (write (sum i))
+      (set i (+ i 1))
+    ))
+  ))
+
+
+  (fun (sum n) (
+    (if (= n 0)
+      (return 0)
+    )
+    (return (+ n (sum (- n 1))))
+  ))
+)
+
+\end{verbatim}
+
+Le dernier programme fait la somme des éléments d'une pile et utilise la POO
 
 
 
