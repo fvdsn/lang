@@ -1,0 +1,322 @@
+\section{Vérificateur de grammaire WP}
+	\subsection{BNF Parser}
+	Le point de départ du vérificateur de grammaire est le parser BNF. Ce parser permet d'avoir sous une forme utilisable que nous détaillerons 
+plus loin, les règles contenue dans le fichier. Le loader charge le fichier et le lit ligne par ligne. Chaque ligne contient l'ensemble des règles
+de production d'un non terminal, séparées par des barres. Les non terminaux sont entre '<','>' et les terminaux sont entre guillements. On peut
+échapper les guillements ou les comparateurs par un backslash. 
+Voici un exemple de fichier BNF accepté par le parseur : 
+
+\begin{verbatim*}
+	  <E> ::= <T> | '\\' <T> | <T> '+' <E>
+	  <T> ::= <F> | <F> '*'<T>
+	  <F> ::= '\''
+\end{verbatim*}
+
+	\subsection{Représentation Java de la grammaire et de ses éléments}
+		Toutes les classes représentant la grammaire et le parsing du bnf se trouvent dans le package \emph{happy.parser.bnf}
+		\subsubsection{Term} Le \emph{Term} est la classe représentant le symboles terminaux et non terminaux de la syntaxe. \emph{Term}
+		représente aussi les terminaux renvoyés par l'analyseur lexical, et les noeuds des différents arbres syntaxiques. Cela permet d'éviter
+		les conversions inutiles dans nos différents algorithmes. Sa méthode qui nous concerne ici est getType() qui renvoit le nom du symbole
+		(Number , Identifier , ...)
+		\subsubsection{CatList} La \emph{Catlist} est une liste de \emph{Term} représentant une partie droite de production. 
+		\subsubsection{Rule}  La \emph{Rule} représente une règle de production. getName() renvoie le \emph{Term} de la partie gauche, 
+		et getOrList() renvoie une liste de \emph{Catlist}
+
+	\subsection{Architecture}
+	Le vérificateur de grammaire est implémenté comme une série de test
+	statique correspondant aux conditions de Weak Precedence.
+	
+	Tous ces tests prennent en paramètre la grammaire (une liste de "Rules")
+
+	Un test global - \emph{CheckAll} - se charge de tester l'ensemble de ces tests.
+	Toutes les classes et méthodes correspondantes se trouvent dans le package \emph{happy.checker}
+
+	\subsection{Test de symbole vide (\emph{CheckLambda})}
+		Ce test s'assure qu'aucune règle n'a de production vide (lambda).
+		Ce test parcourt simplement l'arbre de la définition grammaire et
+		vérifie l'absence de terminaux lambda. Ce test vérifie aussi l'absence
+		de Non terminaux n'ayant pas de règles de productions. 
+
+	\subsection{Test de conflit de préférence (\emph{CheckPrecedence})}
+		Ce test vérifie qu'il n'y ait pas de conflit entre les précédence
+		de symbole. Le seul conflit autorisé est entre $\lessdot$ et $\doteq$ qui donne
+		la relation de précédence $\dot{\leq}$
+
+		Pour faire cela, le test construit deux ensemble pour chaque non-terminal :
+		First et Last. Ceux-ci permettront de déterminer très facilement les précédences
+		par la suite. Soit un non terminal $A$ : $First(A)$ contient l'ensemble des terminaux et non terminaux 
+		pouvant se trouver sur l'extrème gauche d'une production de $A$. $Last(A)$ contient l'ensemble
+		des terminaux et non terminaux pouvant se trouver sur l'extrème droite d'une production de $A$. 
+
+		Pour calculer Tous les First on utilise l'algorithme suivant :
+		\begin{enumerate}
+			\item Pour tout non terminal $A$ de la grammaire : On identifie les règles correspondantes.
+			Pour chacune d'entre elles on identifie si elles commencent par un terminal, et si
+			c'est le cas on les ajoute à $First(A)$. 
+			\item Pour tout non terminal $A$ de la grammaire : On identifie les règles correspondantes,
+			Pour chacune d'entre elles, on identifie si elles commencent par un non terminal $B$.
+			Si c'est le cas on ajoute $B$ et $First(B)$ à $First(A)$. 
+			\item on répète l'étape précédente tant que les $First$ changent.
+		\end{enumerate}
+		L'algorithme pour trouver les Last est identique à ceci près qu'on examine les cotés droits des règles.
+		
+		Une fois que l'on a ces deux ensembles on peut calculer la table de précedence, grace à l'algorithme suivant :
+		\begin{enumerate}
+			\item On initialise tous les éléments de la table à '$Nothing$'
+			\item On identifie toutes les parties droites, et pour chacune d'entre elles on identifie tous les
+			symboles côte à côte $..XY..$
+			\item On ajoute $X\doteq Y$ dans la table.
+			\item Si $X$ non terminal : Pour tout symbole $s$ dans $Last(X)$, Pour tout terminal $t$ dans $First(Y)$
+				on met $s\gtrdot t$ dans la table. Si $Y$ est terminal on met $s\gtrdot Y$ dans la table.
+			\item Si $Y$ non terminal : Pour tout symbole $s$ dans $First(Y)$, on met $X \lessdot s$ dans la table.
+			\item Si à un moment on met une relation dans la table là ou précédemment il n'y avait pas '$Nothing$',
+				on a un conflit. Les conflits impliquant $\lessdot$ , $\doteq$ et $\dot{\leq}$ sont résolus en insérant $\dot{\leq}$ dans
+				la table. Les autres conflits sont marqués en tant que conflits et reportés. 
+			\item Si il y a des conflits non résolus dans la table alors le Test échoue, la grammaire n'est pas valide
+			Weak Precedence.
+		\end{enumerate}
+	\subsection{Preuve de l'algorithme}
+		Cet algorithme nous vient de l'ouvrage \emph{Parsing techniques - A practical guide de Dick Grune et Ceriel J.H Jacobs}
+		\subsubsection{$\doteq$} Le critère utilisé par notre algorithme est identique à celui donné dans le cours.
+		\subsubsection{$\lessdot$} Le cours donne le critère suivant : On a $X\lessdot Y$ si pour $A \Longrightarrow..XC..$ on a $C \overset{+}{\Longrightarrow} Y..$ On constate
+		que $First(C)$ donne tous les symboles terminaux et non terminaux tels que $C \overset{+}{\Longrightarrow} Y..$ le critère utilisé est donc
+		identique.
+		\subsubsection{$\gtrdot$} Le cours donne le critère suivant : On a $X\gtrdot y$ si pour $A\Longrightarrow..BC..$ on 
+		a $B \overset{+}{\Longrightarrow} ..X$ et $C \overset{*}{\Longrightarrow} y..$
+		$Last(B)$ donne tous les symboles tels que $B \overset{+}{\Longrightarrow}..X$ et $First(C)$ donne tous les symboles tels que 
+		$C \overset{+}{\Longrightarrow} Y..$ 
+		on en prend tous les terminaux et C lui même si terminal pour avoir l'ensemble tel que $C \overset{*}{\Longrightarrow} y..$ Le critère utilisé
+		est donc identique. 
+
+	\subsection{Test de Suffixe}
+		Ce test vérifie que les relations de suffixe sont respectées. C'est à dire :
+		Pour tout couple de règles $Z \Longrightarrow \beta$, $X \Longrightarrow \alpha Y \beta$,
+		on vérifie que $\neg(Y \doteq X)$ , $\neg(Y \lessdot X)$ et $\neg(Y \dot{\leq} X)$.
+		
+		Pour ce faire nous utilisons la méthode suivante : 
+		Pour chaque règle $Z \Longrightarrow \beta$, pour toute autre règle $X \Longrightarrow \alpha$ on regarde si on peut matcher $\beta$ 
+		comme suffixe de $\alpha$.
+		Dans l'affirmative, on identifie le symbole juste avant le suffixe. Nous pouvons a ce moment vérifier la
+		condition décrite expliquée précédemment. Si elle n'est pas vérifiée. le Test échoue, la grammaire n'est pas valide.
+
+	\subsection{Test de Cycles}
+		Un cycle est definit formellement par tout ensemble de règles de productions donnant $E \overset{+}{\Longrightarrow} \alpha E\beta$.
+		ou $\alpha$ et $\beta$ sont 'nullables'. 
+		Comme en WP il ne peut y avoir de productions vides, on vérifie $\neg(E \overset{+}{\Longrightarrow} E)$. Pour ce faire on 
+		crée un graphe directionnel ayant pour noeuds les symboles non terminaux et pour arcs les règles de productions de type
+		$A\Longrightarrow B$. On vérifie ensuite l'absence de cycles dans ce graphe via un algorithme adéquat.
+
+	\subsection{Spécifications des méthodes importantes}
+{\small
+\begin{verbatim}
+
+
+ 	/**
+	 * 
+	 * @param rules The rules list
+	 * @param table The precedence table
+	 * @return a list of tuple (triple) 
+	 * that contains the two conflicting rules and 
+	 * the suffix the cause the conflict
+	 */
+	public static List<RulesTuple> checkSuffix(List<Rule> rules, 
+	Hashtable<Term,Hashtable<Term,String>> table)
+	
+	/**
+	 * Regarde si la grammaire n'a pas de conflits de précédence.
+	 * Affiche la table des précédence à la sortie standard.
+	 * @param grammar Une grammaire cohérente : 
+	 * tous les non terminaux ont au moins une règle. 
+	 * @return true si la grammaire est valide, false sinon.
+	 */
+	public static boolean checkPrecedence(List<Rule> grammar)
+	
+	/**
+	 * Met une relation de précédence dans la table de précédence et
+	 * résout les conflits. Affiche les détails de l'erreur à la sortie
+	 * standard en cas de conflits. Si le conflit est entre <. ou <.= ou =. 
+	 * celui ci est résolu en insérant un <.= 
+	 * 
+	 * @param table la table de précédence
+	 * @param X	le premier Terme
+	 * @param Y le second Terme
+	 * @param rel la relation de précédence ( EQ,LE,GE,LEQ,ERROR,NOTHING)
+	 * @param rule la règle d'ou provient X et Y.
+	 * @return true si il n'y a pas de conflits, false sinon. 
+	 */
+	public static boolean tableSet(Hashtable<Term,Hashtable<Term,String>> 
+	table, Term X, Term Y, String rel, Rule rule)
+	
+	/**
+	 * Calcule l'ensemble First pour chaque Terme correspondant aux Termes
+	 * pouvant se trouver à l'extrème gauche de celui ci. 
+	 * @param grammar la grammaire
+	 * @return une Hashtable qui fait correspondre à chaque Terme son set First.
+	 */
+	public static Hashtable<Term,Set<Term>> FirstSet(List<Rule> grammar)
+	
+	/**
+	 * Calcule la table de précédence WP et si celle ci contient des conflits.
+	 * En cas de conflits, ceux ci sont affichés à la sortie standard.
+	 * @param grammar la grammaire
+	 * @param table une Hashtable à deux dimensions dont l
+	 * es clefs sont tous les couples
+	 * 			de termes existant dans grammar. 
+	 *  Tous les éléments de table sont initialisés
+	 * 			à NOTHING.
+	 * @return true si il n'y a pas de conflits dans la table, false sinon. 
+	 */
+	public static  boolean precTable(List<Rule> grammar, 
+	Hashtable<Term,Hashtable<Term,String>> table)
+	
+	/**
+	 * Vérifie que la liste ne contient pas d'expensions vides,
+	 * en cherchant les termes 'lambda' dans tous les termes de toutes
+	 * les règles. 
+	 * @param grammar la grammaire
+	 * @return  true si la grammaire ne contient pas de terme 'lambda',
+	 * 			false sinon.
+	 */
+	public static boolean checkLambda(List<Rule> grammar)
+
+
+\end{verbatim}
+}
+\section{Test du vérificateur}
+Nous avons testé notre vérificateur de grammaire avec les grammaires fournie sur icampus 
+pour finalement tester avec notre grammaire. Ici je ne montrerai que le test final pour notre grammaire. 
+
+\subsection{Premier Test}
+{\tiny
+\begin{verbatim}
+<A> ::= <A> 'a'
+<A> ::= <B>
+<B> ::= 'a'
+<B> ::= <A> <B>
+
+Check conflit suffix : 
+----------------------------
+A   A
+<.
+----------------------------
+----------------------------
+B   A
+<=
+----------------------------
+conflit avec a:true
+A ::= A:false a:true
+B ::= a:true 
+
+conflit avec B:false
+B ::= A:false B:false
+A ::= B:false 
+\end{verbatim}
+}
+
+Validity grammar : false
+
+
+Ce test concorde bien avec l'exmple donné
+{\tiny
+\begin{verbatim}
+Grammaire non WP :
+règle 1 : B --> a 
+règle 2 : A --> A a
+A <. B
+Grammaire non WP :
+règle 1 : A --> B 
+règle 2 : B --> A B
+A <. A
+
+\end{verbatim}
+}
+
+
+\subsection{Second Test}:
+{\tiny
+\begin{verbatim}
+<E> ::= <T> 
+<E> ::= '+' <T> 
+<E> ::= <E> '+' <T> 
+<T> ::= <F> 
+<T> ::= <T> '*' <F> 
+<F> ::= 'x' 
+<F> ::= '(' <E> ')' 
+\end{verbatim}
+}
+C'est bien une grammaire WP :
+{\tiny
+\begin{verbatim}
+Precedence Table
+    |(   |)   |*   |+   |T   |E   |F   |x   |
+     ========================================
+(   | <. |    |    | <. | <. | <= | <. | <. |
+     ----------------------------------------
+)   |    | .> | .> | .> |    |    |    |    |
+     ----------------------------------------
+*   | <. |    |    |    |    |    | .= | <. |
+     ----------------------------------------
++   | <. |    |    |    | <= |    | <. | <. |
+     ----------------------------------------
+T   |    | .> | .= | .> |    |    |    |    |
+     ----------------------------------------
+E   |    | .= |    | .= |    |    |    |    |
+     ----------------------------------------
+F   |    | .> | .> | .> |    |    |    |    |
+     ----------------------------------------
+x   |    | .> | .> | .> |    |    |    |    |
+     ----------------------------------------
+
+No conflicts in table
+Validity precedence : true
+Check conflit suffix : 
+Validity grammar : true
+\end{verbatim}
+}
+
+\subsection{Troisième Test}
+Dernière grammaire qui est normalement fausse :
+{\tiny
+\begin{verbatim}
+E --> T 
+E --> + T 
+E --> T + E 
+T --> F 
+T --> F * T 
+F --> x 
+F --> ( E ) 
+
+Precedence Table
+    |(   |)   |*   |+   |T   |E   |F   |x   |
+     ========================================
+(   | <. |    |    | <. | <. | .= | <. | <. |
+     ----------------------------------------
+)   |    | .> | .> | .> |    |    |    |    |
+     ----------------------------------------
+*   | <. |    |    |    | .= |    | <. | <. |
+     ----------------------------------------
++   | <. |    |    | <. | <= | .= | <. | <. |
+     ----------------------------------------
+T   |    | .> |    | .= |    |    |    |    |
+     ----------------------------------------
+E   |    | .= |    |    |    |    |    |    |
+     ----------------------------------------
+F   |    | .> | .= | .> |    |    |    |    |
+     ----------------------------------------
+x   |    | .> | .> | .> |    |    |    |    |
+     ----------------------------------------
+
+No conflicts in table
+Validity precedence : true
+Check conflit suffix : 
+----------------------------
+E   +
+.=
+----------------------------
+conflit avec T:false
+E ::= +:true T:false
+E ::= T:false 
+
+Validity grammar : false
+\end{verbatim}
+}
