@@ -1,7 +1,5 @@
 
-
-(	
-	[fonction main]
+(
 	(fun (main) (
 		(set a (new 2))
 		(set a.1 2)

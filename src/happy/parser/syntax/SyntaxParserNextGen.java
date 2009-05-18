@@ -25,8 +25,14 @@ public class SyntaxParserNextGen {
 		this.prectable = prectable;
 		this.stack = new Stack<Term>();
 	}
+	/*
+	 * Takes a terminal from the lexical parser and puts it on the stack
+	 * if there is no terminal left in the lexical parsers, it returns
+	 * false, returns true otherwise.
+	 */
 	public boolean shift(){
 		if(next == null && lexParser.hasNext()){
+			System.out.println("coucou");
 			stack.push(lexParser.next());
 			if(lexParser.hasNext()){
 				next = lexParser.next();
@@ -36,10 +42,15 @@ public class SyntaxParserNextGen {
 			stack.push(next);
 			next = lexParser.next();
 			return true;
-		}else{
-			return false;
 		}
+		return false;
 	}
+	/* 
+	 * Returns the precedence relation between the symbol with index
+	 * i and i+1 on the stack. If i is equal to the stack size -1 it
+	 * returns the precedence relation with the symbol that will be
+	 * placed on the stack on the next shift.
+	 */
 	public String prec(int i){
 		if(i < 0){
 			return CheckPrecedence.LE;
@@ -53,24 +64,51 @@ public class SyntaxParserNextGen {
 			return prectable.get(stack.get(i)).get(stack.get(i+1));
 		}
 	}
+	/*
+	 * Prints the stack and the next element. 
+	 */
 	public void printStack(){
 		int i = 0;
-		while(i < stack.size()){
-			System.out.print(stack.get(i).toString());
+		int size = stack.size();
+		while(i < size){
+			System.out.print(stack.get(i).getType());
 			if(i < stack.size()){
 				System.out.print(prec(i));
 			}
 			i++;
 		}
 		if(next == null){
-			System.out.println("| END");
+			System.out.println("  | END");
 		}else{
-			System.out.println("| "+next.toString());
+			System.out.println("  | "+next.getType());
 		}
 	}
+	/* 
+	 * Returns true if there is only the terminal symbol left on the stack.
+	 */
+	public boolean done(){
+		if(stack.size() == 1 && next == null){
+			for(Rule r:grammar){
+				if(r.isStart() && 
+						stack.get(0).getType().equals(r.getLeftSide().getType())){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	/*
+	 * Tries to match the stop of the stack with the right side of a rule.
+	 * It will try to match <.= ... > handles first. If it cannot match
+	 * the first <. ... .> handle found, it will stop and return false.
+	 * If it finds a match the handle is removed from the stack, put as
+	 * the child of a new Term corresponding to the left hand of the matching
+	 * rule, and that Term is put on the top of the stack.
+	 */
 	public boolean reduce(){
-		int i = stack.size() -2;
-		boolean hard = false;
+		int i = stack.size() -1; /* beginning of the handle */
+		boolean hard = false;	/*it has tried to match a < ... > handle */
+		boolean match = true;	
 		while(i >= 0){
 			int matchsize = stack.size()-i;
 			if( 	prec(i-1).equals(CheckPrecedence.LE)
@@ -79,22 +117,28 @@ public class SyntaxParserNextGen {
 					hard = true;
 				}
 				for(Rule r:grammar){
-					for(CatList c:r.getOrList()){
+					for(CatList c:r.getOrList()){	/*we iterate over rules */
 						List<Term> L = c.getTermList();
 						if(L.size() != matchsize){
 							continue;
 						}
 						int j = 0;
-						while(j < matchsize){
+						match = true;
+						while(j < matchsize){	/*matching the handle with the rule*/
 							if(!L.get(j).equals(stack.get(i+j))){
-								continue;
+								match = false;
+								break;
 							}
 							j++;
 						}
+						if(!match){
+							continue;
+						}
 						Term R = new TermImpl(r.getLeftSide().getType(),false);
 						j = 0;
-						while(j < matchsize){
+						while(j < matchsize){ /*removing from the stack and adding to the child list */
 							R.getChildList().add(stack.remove(i));
+							j++;
 						}
 						stack.push(R);
 						return true;
@@ -108,27 +152,33 @@ public class SyntaxParserNextGen {
 		}
 		return false;
 	}
-	public void parse(){
+	/*Tries to parse the input, if successful puts the result in tree and
+	 * returns true. returns false otherwise.
+	 */
+	public boolean parse(){
 		while(shift()){
-			System.out.println("Shift:");
-			printStack();
 			while(prec(stack.size()).equals(CheckPrecedence.GE)){
 				if(!reduce()){
-					if (stack.size() == 1 && !shift()){
-						System.out.println("Syntax successfully parsed");
+					if (done()){
 						tree = stack.get(0);
+						return true;
 					}
 					System.out.println("Syntax Error : Could not reduce");
-					return;
+					printStack();
+					return false;
 				}
-				System.out.println("Reduce:");
-				printStack();
+				if(done()){
+					tree = stack.get(0);
+					return true;
+				}
 			}
 		}
-		if (stack.size() == 1){
+		if (done()){
 			tree = stack.get(0);
+			return true;
 		}else{
 			System.out.println("Syntax Error : Program too long");
+			return false;
 		}
 	}
 	public Term getParsedTree(){

@@ -11,6 +11,8 @@ import happy.parser.bnf.Term;
 import happy.parser.newlexical.LexicalParser;
 import happy.parser.syntax.SyntaxParser;
 import happy.parser.syntax.SyntaxParserNextGen;
+import happy.parser.syntax.Translator;
+import happy.parser.syntax.TreeOrganiser;
 import happy.checker.CheckPrecedence;
 import happy.checker.checkWP;
 
@@ -53,6 +55,10 @@ public class Main {
 		}
 		spn = new SyntaxParserNextGen(lp,bnfp.getRules(),prectable);
 		spn.parse();
+		if(spn.getParsedTree() != null){
+			TreeOrganiser to = new TreeOrganiser(spn.getParsedTree());
+			new Translator(to.contract());
+		}
 	}
 	public boolean checkGrammar(){
 		return checkWP.checkAll(bnfp.getRules());
@@ -68,7 +74,7 @@ public class Main {
 				System.out.println("Grammaire non wp");
 			}
 		}else{
-			m.interpret(args[1]);
+			m.interpret2(args[1]);
 		}
 
 		
