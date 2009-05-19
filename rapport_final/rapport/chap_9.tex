@@ -1,0 +1,54 @@
+\chapter{Interpréteur}
+\section{Implémentation}
+Nous avons choisit d'implémenter l'interpréteur en écrivant de nouvelles méthodes dans les classes fournies. Cela permet d'éviter d'écrire un long programme pour interpréter et d'éviter de nombreux cast. Notre système utilise les classes abstraites fournie pour imposée un interface commune au type qui en dérive. 
+
+Toute les commande (methode, statement etc) doivent implémenter \textit{execute}. 
+Toute les Expression doivent implémenter \textit{getVal}.
+Et tout les désignateur doivent implémenter \textit{assign}.
+
+En plus de cela nous utilisons deux types de données pour représenter les objets et toutes les valeurs. 
+Une valeur contient un type et en fonction du type un entier ou une référence.
+(Nous utilisons le terme entier car nous utilisons la classe BigInterger pour stocker les entiers et leur taille n'est limité que par la mémoire de la machine)
+
+Nous avons définit 4 types de variables conformément à la sémentique. 
+Les entiers, les références qui pointes vers un objet dans le store ou null, les erreurs et le type inconnu qui permet aux membres des objets d'être initialiser avec soit une référence soit un int car dans tout les autres cas il est interdit de changer le type d'une variable. (Sauf que cette interdiction posant problème lors de la traduction en code interne, le code interne utilise plusieurs fois la même variable annonyme et les assignes à des objets très différents parfois, nous l'avons retiré) 
+
+
+Nous avons définit deux types de données le store et l'environement. Pour la pile nous utilisons implicitement la pile de java grâce au appels récurrsifs d'execute. L'environement est un tableau de valeur (class Val) et le store est un TreeMap qui associe un int (la référence) à un objet (class Object dans slip.internal). L'environemnt et le store sont passer à toutes les méthodes abstraires execute, getVal, assign afin que toutes les classes puissent consulter et modifier le store et leur environement.
+
+Nous utilisons un TreeMap dans le store pour garantir l'ordre dans les clés lorsque nous iterons, cela permet de rendre le Garbage Collectore plus efficasse. Nous parlerons du Garbage Collector plus tard.
+
+Dans l'environement nous avons aussi rajouté une variable level qui ne peut pas être modifié (car quand on change de niveau de méthode on change aussi d'environement) qui indique à quel niveau de méthode on se trouve afin d'empêcher d'accéder à des champs out of scope ou à des méthodes out of scope. 
+
+
+Nous avons dans la sémantique définit un langage très stricte qui ne tolère pas de division par zéro, ni de changement de type pour une variable. Toutes ces actions débouchent sur une erreur et l'arrêt du programme. 
+
+
+\subsection{Changement de l'implémention}
+\paragraph{Execute recursif entre les statement}
+Lors de la première implémentation, nous avions implémenté les exécutions des instructions récursivement, c'est à dire que chaque instruction appel la méthode exécute de la suivante. Tout se passe bien quand il n'y pas beaucoup d'instruction et même lorsqu'il y a en beaucoup réellement écrite (200 write à la suite par exemple) car dans ce cas là le java faisait une récursion terminal mais lorsqu'on faisait un while qui exécutait 200 fois une commande, ce n'était plsu récursif terminal du coup et donc dépassement de la pile d'exécution. Nous avons donc modifié l'implémentation, maintenant les méthodes exécute la ligne renvoyée par la méthode execute de l'instruction, c'est comme si on parcourait une liste d'instruction, on ne s'enfonce plus dans la pile d'exécution.
+
+\paragraph{Gestion de l'overflow}
+La meilleur façon de gérer les overflow lors des calcul sur les int est de ne pas en avoir, pour ne pas en avoir nous avons simplement remplacer les int par des BigInteger, bien cela nous fait perdre un peu de performance. Malheureusement nous n'avons pas pu remplacer le int dans la classe I, car celui-ci est donnée par la traduction en code interne. On ne peut donc pas écrire des entier plus grande que $2^{32}$ mais le résultat des calcul (et leur affichage ) peut dépassé et n'est limité que par la taille de la mémoire. (on ne peut donc par vraiment parlé d'entier)
+
+\paragraph{Changement de l'environement}
+Pour gagner en rapidité nous avons remplacé la HashMap de l'environement par un simple tableau de valeur, ce tableau est initialisé à l'appel de la méthode, et il peut l'être parce que nous connaissons à l'avance le nombre de variable allouée dans la méthode.
+
+Un autre changement qui aurrait éviter tout les ennuis d'implémentation du Garbage Collector et d'implémentation du store, est pour le référence au lieu de stocker un int qui donnera un objet dans la HashMap du store, stocker directement la référence de l'objet java et utilisé le store de java directement et ainsi utiliser directement le Garbage Collector de java. Cette modification sera pour la prochaine version du langage. 
+
+\paragraph{Gestion des erreurs}
+Dans la première implémentation, l'interpréteur donnait juste la nature de l'erreur et s'arrêtait. Maintenant nous avons créer une classe exception SlipError qui possède une pile et un message. l'erreur est transmise de l'endroit où elle s'est déclenchée jusqu'à la méthode execute() du programme et à chaque étape, l'interpréteur rajoute un élement sur la pile. En plus de l'erreur on à maintenant l'endroit exacte de l'erreur et toute la pile d'exécution. Le seul défault est que l'endroit exacte correspond à l'endroit en code interne. 
+
+\paragraph{Garbage Collector}
+Nous avons tenté d'implémenté un garbage collector qui s'exécutait toute les 200 millisecondes. Il parcourait toute la liste des environements de la pile d'exécution et il placait dans un set toutes les référence qu'il trouvait et si il n'avait pas encore rencontré la référence il explorait récursivement les références contenu dans l'objet. A la fin de cette étape le garbage collector avait une liste ordonnée de toute les références encore accessible. Il suffisait donc de parcourir le store (qui lui aussi était ordonné) et de supprimer toutes les références qui n'ont pas été trouver par l'étape 1.
+Les premier tests étaient concluants mais lors de l'éxécution du programme Qsort avec une liste de 7000 éléments nous avons eu des références nulle alors qu'elles ne devaient pas l'être. Le Garbage Collector était trop gourmants. Nous l'avons donc désactiver et là nous nous sommes rendu compte que fibonnaci récursif prenait deux fois moins de temps à s'exécuter. Et finalement avec la dernière amélioration de l'environement proposé le Garbage Collector devient totalement obsolète.  
+
+\subsection{Lien avec la sémantique opérationnelle}
+
+
+\subsection{Test}
+Nous allons reprendre les tests du rapport précédent et y ajouté quelque les test d'icampus qui ne figurait pas là première fois.
+
+
+
+

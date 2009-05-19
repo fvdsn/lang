@@ -285,12 +285,23 @@ public class Translator {
 		return v;
 	}
 	
+	/**
+	 * Ajoute l'instruction output à la liste des instructions, les expréssions
+	 * imbriquée dans cette instruction seront ajouter avant l'exécution de celle-ci
+	 * @param child la liste des arguments de l'instruction write, size == 2, l'élément 0 est le term write
+	 * et le seconde une expression
+	 * @param table la table des variables local
+	 * @param body la table contenant les instructions de la méthode 
+	 * @param counter le compteur des variables annonymes
+	 * @return la variable qui contient la valeur de retour de l'instruction
+	 */
 	private Cvar addOutput(List<LexicalTerm> child, MethodTable table, List<Ccmd> body, AnonymousCounter counter) {
+		//si l'expression est terminal on peut la traiter tout de suite
 		if(child.get(1).isTerminal()) {
 			Cvar v1 = null;
 			if(WordIdentifier.isRexpr(child.get(1))) {
 				Crexpr r = WordIdentifier.getRexpr(child.get(1)); 
-				String name = counter.getAnonymousName();
+				String name = counter.getAnonymousName(); 
 				table.addLocal(name);
 				v1 = new Cvar(name);				
 				body.add(new Cass(v1,r ));
@@ -301,7 +312,7 @@ public class Translator {
 				v1 = new Cvar(child.get(1).getValue());
 				table.addLocal(child.get(1).getValue());
 			}
-			
+			//erreur terminal mais ni une expression ni un id
 			else {
 				System.out.println("Expected number id or expr");
 				System.out.println("in write");
@@ -312,6 +323,7 @@ public class Translator {
 			body.add(out);
 			return v1;
 		}
+		//sinon on explore la commande et on récupère la valeur de l'expression
 		else {
 			Cvar v1 = exploreCmd(child.get(1), table, body, counter);
 			Clexpr[] expr = {v1};
@@ -870,6 +882,14 @@ public class Translator {
 		
 	}
 	
+	/**
+	 * Cette fonction renvoie une condition de type and.
+	 * @param child la liste des Term qui forme la conditions, size == 3 et les éléments 1 et 2 doivent être des conditions
+	 * @param table la table des variables locales
+	 * @param body la table contenant la liste des commandes du corps de la méthode
+	 * @param counter le compteur de variable annonyme
+	 * @return La condition and.
+	 */
 	private Ccond getAnd(List<LexicalTerm> child, MethodTable table, List<Ccmd> body, AnonymousCounter counter) {
 		if(child.get(1).isTerminal() || child.get(2).isTerminal()) {
 			System.out.println("Syntax error at AND, expected condition");

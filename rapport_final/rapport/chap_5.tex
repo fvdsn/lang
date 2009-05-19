@@ -1,5 +1,5 @@
-\section{Vérificateur de grammaire WP}
-	\subsection{BNF Parser}
+\chapter{Vérificateur de grammaire WP}
+	\section{BNF Parser}
 	Le point de départ du vérificateur de grammaire est le parser BNF. Ce parser permet d'avoir sous une forme utilisable que nous détaillerons 
 plus loin, les règles contenue dans le fichier. Le loader charge le fichier et le lit ligne par ligne. Chaque ligne contient l'ensemble des règles
 de production d'un non terminal, séparées par des barres. Les non terminaux sont entre '<','>' et les terminaux sont entre guillements. On peut
@@ -12,17 +12,17 @@ Voici un exemple de fichier BNF accepté par le parseur :
 	  <F> ::= '\''
 \end{verbatim*}
 
-	\subsection{Représentation Java de la grammaire et de ses éléments}
+	\section{Représentation Java de la grammaire et de ses éléments}
 		Toutes les classes représentant la grammaire et le parsing du bnf se trouvent dans le package \emph{happy.parser.bnf}
-		\subsubsection{Term} Le \emph{Term} est la classe représentant le symboles terminaux et non terminaux de la syntaxe. \emph{Term}
+		\subsection{Term} Le \emph{Term} est la classe représentant le symboles terminaux et non terminaux de la syntaxe. \emph{Term}
 		représente aussi les terminaux renvoyés par l'analyseur lexical, et les noeuds des différents arbres syntaxiques. Cela permet d'éviter
 		les conversions inutiles dans nos différents algorithmes. Sa méthode qui nous concerne ici est getType() qui renvoit le nom du symbole
 		(Number , Identifier , ...)
-		\subsubsection{CatList} La \emph{Catlist} est une liste de \emph{Term} représentant une partie droite de production. 
-		\subsubsection{Rule}  La \emph{Rule} représente une règle de production. getName() renvoie le \emph{Term} de la partie gauche, 
+		\subsection{CatList} La \emph{Catlist} est une liste de \emph{Term} représentant une partie droite de production. 
+		\subsection{Rule}  La \emph{Rule} représente une règle de production. getName() renvoie le \emph{Term} de la partie gauche, 
 		et getOrList() renvoie une liste de \emph{Catlist}
 
-	\subsection{Architecture}
+	\section{Architecture}
 	Le vérificateur de grammaire est implémenté comme une série de test
 	statique correspondant aux conditions de Weak Precedence.
 	
@@ -31,13 +31,13 @@ Voici un exemple de fichier BNF accepté par le parseur :
 	Un test global - \emph{CheckAll} - se charge de tester l'ensemble de ces tests.
 	Toutes les classes et méthodes correspondantes se trouvent dans le package \emph{happy.checker}
 
-	\subsection{Test de symbole vide (\emph{CheckLambda})}
+	\section{Test de symbole vide (\emph{CheckLambda})}
 		Ce test s'assure qu'aucune règle n'a de production vide (lambda).
 		Ce test parcourt simplement l'arbre de la définition grammaire et
 		vérifie l'absence de terminaux lambda. Ce test vérifie aussi l'absence
 		de Non terminaux n'ayant pas de règles de productions. 
 
-	\subsection{Test de conflit de préférence (\emph{CheckPrecedence})}
+	\section{Test de conflit de préférence (\emph{CheckPrecedence})}
 		Ce test vérifie qu'il n'y ait pas de conflit entre les précédence
 		de symbole. Le seul conflit autorisé est entre $\lessdot$ et $\doteq$ qui donne
 		la relation de précédence $\dot{\leq}$
@@ -75,20 +75,20 @@ Voici un exemple de fichier BNF accepté par le parseur :
 			\item Si il y a des conflits non résolus dans la table alors le Test échoue, la grammaire n'est pas valide
 			Weak Precedence.
 		\end{enumerate}
-	\subsection{Preuve de l'algorithme}
+	\section{Preuve de l'algorithme}
 		Cet algorithme nous vient de l'ouvrage \emph{Parsing techniques - A practical guide de Dick Grune et Ceriel J.H Jacobs}
-		\subsubsection{$\doteq$} Le critère utilisé par notre algorithme est identique à celui donné dans le cours.
-		\subsubsection{$\lessdot$} Le cours donne le critère suivant : On a $X\lessdot Y$ si pour $A \Longrightarrow..XC..$ on a $C \overset{+}{\Longrightarrow} Y..$ On constate
+		\subsection{$\doteq$} Le critère utilisé par notre algorithme est identique à celui donné dans le cours.
+		\subsection{$\lessdot$} Le cours donne le critère suivant : On a $X\lessdot Y$ si pour $A \Longrightarrow..XC..$ on a $C \overset{+}{\Longrightarrow} Y..$ On constate
 		que $First(C)$ donne tous les symboles terminaux et non terminaux tels que $C \overset{+}{\Longrightarrow} Y..$ le critère utilisé est donc
 		identique.
-		\subsubsection{$\gtrdot$} Le cours donne le critère suivant : On a $X\gtrdot y$ si pour $A\Longrightarrow..BC..$ on 
+		\subsection{$\gtrdot$} Le cours donne le critère suivant : On a $X\gtrdot y$ si pour $A\Longrightarrow..BC..$ on 
 		a $B \overset{+}{\Longrightarrow} ..X$ et $C \overset{*}{\Longrightarrow} y..$
 		$Last(B)$ donne tous les symboles tels que $B \overset{+}{\Longrightarrow}..X$ et $First(C)$ donne tous les symboles tels que 
 		$C \overset{+}{\Longrightarrow} Y..$ 
 		on en prend tous les terminaux et C lui même si terminal pour avoir l'ensemble tel que $C \overset{*}{\Longrightarrow} y..$ Le critère utilisé
 		est donc identique. 
 
-	\subsection{Test de Suffixe}
+	\section{Test de Suffixe}
 		Ce test vérifie que les relations de suffixe sont respectées. C'est à dire :
 		Pour tout couple de règles $Z \Longrightarrow \beta$, $X \Longrightarrow \alpha Y \beta$,
 		on vérifie que $\neg(Y \doteq X)$ , $\neg(Y \lessdot X)$ et $\neg(Y \dot{\leq} X)$.
@@ -99,14 +99,14 @@ Voici un exemple de fichier BNF accepté par le parseur :
 		Dans l'affirmative, on identifie le symbole juste avant le suffixe. Nous pouvons a ce moment vérifier la
 		condition décrite expliquée précédemment. Si elle n'est pas vérifiée. le Test échoue, la grammaire n'est pas valide.
 
-	\subsection{Test de Cycles}
+	\section{Test de Cycles}
 		Un cycle est definit formellement par tout ensemble de règles de productions donnant $E \overset{+}{\Longrightarrow} \alpha E\beta$.
 		ou $\alpha$ et $\beta$ sont 'nullables'. 
 		Comme en WP il ne peut y avoir de productions vides, on vérifie $\neg(E \overset{+}{\Longrightarrow} E)$. Pour ce faire on 
 		crée un graphe directionnel ayant pour noeuds les symboles non terminaux et pour arcs les règles de productions de type
 		$A\Longrightarrow B$. On vérifie ensuite l'absence de cycles dans ce graphe via un algorithme adéquat.
 
-	\subsection{Spécifications des méthodes importantes}
+	\section{Spécifications des méthodes importantes}
 {\small
 \begin{verbatim}
 
@@ -186,7 +186,7 @@ Voici un exemple de fichier BNF accepté par le parseur :
 Nous avons testé notre vérificateur de grammaire avec les grammaires fournie sur icampus 
 pour finalement tester avec notre grammaire. Ici je ne montrerai que le test final pour notre grammaire. 
 
-\subsection{Premier Test}
+\section{Premier Test}
 {\tiny
 \begin{verbatim}
 <A> ::= <A> 'a'
@@ -232,7 +232,7 @@ A <. A
 }
 
 
-\subsection{Second Test}:
+\section{Second Test}:
 {\tiny
 \begin{verbatim}
 <E> ::= <T> 
@@ -274,7 +274,7 @@ Validity grammar : true
 \end{verbatim}
 }
 
-\subsection{Troisième Test}
+\section{Troisième Test}
 Dernière grammaire qui est normalement fausse :
 {\tiny
 \begin{verbatim}

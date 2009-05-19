@@ -27,19 +27,18 @@ public class LexicalParser implements Iterable<Term>, Iterator<Term> {
 
 
 
-	@Override
+
 	public Iterator<Term> iterator() {
 
 		return this;
 	}
 
-	@Override
 	public boolean hasNext() {
 
 		return hasNext;
 	}
 
-	@Override
+
 	public Term next()  {
 		if(next != null) {
 			LexicalTerm temp = next;
@@ -138,7 +137,7 @@ public class LexicalParser implements Iterable<Term>, Iterator<Term> {
 
 
 
-	@Override
+
 	public void remove() throws NotImplementedException {
 		throw new NotImplementedException();		
 	}

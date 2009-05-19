@@ -37,7 +37,7 @@ public class Object implements Iterable<Val> {
 		
 	}
 	
-	@Override
+
 	public Iterator<Val> iterator() {		
 		return Arrays.asList(val).iterator();
 	}

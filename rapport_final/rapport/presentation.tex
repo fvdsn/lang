@@ -71,7 +71,8 @@ la valeur de retour de set qui sera ici i_initial + 1 ou i_final ]
 [Condition ici si i != 9 ]
 [Ensuite si vrai on exécute la première list d'instruction sinon la seconde]
 (if (! (= i 9)) (return true) (return false))
-[Ceci est équivalent à sauf que dans le cas deux on voit clairement les listes d'instructions]
+[Ceci est équivalent à sauf que dans le cas deux on voit 
+  clairement les listes d'instructions]
 (if (! (= i 9)) ((return true)) ((return false)))
 
 (fun (++ i) (return (+ i 1)))
