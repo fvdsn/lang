@@ -1,0 +1,259 @@
+\section{Sémantique Opérationelle}
+
+
+\subsection{Domaines sémantiques}
+\paragraph{Valeurs} Val $\doteq$ Int + Référence + \{null\} + \{undefined\}
+
+Une Valeur représente soit un entier soit une réference vers une autre valeur
+ou un autre objet. Les cas limite sont aussi compris. Il s'agit de Null pour 
+une réference ne pointant vers rien  et de NonInit pour un Int qui n'aurait 
+pas été initialisé. \emph{Undefined} représente une variable dont la valeur n'a
+pas encore été spécifiée et dont le type n'est donc pas connu. Les champs
+des objets fraichement alloués sont de type \emph{undefined}.
+
+\paragraph{Environnement} Env $\doteq \mathbb{X}$ + \{this\} $\rightarrow$ Val
+
+Un environnement est une fonction assurant la correspondence entre une variable ou \emph{this} et la valeur de celle-ci.
+
+\paragraph{Store} Store $\doteq$ Ref $\rightarrow$ $<n,<v_1,v_2,...,v_n> >$	%TODO la flèche comme ca : -|-> 
+
+Store est une fonction. La valeur d'une variable pointant vers un objet est une référence. Plusieurs 
+variables peuvent donc avoir des références de même valeur et pointer vers le 
+même objet. Le store est une fonction qui permet d'établir une correspondance 
+entre la référence et la valeur de l'objet.
+
+\paragraph{Pile} Pile $\doteq$ $<$ Env, Label, X, $<$ Pile $> >$ 
+
+La pile permet au programme de gérer les changements d'environnement qui interviennent
+à chaque appel ou retour de fonction. La pile est une pile contenant à chaque étage 
+l'environnement courant, le label et la variable de retour. Une pile n'est bien évidemment pas infinie,il est cependant assez difficile de modéliser cette contrainte de manière formelle.
+
+\paragraph{Etats} Etat $\doteq <e,l,s,P,in,out>$\\
+
+$e \in $ Env   \\
+$l \in $ Label \\
+$s \in $ Store \\
+$P \in $ Pile  \\
+L'état comprend tout ce qui est nécessaire pour continuer l'exécution du programme, en excluant le
+code source de celui-ci, cela veut dire l'environnement, le label de l'instruction courante, le store,
+ainsi que la pile d'appel de fonction. 
+
+\paragraph{in} In $\doteq$ Pile $\rightarrow$ Val
+
+La fonction In permet de lire la première valeur de la pile ( donc la dernière valeur entrée par l'utilisateur ).
+
+\paragraph{Out} $\doteq$ Val  $\rightarrow$ Val
+
+La fonction Out permet d'écrire Val au sommet de la pile, Elle renvoie par ailleurs cette même valeur.
+
+\subsection{Philosophie et choix de design}
+	Définir la sémantique opérationnelle ne se limite pas à formaliser des concepts génériques
+	comme présenté dans le précédent chapitre. Il faut souvent choisir entre plusieurs alternatives
+	et ces choix étendent ou limitent les possibilités du langage.
+
+	Afin de garantir une certaine cohérence dans tout cela, nous avons choisi de tenir une 
+	certaine ligne de conduite justifiée ici.
+
+	Tout d'abord deux observations: premièrement le langage \emph{SLIP} n'est pas destiné à 
+	être utilisé directement par le programmeur puisque nous allons définir une syntaxe plus 
+	agréable dans une seconde partie du projet. Ensuite, dans tout langage il faut choisir 
+	un équlibre entre flexibilité et facilité de détection d'erreurs. Par exemple un programme
+	typé dynamiquement est plus rapide à écrire mais son exécution est plus difficile à prévoir,
+	et donc la garantie que le programme est correct est plus difficile à fournir.
+
+	Nous avons fait le choix d'avoir un langage qui n'essaie pas de deviner ce que le programmeur
+	voulait faire, et reporte les erreurs dès que possible. 
+
+	Ainsi, c'est au programmeur de s'assurer qu'il n'y a pas de divisions par zéro. Il nous semble
+	plus important que le programme s'arrête en indiquant l'erreur, plutôt que de poursuivre en
+	faisant des approximations, en ne prévenant pas le programmeur de la non exactitude des résultats
+	obtenus. 
+
+\subsection{Fonctions sémantiques}
+\paragraph{Conditions} B: Cond $\rightarrow$ Env $\rightarrow$ Store $\rightarrow \{true, false, error\}$
+
+$B[$ expr1 cop expr2 $]$ e s\\
+$v_1 = V[$expr1$]$ e s\\
+$v_2 = V[$expr2$]$ e s\\
+$\xi[$cop$]$ $v_1$ $v_2 = \xi_1$ $v_1$ $v_2$ si cop$= '<'$\\
+$\xi[$cop$]$ $v_1$ $v_2 = \xi_2$ $v_1$ $v_2$ si cop$= '='$\\
+\\
+$\xi_1 :$ Val $\rightarrow$ Val $\rightarrow$ $\{true,false,error\}$\\
+$\xi_1$ $v_1$ $v_2 = $ true si $v_1 < v_2$ avec $v_1,v_2 \in $ Int\\
+$\xi_1$ $v_1$ $v_2 = $ false si $v_1 \geq v_2$ avec $v_1,v_2 \in $ Int\\
+$\xi_1$ $v_1$ $v_2 = $ error sinon\\
+
+\\
+$\xi_2 :$ Val $\rightarrow$ Val $\rightarrow$ $\{true,false,error\}$\\
+$\xi_2$ $v_1$ $v_2$ =  true si $v_1 = v_2$ avec $v_1,v_2 \in $ Int\\
+$\xi_2$ $v_1$ $v_2$ =  true si $v_1 = v_2$ avec $v_1,v_2 \in $ Ref\\
+$\xi_2$ $v_1$ $v_2$ =  true si $v_1,v_2 \in $ \{null\} \\
+$\xi_2$ $v_1$ $v_2$ =  false si $v_1 \neq v_2$ avec $v_1,v_2 \in $ Int\\
+$\xi_2$ $v_1$ $v_2$ =  false si $v_1 \neq v_2$ avec $v_1,v_2 \in $ Ref\\
+$\xi_2$ $v_1$ $v_2$ =  false si $v_1  \in $ \{null\} et $v_2 \in Ref$\\
+$\xi_2$ $v_1$ $v_2$ =  false si $v_1  \in $ Ref et $v_2 \in $ \{null\}\\
+$\xi_2$ $v_1$ $v_2$ =  error sinon\\
+
+Cette fonction définit le comportement des conditions. Nous avons choisi une
+définition assez stricte ou seul des élèments de même type peuvent être comparés. 
+Les comparaisons avec \emph{undefined} renvoie une erreur car on ne sait pas se 
+prononcer sur la comparaison d'élément inconnus. 
+
+\paragraph{Designateur} $D$: Des $\rightarrow$ Env $\rightarrow$ Store $\rightarrow$ Val + {Ref,Int} +\{$error$\} \\
+$D[x] = x$ si $x \in \mathbb{X}$ \\
+$D[x]$ = $error$ sinon \\
+$D[x.i] = [ $Env$(x), i ]$ si $ x \in \mathbb{X}$ et $x \in dom($Env$) $ et Env($x$) $\in dom($Store$)$ et si
+	$<n,<v_1,v_2,...,v_n> > =$Store($x$) et $ i \in [0,n[$ \\
+$D[x.i]$ = $error$ sinon \\
+$D[this.i]$ = \{Env$(this), i\}$ si Env($this$) $\in dom($store$)$ et si
+	$< n,< v ...>> = $Store($this$) et $ i \in [0,n[$ \\
+$D[this.i]$ = $error$ sinon \\
+Un désignateur renvoie la variable correspondante, ou une paire référence, indice, selon la forme du désignateur.
+le designateur renvoie une erreur si l'on accède à un champ d'un objet non défini, ou que l'indice est en dehors
+des limites de l'objet. 
+
+\paragraph{Expressions} $V:$ Expr $\rightarrow$ Env $\rightarrow$ Store $\rightarrow$ Val + \{error\}\\
+$V[Val] = Val$\\
+$V[Des] = Env[D[$Des$]]$ si $D[$Des$] \in dom($Env$)$ \\
+$V[Des] = n $ si $D[$Des$]$ = $\{ref,i\}$ et $i = 0$ et Store($ref$) = $<n,<...>>$ \\
+$V[Des] = v_i$ si $D[$Des$]$ = $\{ref,i\}$ et $i \neq 0$ et Store($ref$) = $<n,<v_1,...,v_i,...,v_{n}>$\\
+$V[Des] = error $ sinon\\
+\\
+$V[$Expr1 op Expr2$] = V_+[E_1 E_2] $ si op $= '+'$\\
+$V[$Expr1 op Expr2$] = V_-[E_1 E_2] $ si op $= '-'$\\
+$V[$Expr1 op Expr2$] = V_*[E_1 E_2] $ si op $= '*'$\\
+$V[$Expr1 op Expr2$] = V_/[E_1 E_2] $ si op $= '/'$\\
+$V[$Expr1 op Expr2$] = V_\%[E_1 E_2] $ si op $= '\%'$\\
+$V[$Expr1 op Expr2$] = error$ sinon\\
+\\
+$V_+[E_1 E_2] = V[E_1] + V[E_2]$ si $V[E_1]$ et $V[E_2] \in$ int \\
+$V_+[E_1 E_2] = error$ sinon.\\
+\\
+$V_-[E_1 E_2] = V[E_1] - V[E_2]$ si $V[E_1]$ et $V[E_2] \in$ int \\
+$V_-[E_1 E_2] = error$ sinon.\\
+\\
+$V_*[E_1 E_2] = V[E_1] * V[E_2]$ si $V[E_1]$ et $V[E_2] \in$ int \\
+$V_*[E_1 E_2] = error$ sinon.\\
+\\
+$V_/[E_1 E_2] = V[E_1] / V[E_2]$ si $V[E_1]$ et $V[E_2] \in$ int, et que  $V[E_2] \neq 0$\\
+$V_/[E_1 E_2] = error$ sinon.\\
+\\
+$V_\%[E_1 E_2] = V[E_1] \% V[E_2]$ si $V[E_1]$ et $V[E_2] \in$ int et que $V[E_2] \neq 0$\\
+$V_\%[E_1 E_2] = error$ sinon.\\
+\\
+
+Il est bon de noter qu'aucun dépassement des bornes n'est possible, et ce car l'ensemble des valeurs comprend tout l'ensemble des naturels (Cela sera implémenté en java grâce à la classe BigInteger, mais il n'est pas encore temps d'y penser ;-) )
+
+\paragraph{Affectations} $A :$ Ass $\rightarrow$  Env $\rightarrow$ Store $\rightarrow$ {Env,Store} + \{$error$\}  \\
+$A[[des := expr]] e s = A1[[des]][[expr]] e s$\\
+$A[[x := new/i ]] e s = A2[[x]][[i]] e s$\\
+Sinon $error$
+\newline
+$A1 : $Des$ \rightarrow $Expr$ \rightarrow $Env$ \rightarrow $Store$ \rightarrow$ {NewEnv,NewStore} + \{$error$\} \\ 
+Si $Env[D[$Des$]] \in {undefined}$ et $V[$Expr$] \neq error$ alors NewEnv = Env $\bigoplus$ $D[$Des$]$ $\rightarrow$ $V[$Exp$]$ et NewStore = Store\\
+\newline
+Si $Env[D[$Des$]] \in$ Int et $V[$Expr$] \in$ Int alors NewEnv = Env $\bigoplus$ $D[$Des$]$ $\rightarrow$ $V[$Exp$]$ et NewStore = Store\\
+\newline
+Si $D[$Des$] = \{ref, i\} \in$ \{Ref, Int\} et $<n,<...,v_i,...> = Store[ref]$ et $i \neq 0$ et $v_i \in {undef}$ et $V[$Expr$] \neq error$ alors NewEnv = Env et NewStore = Store $\bigoplus ref \rightarrow <n,<...v_{i-1},V[$Expr$],v_{i+1}...>>$\\ 
+\newline
+Si $D[$Des$] = \{ref, i\} \in$ \{Ref, Int\} et $<n,<...,v_i,...> = Store[ref]$ et $i \neq 0$ et $v_i \in$Int et $V[$Expr$] \in $Int alors NewEnv = Env et NewStore = Store $\bigoplus ref \rightarrow <n,<...v_{i-1},V[$Expr$],v_{i+1}...>>$\\ 
+\newline
+Si $D[$Des$] = \{ref, i\} \in$ \{Ref, Int\} et $<n,<...,v_i,...> = Store[ref]$ et $i \neq 0$ et $v_i \in$Ref + \{$null$\} et $V[$Expr$] \in $Ref + \{$null$\} alors NewEnv = Env et NewStore = Store $\bigoplus ref \rightarrow <n,<...v_{i-1},V[$Expr$],v_{i+1}...>>$\\ 
+\newline
+$A2 : $X$ \rightarrow $Int$ \rightarrow $Env$ \rightarrow $Store$ \rightarrow$ {NewEnv,NewStore} + \{$error$\} \\ 
+Si $Env[$x$] \in Ref+{undefined}$ et $i > 0$ et $r \in Ref$ et $r \not\in dom(Store)$  alors  
+	NewEnv = Env $\bigoplus x \rightarrow r$ et NewStore = Store $\bigoplus r \rightarrow <i,<v_0,...,v_j,...,v_{i}>> | \forall(j) v_j = undefined$\\
+	$error$ sinon\\
+
+L'opérateur $\bigoplus$ désignant la surimpression fonctionnelle, c'est à dire que  pour une fonction $f : x \rightarrow y $ , la surimpression par un couple  $ a \rightarrow b $, signifie que $f(x)=y$ pour $x \neq a$ et $f(x)=b$ pour $x = a$\\
+
+L'affectation force le respect des types. Il n'est pas possible d'assigner une référence à une variable qui était 
+précédement un entier, et inversément. Comme il n'y a pas d'instruction permettant de savoir quel est le type d'une variable il 
+nous a semblé plus raisonnable d'imposer le respect des types afin que le programmeur puisse savoir à tout moment
+de quel type est chaque variable. 
+
+Il n'est pas non plus possible de modifier la taille d'un objet, et lorsque ceux-ci sont instanciés, tous leur champs sauf
+celui à zéro sont mis à \emph{undefined}.  
+
+\paragraph{In/Out}
+L'input est représenté par une pile de valeurs entières sur laquelle le programme lit ses entrées. 
+In = $< val \in $Int$, <$In$>>$\\
+$I : in \rightarrow Env \rightarrow In \rightarrow {In,Env} + {error}$\\
+Si $in = read x$ et $x \in X$ et $ Env(x) \in Int + {undefined} $ et $In = < val, <In2>>$ alors $NewIn = In2$ et $NewEnv = Env \bigoplus x \rightarrow val $\\
+$error$ sinon\\
+
+De manière similaire l'output est représenté par une pile de valeur entière sur laquelle le programme lit ses entrées. 
+Out = $< val \in $char*$ <$Out$>>$\\
+$O : out \rightarrow Env \rightarrow  Out \rightarrow NewOut $\\
+Si $out = write x$ et $x \in dom(Env)$ et $Env(x) \in Int$ NewOut = $<tochar(Env(x)),<Out>>$\\
+Si $out = write x$ et $x \in dom(Env)$ et $Env(x) \in Ref$ NewOut = $<$"ref:"$+tochar(Env(x)),<Out>>$\\
+Si $out = write x$ et $x \in dom(Env)$ et $Env(x) \in {undefined}$ NewOut = $<$"undefined"$,<Out>>$\\
+
+La fonction \emph{tochar(x)} prend un \emph{int} ou une référence en paramètre et la convertis en une séquence de caractère. 
+Dans le cas d'une référence, ce qui est imprimé dépend de l'implémentation et n'a pas de garantie d'être
+constant entre les plateformes ou exécutions successives (de la même façon qu'en pointeur en C). 
+
+\subsection{Relations de transition}
+\paragraph{Conditions}
+$<e,l,s,P,in,out> \rightarrow$ $l$ if cond then $l1$ else $l2$  $\rightarrow <e,l',s,P,in,out>$\\
+$l'$ = $l1$ si B[cond] = $true$\\
+$l'$ = $l2$ si B[cond] = $false$\\
+si B[cond]  = $error$ alors le programme s'arrête en affichant un message d'erreur.
+
+\paragraph{Affectations}
+$<e,l,s,P,in,out> \rightarrow$ $l$ ass $l'$ $\rightarrow <e',l',s',P,in,out>$\\
+$(e',s')$ = A[[ass]]$ e\: s$\\
+si A[[ass]]$ e s$ = $error$ alors le programme s'arrète en affichant un message d'erreur.
+
+\paragraph{Entrée/Sortie} 
+$<e,l,s,P,in,out> \rightarrow$ $l$ read x $l'$  $\rightarrow <e',l',s,P,in',out>$\\
+$in',e' = $ I[[read x]] $e\: in$\\
+si I[[read x]] $e in$ = $error$ alors le programme s'arrète en affichant un message d'erreur.
+
+$<e,l,s,P,in,out> \rightarrow$ $l$ write x $l'$  $\rightarrow <e,l',s,P,in,out'>$\\
+$out' = $O[[write x]] $e\: out$
+si O[[write x]] = $error$ alors le programme s'arrète en affichant un message d'erreur. 
+e' et s' sont les valeurs renvoiée par la fonction d'affectation.
+
+\paragraph{appels de méthodes statiques}
+$<e,l,s,P,in,out> \rightarrow x = m(x_1,...,x_n) \rightarrow <e',l',s,P',in,out>$\\
+$e'$ = $x_i \rightarrow V[x_i]$ soit l'ensemble des paramètres associés à leur valeur d'appel. \\
+$l'$ est le label de la première instruction de la méthode m.\\
+$P'$ = $ < l e x <P>>$ Soit la pile $P$ à laquelle on ajoute le label $l$,l'environnement $e$, et la variable de retour $x$\\
+La méthode est connue et choisie grâce à la réference m
+
+\paragraph{appels de méthodes dynamique}
+$<e,l,s,P,in,out> \rightarrow x = y.m(x_1,...,x_n) \rightarrow <e',l',s,P',in,out>$\\
+$e'$ = $x_i \rightarrow V[x_i] \bigoplus this \rightarrow Env(y)$ soit l'ensemble des paramètres associés à leur valeur d'appel auquel
+on ajoute la définition du this.\\
+$l'$ est le label de la première instruction de la méthode \emph{m/i} ou i est l'entier le plus grand qui soit plus petit ou égal à
+$n$ défini par $<n,<...>> = Store(Env(y))$\\
+$P'$ = $ < l e x <P>>$ Soit la pile $P$ à laquelle on ajoute le label $l$,l'environnement $e$, et la variable de retour $x$\\
+La méthode est connue et choisie grâce à la réference m
+
+\paragraph{appels vers super}
+$<e,l,s,P,in,out> \rightarrow x = super.m(x_1,...,x_n) \rightarrow <e',l',s,P',in,out>$\\
+$e'$ = $x_i \rightarrow V[x_i] \bigoplus this \rightarrow Env(y)$ soit l'ensemble des paramètres associés à leur valeur d'appel auquel
+on ajoute la définition du this.\\
+$l'$ est le label de la première instruction de la méthode \emph{m/i} ou i est l'entier le plus grand qui strictement plus petit que 
+$n$ défini par $<n,<...>> = Store(Env)$\\
+$P'$ = $ < l e x <P>>$ Soit la pile $P$ à laquelle on ajoute le label $l$,l'environnement $e$, et la variable de retour $x$
+
+\paragraph{retour de fonction}
+$<e,l,s,P,in,out> \rightarrow x_r \rightarrow <e',l',s,P',in,out>$\\
+$P = <l',e'',x,P'>$\\
+$e'= e''\bigoplus x \rightarrow e(x_r)$\\
+C'est a dire qu'on remplace l'environnement par celui qui était sur la pile, dans lequel
+on change la variable de retour par la valeur de retour, et l'on change le label
+par le label de retour. 
+
+\paragraph{démarrage du programme}
+le programme démarre au début de la fonction 'main' sans paramètres, avec une pile,un environnement et un store vide. C'est à dire : \\
+$<e,l,s,P,in,out> \rightarrow main()$ \\
+$e = \{\}$\\
+$P = \{\}$\\
+$s = \{\}$
+
+
+
+
