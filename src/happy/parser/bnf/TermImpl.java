@@ -19,9 +19,8 @@ public class TermImpl implements Term {
 		this.childList = new LinkedList<Term>();
 	}
 	
-	@Override
+
 	public boolean isTerminal() {
-		// TODO Auto-generated method stub
 		return terminal;
 	}
 	public String getType(){
@@ -71,7 +70,7 @@ public class TermImpl implements Term {
 		return true;
 	}
 
-	@Override
+
 	public List<Term> getChildList() {
 		return childList;
 	}

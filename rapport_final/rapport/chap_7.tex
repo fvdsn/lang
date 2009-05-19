@@ -8,9 +8,10 @@ La méthode getChildList() de la classe Term renvoie la liste des \emph{Term} en
 Le code de l'analyser syntaxique prend en entrée un flux Term qui sont tous terminaux. 
 L'analyseur syntaxique n'a besoin que des méthodes définie dans l'interface Term pour construire l'arbre.
 Voici cette interface : 
+{\tiny
 \begin{verbatim}
  
-\end{verbatim}
+
 public interface Term {
 	  /**
 	  * 
@@ -56,7 +57,7 @@ public interface Term {
 	
 	
 }
-\end{verbatim}
+\end{verbatim}}
 
 
 Une fois le code déjà donné dans le chapitre 6 exécuté, l'arbre (le Term) passe dans le treeOrganiser.
@@ -80,8 +81,10 @@ récupèrent automatiquement le bon type.
 Voici la spécification de la seul méthode public du \textit{TreeOrganiser} :
 \begin{verbatim}
  /**
-  * Contracte l'arbre sortit par l'analyseur syntaxique. Tout les l_list et l_block sont
-  * retiré, à la fin il ne reste que des l0 qui sont soit des terminaux ou des listes de l0.
+  * Contracte l'arbre sortit par l'analyseur syntaxique. 
+    Tout les l_list et l_block sont
+  * retiré, à la fin il ne reste que des l0 qui sont 
+    soit des terminaux ou des listes de l0.
   * @return L'arbre représenté sous la forme d'un lexicalTerm
   */
 public LexicalTerm contract()
@@ -101,7 +104,8 @@ de la racine sont les méthodes, l'enfant 0 de l'enfant est le mot clé, l'enfan
 	 * Point de départ de l'exploration de l'arbre. 
 	 * t est un term qui une liste de term qui est en accord avec la définition
 	 * des méthodes ou des fonctions.
-	 * Si t n'est pas conforme aux définitions, une erreur de syntaxe est lancée et le programme
+	 * Si t n'est pas conforme aux définitions, une erreur de syntaxe est 
+  lancée et le programme
 	 * se termine
 	 * @param t 
 	 * @return la Cmethod 
@@ -119,7 +123,66 @@ Les instructions dans le langage Happy sont toutes des expressions, c'est-à-dir
 cela ce fait par l'assignation d'une valeur (qui dépend du type d'instruction) variable annonyme qui sera renvoyé à la méthode appelante. Cette méthode
 appelante utilisateur la variable si elle en a besoin.
 
-Voici un petit exemple qui sera plus parlant :
+Voici le code de la méthode \textit{addOutput}
+{\tiny
+\begin{verbatim}
+
+ 
+/**
+ * Ajoute l'instruction output à la liste des instructions, les expréssions
+ * imbriquée dans cette instruction seront ajouter avant l'exécution de celle-ci
+ * @param child la liste des arguments de l'instruction write, 
+   size == 2, l'élément 0 est le term write
+ * et le seconde une expression
+ * @param table la table des variables local
+ * @param body la table contenant les instructions de la méthode 
+ * @param counter le compteur des variables annonymes
+ * @return la variable qui contient la valeur de retour de l'instruction
+ */
+private Cvar addOutput(List<LexicalTerm> child, MethodTable table,
+   List<Ccmd> body, AnonymousCounter counter) {
+  //si l'expression est terminal on peut la traiter tout de suite
+  if(child.get(1).isTerminal()) {
+    Cvar v1 = null;
+    if(WordIdentifier.isRexpr(child.get(1))) {
+      Crexpr r = WordIdentifier.getRexpr(child.get(1)); 
+      String name = counter.getAnonymousName(); 
+      table.addLocal(name);
+      v1 = new Cvar(name);				
+      body.add(new Cass(v1,r ));
+    }
+    else if(child.get(1).getLexicalTerm().equals("id")) {
+      v1 = new Cvar(child.get(1).getValue());
+      table.addLocal(child.get(1).getValue());
+    }
+    //erreur terminal mais ni une expression ni un id
+    else {
+      System.out.println("Expected number id or expr");
+      System.out.println("in write");
+      System.exit(15);
+    }
+    Clexpr[] expr = {v1};
+    Coutput out = new Coutput(expr);
+    body.add(out);
+    return v1;
+  }
+  //sinon on explore la commande et on récupère la valeur de l'expression
+  else {
+    Cvar v1 = exploreCmd(child.get(1), table, body, counter);
+    Clexpr[] expr = {v1};
+    Coutput out = new Coutput(expr);
+    body.add(out);
+    return v1;
+  }
+}
+ \end{verbatim}
+}
+Dans ce code on voit bien les deux cas de figure : les arguments de l'instruction sont des terminaux ou non. 
+On voit aussi l'utilisation des variables annonymes grâce à la classe AnonymousCounter qui a comme seul objectif de fournir des noms différents
+pour chaque variable annonyme d'une méthode. 
+
+ 
+Voici un petit de l'exécution de la méthode addOutput :
 
 Considérons le code Happy suivant :
 \begin{verbatim}
@@ -138,7 +201,195 @@ write(A_3) ;
 
 \end{verbatim}
 
-Les conditions fonctionne un peu comme l'exploration 
+Les conditions fonctionne un peu comme l'exploration des commandes, mais ici il faut distinguer deux types de conditions.
+Les conditions avec un opérateur logique (and, or, not) et les conditions avex un opérateur de relation. Les première ne peuvent avoir 
+comme argument que des conditons tandis que les second ne peuvent avoir comme argument que des expressions. 
 
-%TODO
+Voici un exemple de condition avec un opérateur logique :
+{\tiny
+\begin{verbatim}
 
+
+/**
+ * Cette fonction renvoie une condition de type and.
+ * @param child la liste des Term qui forme la conditions, 
+    size == 3 et les éléments 1 et 2 doivent être des conditions
+ * @param table la table des variables locales
+ * @param body la table contenant la liste des commandes du corps de la méthode
+ * @param counter le compteur de variable annonyme
+ * @return La condition and.
+ */
+private Ccond getAnd(List<LexicalTerm> child, MethodTable table, 
+  List<Ccmd> body, AnonymousCounter counter) {
+  if(child.get(1).isTerminal() || child.get(2).isTerminal()) {
+    System.out.println("Syntax error at AND, expected condition");
+    System.exit(16);
+  }
+  return new Cand(getCond(child.get(1), table, body, counter),
+      getCond(child.get(2), table, body, counter));
+}
+ 
+\end{verbatim}}
+
+Ici encore on voit les appels récursif à getCond (en effet l'appel de getAnd vient uniquement d'un appel à getCond). 
+Les conditons avec un opérateur de relation fonctionne exactement comme les instructions. 
+L'implémentation avec les expressions imbriquées dans les relations pose un petit soucis. Les expressions sont placé au dessus du if
+ou du while et leur résultat sont placés dans une variable annonyme. Cette variable est ensuite utilisée dans la condtion.
+Dans un if ceci ne pose pas de problème mais dans un while on risque d'avoir très vite une boucle infinie car les expressions ne
+sont plus réévaluée une fois dans le while. (Il faudrait donc aussi rajouté les instructions imbriquée à la fin du while mais l'implémentation
+dans sa forme actuelle ne permet pas de le faire facilement). C'est pourquoi le code suivant est vivement déconseillé
+{\tiny
+\begin{verbatim}
+[code qui écris les chiffre de 1 à 10]
+ (
+        (fun (main) (
+                (set i 0)
+                (while (<= (set i (+ i 1)) 10) (
+                        (write i)
+
+                ))
+
+        ))
+)
+[La sortie est tout autre => une infinité de 1]
+
+[Voici le code conseillé]
+ (
+        (fun (main) (
+                (set i 1)
+                (while (<= i 10) (
+                        (write i)
+                        (set i (+ i 1))
+
+                ))
+
+        ))
+)
+
+[Ce code va effectivement sortir les chiffres de 1 à 10]
+\end{verbatim}}
+
+\section{traduction du code en code interne}
+Ici nous avons utilisé la méthode Cprog.translate(). Qui nous à poser quelque problème lorsque qu'il y avait dans la traduction en code 
+structuré. En effet les erreurs renvoyée ne sont pas des plus claires.
+
+Voici le premier programme de la démo qui fait la somme de 1 à n.
+{\tiny
+\begin{verbatim}
+ 
+
+
+(
+
+[Commentaire]
+(fun (main) (
+  (set i 0)
+  (while (<= i 10)
+  (
+    (write (sum i))
+    (set i (+ i 1))
+  ))
+))
+
+(fun (sum n) (
+  (if (= n 0)
+    (return 0)
+  )
+  (return (+ n (sum (- n 1))))
+  ))
+)
+
+
+Traduction en code structuré
+
+main()
+{
+  i = 0 ;
+  A_0 = i ;
+  A_1 = 10 ;
+  while (i <= A_1)
+    {
+      A_2 = sum(i) ;
+      write(A_2) ;
+      A_3 = 1 ;
+      A_4 = (i + A_3) ;
+      i = A_4 ;
+      A_5 = i ;
+      A_6 = 0 ;
+    }
+  A_7 = 0 ;
+  A_8 = 0 ;
+}
+
+
+sum(n)
+{
+  A_0 = 0 ;
+  if (n == A_0)
+    {
+      A_1 = 0 ;
+      return (A_1) ;
+    }
+  A_2 = 0 ;
+  A_3 = 1 ;
+  A_4 = (n - A_3) ;
+  A_5 = sum(A_4) ;
+  A_6 = (n + A_5) ;
+  return (A_6) ;
+  A_7 = 0 ;
+}
+
+Traduction en code interne
+
+
+method main()
+{ lab16
+  [ lab16 : i#1 := 0 ; go to lab15]
+  [ lab15 : A_0#2 := i#1 ; go to lab14]
+  [ lab14 : A_1#3 := 10 ; go to lab5]
+  [ lab5 : if A_1#3 < i#1 then go to lab3 else go to lab4]
+  [ lab3 : A_7#9 := 0 ; go to lab2]
+  [ lab2 : A_8#10 := 0 ; go to lab1]
+  [ lab4 : skip ; go to lab13]
+  [ lab13 : #11 := i#1 ; go to lab12]
+  [ lab12 : A_2#4 := sum(#11) ; go to lab11]
+  [ lab11 : write(A_2#4) ; go to lab10]
+  [ lab10 : A_3#5 := 1 ; go to lab9]
+  [ lab9 : A_4#6 := i#1 + A_3#5 ; go to lab8]
+  [ lab8 : i#1 := A_4#6 ; go to lab7]
+  [ lab7 : A_5#7 := i#1 ; go to lab6]
+  [ lab6 : A_6#8 := 0 ; go to lab5]
+} lab1 result#0
+end of method main.
+
+method sum(n)
+{ lab29
+  [ lab29 : A_0#2 := 0 ; go to lab28]
+  [ lab28 : if n#1 == A_0#2 then go to lab27 else go to lab25]
+  [ lab27 : A_1#3 := 0 ; go to lab26]
+  [ lab26 : result#0 := A_1#3 ; go to lab17]
+  [ lab25 : A_2#4 := 0 ; go to lab24]
+  [ lab24 : A_3#5 := 1 ; go to lab23]
+  [ lab23 : A_4#6 := n#1 - A_3#5 ; go to lab22]
+  [ lab22 : #10 := A_4#6 ; go to lab21]
+  [ lab21 : A_5#7 := sum(#10) ; go to lab20]
+  [ lab20 : A_6#8 := n#1 + A_5#7 ; go to lab19]
+  [ lab19 : result#0 := A_6#8 ; go to lab17]
+} lab17 result#0
+end of method sum.
+
+Et finalement l'exécution
+0
+1
+3
+6
+10
+15
+21
+28
+36
+45
+55
+
+
+\end{verbatim}}

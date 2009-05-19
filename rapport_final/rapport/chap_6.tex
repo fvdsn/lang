@@ -1,45 +1,45 @@
-\section{Analyse syntaxique}
-	\subsection{Grammaire WP du langage} 
-		\begin{verbatim}
-			<l0> ::= <l_block>  ')' | 'l_id'
-			<l_block> ::= '(' <l_list>
-			<l_list> ::= <l0> | <l0> <l_list>
-		\end{verbatim}
-		Étant donné les nombreux déboires et retournement de situations
-		pour rendre notre syntaxe WP nous avons décidé d'utiliser une
-		autre approche qui consiste à seulement différencier les niveaux d'imbrication de parenthèses 
-		et les 'identifiants' qui 
-		comprennent les identifiants, mais aussi les mots réservés et les 
-		nombres. Ceux ci sont désignés par 'l_id' dans la grammaire, mais
-		en pratique ces symboles gardent leur type donné par l'analyseur
-		lexical. Le gros du travail est donc délégué aux étapes ultérieures.
-	\subsection{Problèmes rencontrés}
-		Le premier problème venait du flou entourant la definition de cycle.
-		Nous avions travaillé sur une mauvaise définition beaucoup trop 
-		restrictive qui nous a amené a différencier chaque niveau d'imbrication.
-		Comme cela n'était pas possible avec la syntaxe de base nous avons utilisé
-		la syntaxe minimaliste présentée ci-dessus. Lorsque nous nous sommes rendu
-		compte de notre erreur, nous avons continué dans notre approche. En effet
-		la validation de la syntaxe n'est pas spécialement plus compliquée au niveau
-		de l'arbre syntaxique. 
-		
-		Le second problème est un conflit de précédence au niveau des parenthèses
-		qui a été résolu en séparant les paires de parenthèses en deux rêgles
-		de production séparées.
-	\subsection{Code de l'analyseur syntaxique}
-	Voici le code de l'analyseur syntaxique, la méthode principale est parse, qui fait
-	appel aux sous méthodes \emph{shift} et \emph{reduce} L'invariant de parse est le
-	suivant : Soit S la stack : et L la liste de symboles non encore lus :
-	\begin{itemize}
-		\item soit S contient une poignée à son sommet.
-		\item soit S ne contient pas de poignée et L est non vide. 
-		\item soit S contient l'unique symbole start et L est vide et la syntaxe est parsée.
-		\item soit le programme n'est pas valide. 
-	\end{itemize}
-	parse() passe de l'un de ces cas à l'autre avec shift et reduce pour consommer L et arriver au
-	symbole de départ, ou à une erreur auquel cas le programme s'arrète. 
+\chapter{Analyse syntaxique}
+  \section{Grammaire WP du langage} 
+    \begin{verbatim}
+      <l0> ::= <l_block>  ')' | 'l_id'
+      <l_block> ::= '(' <l_list>
+      <l_list> ::= <l0> | <l0> <l_list>
+    \end{verbatim}
+    Étant donné les nombreux déboires et retournement de situations
+    pour rendre notre syntaxe WP nous avons décidé d'utiliser une
+    autre approche qui consiste à seulement différencier les niveaux d'imbrication de parenthèses 
+    et les 'identifiants' qui 
+    comprennent les identifiants, mais aussi les mots réservés et les 
+    nombres. Ceux ci sont désignés par $'l\_id'$ dans la grammaire, mais
+    en pratique ces symboles gardent leur type donné par l'analyseur
+    lexical. Le gros du travail est donc délégué aux étapes ultérieures.
+  \section{Problèmes rencontrés}
+    Le premier problème venait du flou entourant la definition de cycle.
+    Nous avions travaillé sur une mauvaise définition beaucoup trop 
+    restrictive qui nous a amené a différencier chaque niveau d'imbrication.
+    Comme cela n'était pas possible avec la syntaxe de base nous avons utilisé
+    la syntaxe minimaliste présentée ci-dessus. Lorsque nous nous sommes rendu
+    compte de notre erreur, nous avons continué dans notre approche. En effet
+    la validation de la syntaxe n'est pas spécialement plus compliquée au niveau
+    de l'arbre syntaxique. 
+    
+    Le second problème est un conflit de précédence au niveau des parenthèses
+    qui a été résolu en séparant les paires de parenthèses en deux rêgles
+    de production séparées.
+  \section{Code de l'analyseur syntaxique}
+  Voici le code de l'analyseur syntaxique, la méthode principale est parse, qui fait
+  appel aux sous méthodes \emph{shift} et \emph{reduce} L'invariant de parse est le
+  suivant : Soit S la stack : et L la liste de symboles non encore lus :
+  \begin{itemize}
+    \item soit S contient une poignée à son sommet.
+    \item soit S ne contient pas de poignée et L est non vide. 
+    \item soit S contient l'unique symbole start et L est vide et la syntaxe est parsée.
+    \item soit le programme n'est pas valide. 
+  \end{itemize}
+  parse() passe de l'un de ces cas à l'autre avec shift et reduce pour consommer L et arriver au
+  symbole de départ, ou à une erreur auquel cas le programme s'arrète. 
 
-	{\tiny	\begin{verbatimtab}
+  {\tiny  \begin{verbatim}
 /*
  * @pre :~
  * @post: A terminal is read from the lexical parser and put ont
@@ -48,19 +48,19 @@
  * false
  */
 public boolean shift(){
-	if(next == null && lexParser.hasNext()){
-		System.out.println("coucou");
-		stack.push(lexParser.next());
-		if(lexParser.hasNext()){
-			next = lexParser.next();
-		}
-		return true;
-	}else if(next != null){
-		stack.push(next);
-		next = lexParser.next();
-		return true;
-	}
-	return false;
+  if(next == null && lexParser.hasNext()){
+    System.out.println("coucou");
+    stack.push(lexParser.next());
+    if(lexParser.hasNext()){
+      next = lexParser.next();
+    }
+    return true;
+  }else if(next != null){
+    stack.push(next);
+    next = lexParser.next();
+    return true;
+  }
+  return false;
 }
 /*
  * @pre : There is a symbol on the stack.
@@ -84,7 +84,7 @@ public void printStack(){ ... }
  * nothing left to read on the lexical parser.
  */
 public boolean done(){ ... }
-}
+
 /*
  * @pre : There is a symbol on the stack.
  * @post :
@@ -97,51 +97,51 @@ public boolean done(){ ... }
  * @return : returns true if could reduce, false if it couldn't. 
  */
 public boolean reduce(){
-	int i = stack.size() -1; /* beginning of the handle */
-	boolean hard = false;	/*it has tried to match a < ... > handle */
-	boolean match = true;	
-	while(i >= 0){
-		int matchsize = stack.size()-i;
-		if( 	prec(i-1).equals(CheckPrecedence.LE)
-			||	prec(i-1).equals(CheckPrecedence.LEQ)){
-			if(prec(i-1).equals(CheckPrecedence.LE)){
-				hard = true;
-			}
-			for(Rule r:grammar){
-				for(CatList c:r.getOrList()){	/*we iterate over rules */
-					List<Term> L = c.getTermList();
-					if(L.size() != matchsize){
-						continue;
-					}
-					int j = 0;
-					match = true;
-					while(j < matchsize){	/*matching the handle with the rule*/
-						if(!L.get(j).equals(stack.get(i+j))){
-							match = false;
-							break;
-						}
-						j++;
-					}
-					if(!match){
-						continue;
-					}
-					Term R = new TermImpl(r.getLeftSide().getType(),false);
-					j = 0;
-					while(j < matchsize){ /*removing from the stack and adding to the child list */
-						R.getChildList().add(stack.remove(i));
-						j++;
-					}
-					stack.push(R);
-					return true;
-				}
-			}
-		}
-		if(hard){
-			return false;
-		}
-		i--;
-	}
-	return false;
+  int i = stack.size() -1; /* beginning of the handle */
+  boolean hard = false;  /*it has tried to match a < ... > handle */
+  boolean match = true;  
+  while(i >= 0){
+    int matchsize = stack.size()-i;
+    if(   prec(i-1).equals(CheckPrecedence.LE)
+      ||  prec(i-1).equals(CheckPrecedence.LEQ)){
+      if(prec(i-1).equals(CheckPrecedence.LE)){
+        hard = true;
+      }
+      for(Rule r:grammar){
+        for(CatList c:r.getOrList()){  /*we iterate over rules */
+          List<Term> L = c.getTermList();
+          if(L.size() != matchsize){
+            continue;
+          }
+          int j = 0;
+          match = true;
+          while(j < matchsize){  /*matching the handle with the rule*/
+            if(!L.get(j).equals(stack.get(i+j))){
+              match = false;
+              break;
+            }
+            j++;
+          }
+          if(!match){
+            continue;
+          }
+          Term R = new TermImpl(r.getLeftSide().getType(),false);
+          j = 0;
+          while(j < matchsize){ /*removing from the stack and adding to the child list */
+            R.getChildList().add(stack.remove(i));
+            j++;
+          }
+          stack.push(R);
+          return true;
+        }
+      }
+    }
+    if(hard){
+      return false;
+    }
+    i--;
+  }
+  return false;
 }
 /*
  * @pre : the object has been correctly initialized with a lexical
@@ -150,30 +150,30 @@ public boolean reduce(){
  * returns true. returns false and prints an error message otherwise. 
  */
 public boolean parse(){
-	while(shift()){
-		while(prec(stack.size()).equals(CheckPrecedence.GE)){
-			if(!reduce()){
-				if (done()){
-					tree = stack.get(0);
-					return true;
-				}
-				System.out.println("Syntax Error : Could not reduce");
-				printStack();
-				return false;
-			}
-			if(done()){
-				tree = stack.get(0);
-				return true;
-			}
-		}
-	}
-	if (done()){
-		tree = stack.get(0);
-		return true;
-	}else{
-		System.out.println("Syntax Error : Program too long");
-		return false;
-	}
+  while(shift()){
+    while(prec(stack.size()).equals(CheckPrecedence.GE)){
+      if(!reduce()){
+        if (done()){
+          tree = stack.get(0);
+          return true;
+        }
+        System.out.println("Syntax Error : Could not reduce");
+        printStack();
+        return false;
+      }
+      if(done()){
+        tree = stack.get(0);
+        return true;
+      }
+    }
+  }
+  if (done()){
+    tree = stack.get(0);
+    return true;
+  }else{
+    System.out.println("Syntax Error : Program too long");
+    return false;
+  }
 }
-	\end{verbatimtab}}
+  \end{verbatim}}
 

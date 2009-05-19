@@ -1,9 +1,9 @@
-\section{L'analyseur Lexical}
+\chapter{L'analyseur Lexical}
 
 L'analyseur Lexical a pour fonction de sortir une suite de jetons concrets et de assez haut niveau, permettant de simplifier la tache du vérificateur de grammaire. Plus concrètement, il s'agit dans un premier temps de transformer un fichier texte en une suite de caractère, et de les parser les un après les autres. Chaque caractère donnera lieu à une action précise, par exemple les caractères spéciaux tel que les parenthèses et les points, etc... donnent lieux à un jeton entier.
 Les caractères qui ne sont pas des caractères spéciaux vont quand à eux remplir un buffer , qui sera rempli des qu'un caractère spécial ou délimiteur sera rencontré. Une fois qu'un caractère de ce type est rencontré, on procédera à l'analyse de ce que contient le buffer, et selon le cas on en déterminera le type du jeton à donner.
 
-\subsection{Entrée de l'analyseur lexical}
+\section{Entrée de l'analyseur lexical}
 
 Il est important de préciser correctement ce que l'analyseur lexical doit prendre en entrée. Par soucis de facilité, nous avons décidé de nous restreindre aux caractères ascii 8 bits, et plus particulièrement, toutes les lettres ( miniscule et majuscule ), les chiffres, les opérateurs *,+,/-, le symbole d'égalité, les parenthèses, les crochets ( [] ) ,  et le point.
 
@@ -12,13 +12,15 @@ Ensuite il est nécessaire de définir les différents symboles de base que l'an
 Voici donc les différentes catégories que l'analyseur lexical va sortir :
 
 \begin{itemize}
-	\item NUMBER  : Représente un ou plusieurs chiffres à la suite.
-	\item ID : Représente une suite de caractères qui n'est pas un mot réservé.
-	\item UNARY_OP : Représente un opérateur unaire, tel que l'opérateur NOT : !
-	\item BINARY_OP : représente un opérateur binaire, tel l'opérateur +
-	\item *RESERVED_WORD* : représente un mot réservé. En fait la catégorie sera le nom du mot réservé (d'où les étoiles ), par exemple FUN
-	\item *BEFORE_AFTER* : Représente ce qu'il y a avant et après un point. BEFORE et AFTER peuvent valoir : THIS, ID, INT
+\item NUMBER  : Représente un ou plusieurs chiffres à la suite.
+\item ID : Représente une suite de caractères qui n'est pas un mot réservé.
+\item $UNARY\_OP$ : Représente un opérateur unaire, tel que l'opérateur NOT : !
+\item $BINARY\_OP$ : représente un opérateur binaire, tel l'opérateur +
+\item $*RESERVED\_WORD*$: représente un mot réservé. En fait la catégorie sera le nom du mot réservé (d'où les étoiles ), par exemple FUN
+\item $*BEFORE\_AFTER*$ : Représente ce qu'il y a avant et après un point. BEFORE et AFTER peuvent valoir : THIS, ID, INT
 \end{itemize}
+
+
 
 Finalement, il est de bon aloi de préciser que les espaces, les caractères de tabulations et de nouvelle ligne servent évidemment de caractère de séparation. Il n'est par contre pas nécessaire de placer un espace après une parenthèse par exemple, vu qu'il est assez naturel que ce qui suit sera le début d'un nouveau symbole.
 
@@ -26,14 +28,16 @@ Pour ce qui est des commentaires, nous avons introduit les symboles de crochet (
 
 Notre analyseur lexical ne renvoie plus de jetons à partir du moment où on atteind la fin du fichier. Il n'est pas nécessaire de terminer le fichier d'une manière particulière.
 
-\subsection{Symboles terminaux de bases}
-<Instr>  | number | null | true | false | this | id | <Id_int> | <This_int>
-
-( ) <= >= > < = and or ! + - * / \% neg id . number this super while if set write read fun method null true false \\
-C'est-à-dire tout les mots réservé qui se trouve dans le tableau RESERVED_WORD dans la classe \textit{WordIdentifier.java} et tout le reste qui sont
+\section{Symboles terminaux de bases}
+\begin{verbatim}
+( ) <= >= > < = and or ! + - * / % neg id . number this super while 
+if set write read fun method null true false 
+ 
+\end{verbatim}
+C'est-à-dire tout les mots réservé qui se trouve dans le tableau $RESERVED\_WORD$ dans la classe \textit{WordIdentifier.java} et tout le reste qui sont
 des id.
 
-\subsection{Grammaire formelle}
+\section{Grammaire formelle}
 \begin{verbatim}
 <Program> ::= ( <Prog_list> )
 <Prog_list> ::=  <Meth_or_fun> | <Prog_list> <Meth_or_fun>	
@@ -81,25 +85,25 @@ des id.
 <Id_id> ::= id . id
 <Method_int> ::= method . number
 \end{verbatim}
-Cette grammaire est identique à celle 
 
-\subsection{Représentation des symboles lexicaux}
+
+\section{Représentation des symboles lexicaux}
 
 Les Symboles lexicaux sont représenté à l'aide d'un objet de type LexicalTerm. Cet objet contient deux informations nécessaires. La première est la catégorie du symbole lexical, comme défini un peu plus haut. La seconde information est ce que contient concrètement le symbole lexical.
 Afin de clarifier cela, un petit exemple s'impose : 
 Imaginons que l'analyseur lexical découvre un identifiant pour le mot  "valeura" dans le fichier source. Dans ce cas, il créera un objet LexicalTerm contenant l'information suivante :
 \begin{itemize}
-	\item TYPE : ID
-	\item CONTENT : valeura
+\item TYPE : ID
+\item CONTENT : valeura
 \end{itemize}
 
 Dans le cas où maintenant le mot réservé fun est rencontré, l'objet LexicalTerm alors créé contiendra : 
 \begin{itemize}
-	\item TYPE : fun
-	\item CONTENT : fun
+\item TYPE : fun
+\item CONTENT : fun
 \end{itemize}
 
-\subsection{Spécification rigoureuse des méthodes publiques de l'analyseur lexical}
+\section{Spécification rigoureuse des méthodes publiques de l'analyseur lexical}
 
 De manière concrète, l'analyseur lexical a été réalisé en implémentant l'interface Iterator et Iterable. Les méthodes publiques seront dons les méthodes propres à ces interfaces . Les méthodes utilisées par l'analyseur syntaxique sont donc :
 
@@ -121,48 +125,47 @@ La méthode next()
 \begin{verbatim}
     /**
      * @return the next Term in the iteration
-     * @throws NoSuchElementException if the iteration has no more Term ( the end of the file is reached ).
+     * @throws NoSuchElementException if the iteration 
+has no more Term ( the end of the file is reached ).
      */
 
 		 public Term next()
 \end{verbatim}
 
 
-\subsection{principe d'implémentation}
+\section{principe d'implémentation}
 
 Le principe d'implémentation est assez simple. Lorsque l'analyseur syntaxique appelle la méthode next() , l'analyseur lexical va lire les caractères suivants dans le fichier, jusqu'a pouvoir déterminer le prochain token.
 
 Tant qu'un caractère de séparation n'est pas reconnu ( un espace, une parenthèse,...), le caractère suivant est lu et placé dans un buffer. Lorsqu'un caractère de séparation est finalement rencontré, ce qui a été mis précedemment dans le buffer devient le prochain jeton, et le caractère de séparation deviendra celui d'après ( sauf si il s'agit d'un espace , d'une nouvelle ligne, ou d'un caractère de tabulation ).
 
-\subsection{Tests de l'analyseur lexical}
+\section{Tests de l'analyseur lexical}
 Le but de ces tests est de voir les erreurs que renvoie l'analyseur lexical, et surtout de les comprendre.
 
-\subsubsection{Test avec entrée valide}
+\section{Test avec entrée valide}
 Voici un petit programme qui est accepté par l'analyseur lexical, il n'affiche donc pas d'erreur, et le programme se déroule bien.
 
 \begin{verbatim}
 (
-	(fun (main) (
-		(set i 0)
-		(while (<= i 10)
-			(
-				(write i)
-				(set i (+ i 1))
-			)
-		)
-	))
+  (fun (main) (
+    (set i 0)
+    (while (<= i 10) (
+      (write i)
+      (set i (+ i 1))
+    ))
+  ))
 )
 \end{verbatim}
 
-\subsubsection{Tests avec entrée invalide}
+\subsection{Tests avec entrée invalide}
 
 
 \paragraph Test d'un programme ayant une parenthèse fermante de trop ( à la fin ) :
 \begin{verbatim}
 (
-	(fun (main) (
-		(write 42)
-	))
+  (fun (main) (
+    (write 42)
+    ))
 )
 )
 \end{verbatim}
@@ -170,7 +173,7 @@ Voici un petit programme qui est accepté par l'analyseur lexical, il n'affiche 
 Sortie de l'analyseur lexical :
 
 \begin{verbatim}
-	Too much ) 
+  Too much ) 
 \end{verbatim}
 
 L'analyseur lexical a donc bien détecté qu'il y a trop de parenthèses fermantes.
@@ -179,14 +182,14 @@ L'analyseur lexical a donc bien détecté qu'il y a trop de parenthèses fermant
 
 \begin{verbatim}
 (
-	(fun (main) (
-		(write 42)
-	))
+  (fun (main) (
+  (write 42)
+))
 \end{verbatim}
 
 En sortie :
 
 \begin{verbatim}
-	Unexpected end
+  Unexpected end
 \end{verbatim}
 
