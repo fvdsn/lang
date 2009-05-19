@@ -27,8 +27,61 @@ Pour ce qui est des commentaires, nous avons introduit les symboles de crochet (
 Notre analyseur lexical ne renvoie plus de jetons à partir du moment où on atteind la fin du fichier. Il n'est pas nécessaire de terminer le fichier d'une manière particulière.
 
 \subsection{Symboles terminaux de bases}
+<Instr>  | number | null | true | false | this | id | <Id_int> | <This_int>
+
+( ) <= >= > < = and or ! + - * / \% neg id . number this super while if set write read fun method null true false \\
+C'est-à-dire tout les mots réservé qui se trouve dans le tableau RESERVED_WORD dans la classe \textit{WordIdentifier.java} et tout le reste qui sont
+des id.
 
 \subsection{Grammaire formelle}
+\begin{verbatim}
+<Program> ::= ( <Prog_list> )
+<Prog_list> ::=  <Meth_or_fun> | <Prog_list> <Meth_or_fun>	
+<Meth_or_fun> ::=  <Method> | <Function>
+
+<Function> := ( fun ( <Arglist> ) <Instr_list> ) 
+<Arglist> ::=  id | id <Arglist>
+<Method> ::= ( <Method_int> ( <Arglist> ) <Instr_list> )
+ 
+<Instr_list> ::=  <Instr> | ( <Instr_list_np> ) 
+<Instr_list_np> ::=  <Instr> | <Instr> <Instr_list_np>
+<Instr> ::=  <Conditional> | <While_block> | <Call> | ( return <Expr> ) 
+
+<Conditional> ::= ( if <Cond> <instr_list> <instr_list>  )  
+<Conditional> ::= ( if <Cond> <instr_list> )
+<While_block> ::= ( while  <Cond> <Instr_list>  ) 
+<call> ::=  <User_call> | <Method_call> | <Builtin_call> 
+<Builtin_call> ::=  <Assignment> | <Read_call> | <Write_call> | <Arithmetic_call>
+<Assignment> ::= ( set id <Expr> ) 
+<Assignment> ::= ( set <Id_int> <Expr> ) | ( set <This_int> <Expr> )
+<Read_call>  ::= ( read )
+<Write_call> ::= ( write <Expr> )
+<Arithmetic_call> ::=  <Binary> | <Unary>
+<Binary> ::= ( <Bin_id> <Expr> <Expr>  )
+<Unary>  ::= ( <Un_id> <Expr>  )
+<User_call>  ::= ( id  <Expr_list_np> ) | ( id ) 
+<Expr_list_np> ::=  <Expr> | <Expr> <Expr_list_np>
+<Method_call>  ::= ( <Id_id> <Expr_list_np>  ) |  ( <Id_id> )   
+<Method_call>  ::= ( <Super_id>  <Expr_list_np>  ) | ( <Super_id>  )
+<Method_call>  ::= ( <This_id>  <Expr_list_np>  ) | ( <This_id> )
+<Expr> ::= number | null | true | false | this | id 
+<Expr> ::= <Id_int> | <This_int> | <Instr>
+<Cond> ::= <Rel> | ( <Log_bin_op> <Cond> <Cond> )
+<Cond> ::= ( <Log_un_op> <Cond> <Cond> )
+<Rel>  ::= ( <Rel_op> <Expr> <Expr> ) 
+<Rel_op> ::= <= | >= | > |  < | =
+<Log_bin_op> ::= and | or
+<Log_un_op> ::= !
+<Bin_id> ::= + | - | * | / | %
+<Un_id> ::= neg
+<Id_int> ::= id . number
+<This_int> ::= this . number
+<Super_id> ::= super . id
+<This_id> := this . id 
+<Id_id> ::= id . id
+<Method_int> ::= method . number
+\end{verbatim}
+Cette grammaire est identique à celle 
 
 \subsection{Représentation des symboles lexicaux}
 

@@ -47,7 +47,7 @@ Cette grammaire est la grammaire exhaustive du langage si on rajoute que les id 
 <Rel>  ::= ( <Rel_op> <Expr> <Expr> ) 
 <Rel_op> ::= <= | >= | > |  < | =
 <Log_bin_op> ::= and | or
-<Log_un_op> ::= not
+<Log_un_op> ::= !
 <Bin_id> ::= + | - | * | / | %
 <Un_id> ::= neg
 <Id_int> ::= id . number
@@ -62,9 +62,17 @@ Cette grammaire n'est pas wp, mais elle exprime très bien ce qui est syntaxique
 Voici quelque bout de code permis par cette grammaire :
 
 \begin{verbatim}
-(while (<= (3 * i) (9)) (write (set i (+ i 1))))
+[Le while s'écrit comme ceci while (la condition) (les instruction a répèter)
+  ici la condition est 3 * i <= 9
+On remarque aussi que sur ce bout de code on peut écrire 
+la valeur de retour de set qui sera ici i_initial + 1 ou i_final ]
+(while (<= (* 3  i) 9) (write (set i (+ i 1)))) 
   
+[Condition ici si i != 9 ]
+[Ensuite si vrai on exécute la première list d'instruction sinon la seconde]
 (if (! (= i 9)) (return true) (return false))
+[Ceci est équivalent à sauf que dans le cas deux on voit clairement les listes d'instructions]
+(if (! (= i 9)) ((return true)) ((return false)))
 
 (fun (++ i) (return (+ i 1)))
 
@@ -108,7 +116,61 @@ Le programme suivant fait la somme de 1 à n pour 10 n
 
 \end{verbatim}
 
+
+
 Le dernier programme fait la somme des éléments d'une pile et utilise la POO
+\begin{verbatim}
+(
+  (fun (main) (
+    (set s ( >> 4 ( >> 3 (>> 2 (# 1)))))
+    (write (s.@))
+    (write (s.->))
+    (set s (>> 5 s))
+    (Print s)
+    (write (sum s))
+  ))
+  [crée une nouvelle pile avec a comme élément au sommet]
+  (fun (# a) (
+    (set b (new 2))
+    (b.@= a)
+    (b.->= null)
+    (return b)
+  ))
+
+  [Push sur la stack]
+  [a : l'élément à mettre sur la stack]
+  [s : la stack]
+  (fun (>> a s) (
+    (set n (new 2))
+    (n.->= s)
+    (n.@= a)
+    (return n)
+  )) 
+
+  (fun (Print N) (
+    (if (! (= N null)) (
+      (write (N.@))
+      (Print (N.->))
+    )
+    (write 0)
+    )
+  ))
+
+  (fun (sum N) (
+    (if (! (= N null)) 
+      (return (+ (N.@) (sum (N.->))))
+      (return 0)
+    )
+     
+  ))
+  [Accesseur pour l'élément contenu dans le noeud]
+  (method.2 (@) (return this.1))
+  ((method.2 (@= a) (set this.1 a))
+  [Accesseur pour next]
+  (method.2 (->) (return this.2))
+  (method.2 (->= a) (set this.2 a))
+)
+\end{verbatim}
 
 
 

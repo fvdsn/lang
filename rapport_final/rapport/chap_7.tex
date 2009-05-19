@@ -1,14 +1,144 @@
 \section{Traduction du programme en code interne}
-	\subsection{Création de l'arbre syntaxique du programme}
-		L'arbre syntaxique est consitué de \emph{Term} afin
-		qu'il puisse être généré directement par l'analyseur syntaxique. 
-		La méthode getChildList() renvoie la liste des \emph{Term} enfants.
+\subsection{Création de l'arbre syntaxique du programme}
+L'arbre syntaxique est consitué de \emph{Term} afin
+qu'il puisse être généré directement par l'analyseur syntaxique. 
+La méthode getChildList() de la classe Term renvoie la liste des \emph{Term} enfants.
 
-		La première chose à faire avec l'arbre généré par l'arbre brut est
-		de mettre tout ce qui est au même niveau de parenthèses au même niveau
-		dans l'arbre. Pour cela on le parcourt et on fusionne récursivement tous
-		les l_blocks et les l_lists dans leurs parents. Comme les \emph{Term}
-		gardent en mémoire le type donné à l'analyse syntaxique, les terminaux
-		récupèrent automatiquement le bon type. 
 
-			
+Le code de l'analyser syntaxique prend en entrée un flux Term qui sont tous terminaux. 
+L'analyseur syntaxique n'a besoin que des méthodes définie dans l'interface Term pour construire l'arbre.
+Voici cette interface : 
+\begin{verbatim}
+ 
+\end{verbatim}
+public interface Term {
+	  /**
+	  * 
+	  * @return true if the term is a terminal term
+	  */
+	  public boolean isTerminal();
+	  
+	  /**
+	  * 
+	  * @return Le type du term pour l'analyseur syntaxique.
+	  */
+	  public String getType();
+	
+	  /**
+	  * 
+	  * @return la valeur du term, c'est à dire la chaine de caractère
+	  * parsée par l'analyseur lexical.
+	  * Si le term n'est pas terminal, il n'a pas de valeur
+	  */
+	  public String getValue();
+	
+	  /**
+	  * Modifie la valeur du term
+	  * @param v la nouvelle valeur du term
+	  * @return this
+	  */
+	  public Term setValue(String v);
+	
+	  /**
+	  * Renvoie la liste des enfants du terme, cette liste n'est pas vide que
+	  * si le term n'es pas terminal
+	  * @return
+	  */
+	  public List<Term> getChildList();
+	
+	  /**
+	  * Imprime l'arbre qui est représenté par le term
+	  * Indent définit le niveau d'indentation, lorsqu'on imprime
+	  * l'arbre entier le point de départ est 0
+	  * @param indent
+	  */
+	  void	printTree(int indent);
+	
+	
+}
+\end{verbatim}
+
+
+Une fois le code déjà donné dans le chapitre 6 exécuté, l'arbre (le Term) passe dans le treeOrganiser.
+
+La première chose à faire avec l'arbre généré par l'arbre brut est
+de mettre tout ce qui est au même niveau de parenthèses au même niveau
+dans l'arbre. Pour cela on le parcourt et on fusionne récursivement tous
+les $l\_blocks$ et les $l\_lists$ dans leurs parents. Comme les \emph{Term}
+gardent en mémoire le type donné à l'analyse syntaxique, les terminaux
+récupèrent automatiquement le bon type. 
+ 
+\begin{figure}
+ \centering
+ \includegraphics[bb=0 0 428 264]{./restruc.png}
+ % restruc.png: 428x264 pixel, 72dpi, 15.10x9.31 cm, bb=0 0 428 264
+ \caption{Schema simplifié de la restructuration de l'arbre}
+ \label{restruc}
+\end{figure}
+
+
+Voici la spécification de la seul méthode public du \textit{TreeOrganiser} :
+\begin{verbatim}
+ /**
+  * Contracte l'arbre sortit par l'analyseur syntaxique. Tout les l_list et l_block sont
+  * retiré, à la fin il ne reste que des l0 qui sont soit des terminaux ou des listes de l0.
+  * @return L'arbre représenté sous la forme d'un lexicalTerm
+  */
+public LexicalTerm contract()
+\end{verbatim}
+
+La structure de donnée LexicalTerm est très similaire à Term, elle implémente l'interface on a rajouté une méthode getLexicalTerm
+qui est le type donnée par le parser lexical. Ces types ont été listé dans la partie sur l'analyseur lexical. Une fois 
+l'arbre mis en forme et les types des termes réels révélés (pas ceux juste présent pour construire l'arbre), on passe à la traduction.
+
+\section{traduction}
+Il y a trois grande famille de traduction, la traduction des définitions de méthode, la traduction des instructions et la traduction des conditions.
+La traduction des définitions de méthode est assez facile car on sait qu'un programme en Happy est une liste de méthode. Donc les enfants
+de la racine sont les méthodes, l'enfant 0 de l'enfant est le mot clé, l'enfant 1 sont les paramètres et l'enfants 2 est la suite d'instruction.
+\begin{verbatim}
+
+/**
+	 * Point de départ de l'exploration de l'arbre. 
+	 * t est un term qui une liste de term qui est en accord avec la définition
+	 * des méthodes ou des fonctions.
+	 * Si t n'est pas conforme aux définitions, une erreur de syntaxe est lancée et le programme
+	 * se termine
+	 * @param t 
+	 * @return la Cmethod 
+	 */
+	private Cmethod analyseMethod(LexicalTerm t) { 
+
+ 
+\end{verbatim}
+
+Une fois les arguments et le nom de la méthode récupéré il faut commencé à ajouté toutes les instructions à au corps de la méthode.
+La méthode privée addBody crée une liste vide qui accueillera toutes les instructions de la méthode. Cette table permet de placer en premier
+les instructions qui se trouvent au fond de l'arbre pour gérer correctement les appels imbriqués.
+
+Les instructions dans le langage Happy sont toutes des expressions, c'est-à-dire qu'elle renvoie une valeur. Contrètement dans la traduction
+cela ce fait par l'assignation d'une valeur (qui dépend du type d'instruction) variable annonyme qui sera renvoyé à la méthode appelante. Cette méthode
+appelante utilisateur la variable si elle en a besoin.
+
+Voici un petit exemple qui sera plus parlant :
+
+Considérons le code Happy suivant :
+\begin{verbatim}
+(write 
+  (set a 
+    (+ 7 8)
+  )
+)
+sera traduit en:
+A_0 = 7 ; //l'expression 7 est assignée à A_0
+A_1 = 8 ; //idem pour 8
+A_2 = (A_0 + A_1) ; //l'expression (+ A_0 A_1) est assignée à A_2
+a = A_2 ; //assignation de l'expression (+ A_0 A_1) à a en passant par A_2
+A_3 = a ; //set renvoie la variable qu'il vient d'assigner
+write(A_3) ;
+
+\end{verbatim}
+
+Les conditions fonctionne un peu comme l'exploration 
+
+%TODO
+
