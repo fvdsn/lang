@@ -39,24 +39,30 @@
 \contentsline {section}{\numberline {4.1}Grammaire WP du langage}{25}
 \contentsline {section}{\numberline {4.2}Probl\IeC {\`e}mes rencontr\IeC {\'e}s}{25}
 \contentsline {section}{\numberline {4.3}Code de l'analyseur syntaxique}{26}
-\contentsline {section}{\numberline {4.4}Traduction du programme en code interne}{28}
-\contentsline {subsection}{\numberline {4.4.1}Cr\IeC {\'e}ation de l'arbre syntaxique du programme}{28}
-\contentsline {section}{\numberline {4.5}traduction}{29}
-\contentsline {section}{\numberline {4.6}traduction du code en code interne}{32}
-\contentsline {chapter}{\numberline {5}Interpr\IeC {\'e}teur}{35}
-\contentsline {section}{\numberline {5.1}Impl\IeC {\'e}mentation}{35}
-\contentsline {subsection}{\numberline {5.1.1}Changement de l'impl\IeC {\'e}mention}{36}
-\contentsline {paragraph}{Execute recursif entre les statement}{36}
-\contentsline {paragraph}{Gestion de l'overflow}{36}
-\contentsline {paragraph}{Changement de l'environement}{36}
-\contentsline {paragraph}{Gestion des erreurs}{37}
-\contentsline {paragraph}{Garbage Collector}{37}
-\contentsline {subsection}{\numberline {5.1.2}Lien avec la s\IeC {\'e}mantique op\IeC {\'e}rationnelle}{37}
-\contentsline {subsection}{\numberline {5.1.3}Test}{37}
-\contentsline {chapter}{\numberline {6}Mode d'emploi du compilateur}{38}
-\contentsline {section}{\numberline {6.1}Les erreurs}{38}
-\contentsline {section}{\numberline {6.2}Les erreurs du v\IeC {\'e}rificateur}{38}
-\contentsline {section}{\numberline {6.3}Les erreurs du parser lexical}{39}
-\contentsline {section}{\numberline {6.4}Les erreurs de l'analyseur syntaxique}{39}
-\contentsline {section}{\numberline {6.5}Les erreurs du traducteur}{39}
-\contentsline {section}{\numberline {6.6}Les erreurs de l'interpr\IeC {\'e}teur}{39}
+\contentsline {section}{\numberline {4.4}Analyse syntaxique}{26}
+\contentsline {section}{\numberline {4.5}Traduction du programme en code interne}{28}
+\contentsline {subsection}{\numberline {4.5.1}Cr\IeC {\'e}ation de l'arbre syntaxique du programme}{28}
+\contentsline {section}{\numberline {4.6}traduction}{28}
+\contentsline {section}{\numberline {4.7}traduction du code en code interne}{30}
+\contentsline {chapter}{\numberline {5}Interpr\IeC {\'e}teur}{33}
+\contentsline {section}{\numberline {5.1}Impl\IeC {\'e}mentation}{33}
+\contentsline {subsection}{\numberline {5.1.1}Changement de l'impl\IeC {\'e}mention}{33}
+\contentsline {paragraph}{Execute recursif entre les statement}{33}
+\contentsline {paragraph}{Gestion de l'overflow}{33}
+\contentsline {paragraph}{Changement de l'environement}{33}
+\contentsline {paragraph}{Gestion des erreurs}{34}
+\contentsline {paragraph}{Garbage Collector}{34}
+\contentsline {subsection}{\numberline {5.1.2}Lien avec la s\IeC {\'e}mantique op\IeC {\'e}rationnelle}{34}
+\contentsline {subsection}{\numberline {5.1.3}Test}{34}
+\contentsline {chapter}{\numberline {6}Mode d'emploi du compilateur}{35}
+\contentsline {section}{\numberline {6.1}Les erreurs}{35}
+\contentsline {section}{\numberline {6.2}Les erreurs du v\IeC {\'e}rificateur}{35}
+\contentsline {section}{\numberline {6.3}Les erreurs du parser lexical}{35}
+\contentsline {section}{\numberline {6.4}Les erreurs de l'analyseur syntaxique}{35}
+\contentsline {section}{\numberline {6.5}Les erreurs du traducteur}{35}
+\contentsline {section}{\numberline {6.6}Les erreurs de l'interpr\IeC {\'e}teur}{36}
+\contentsline {section}{\numberline {6.7}Exemples de programmes}{37}
+\contentsline {subsection}{\numberline {6.7.1}Traduction en langage abstrait structur\IeC {\'e}}{38}
+\contentsline {subsection}{\numberline {6.7.2}Code Interne}{42}
+\contentsline {subsection}{\numberline {6.7.3}Exemple d'ex\IeC {\'e}cution}{44}
+\contentsline {section}{\numberline {6.8}Conclusion}{46}
