@@ -1,11 +1,11 @@
-This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2009.5.18)  19 MAY 2009 01:12
+This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2009.2.26)  19 MAY 2009 17:54
 entering extended mode
  %&-line parsing enabled.
 **rapport.tex
 (./rapport.tex
 LaTeX2e <2005/12/01>
 Babel <v3.8h> and hyphenation patterns for english, usenglishmax, dumylang, noh
-yphenation, ukrainian, russian, bulgarian, loaded.
+yphenation, basque, french, loaded.
 (/usr/share/texmf-texlive/tex/latex/base/report.cls
 Document Class: report 2005/09/16 v1.4f Standard LaTeX document class
 (/usr/share/texmf-texlive/tex/latex/base/size11.clo
@@ -256,12 +256,6 @@ File: babel.def 2005/11/23 v3.8h Babel common definitions
 \babel@savecnt=\count88
 \U@D=\dimen103
 )
-
-Package babel Warning: No hyphenation patterns were loaded for
-(babel)                the language `French'
-(babel)                I will use the patterns loaded for \language=0 instead.
-
-\l@french = a dialect from \language0
 Package babel Info: Making : an active character on input line 219.
 Package babel Info: Making ; an active character on input line 220.
 Package babel Info: Making ! an active character on input line 221.
@@ -270,6 +264,7 @@ LaTeX Font Info:    Redeclaring font encoding T1 on input line 299.
 \parindentFFN=\dimen104
 \std@mcc=\count89
 \dec@mcc=\count90
+
 *************************************
 * Local config file frenchb.cfg used
 *
@@ -409,49 +404,52 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
 LaTeX Info: Redefining \[ on input line 2666.
 LaTeX Info: Redefining \] on input line 2667.
 )
+(/usr/share/texmf-texlive/tex/latex/moreverb/moreverb.sty
+Package: moreverb 1997/12/07 v2.2d.2 `more' verbatim facilities
+
+(/usr/share/texmf-texlive/tex/latex/tools/verbatim.sty
+Package: verbatim 2003/08/22 v1.5q LaTeX2e package for verbatim enhancements
+\every@verbatim=\toks24
+\verbatim@line=\toks25
+\verbatim@in@stream=\read1
+)
+\verbatim@out=\write3
+\tab@position=\count114
+\tab@size=\count115
+\listing@line=\count116
+)
 (/usr/share/texmf-texlive/tex/latex/graphics/lscape.sty
 Package: lscape 2000/10/22 v3.01 Landscape Pages (DPC)
 )
 (/usr/share/texmf-texlive/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2004/09/05 1.3 listings language file
 ) (./rapport.aux
-(./presentation.aux) (./chap_7.aux) (./readme.aux))
+(./chap_01.aux) (./presentation.aux) (./chap_4.aux) (./chap_5.aux)
+(./chap_6.aux) (./chap_7.aux) (./chap_8.aux) (./readme.aux) (./chap_11.aux)
+(./chap_12.aux))
 \openout1 = `rapport.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for T1/lmr/m/n on input line 34.
-LaTeX Font Info:    Try loading font information for T1+lmr on input line 34.
-
-(/usr/share/texmf/tex/latex/lm/t1lmr.fd
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for T1/lmr/m/n on input line 35.
+LaTeX Font Info:    Try loading font information for T1+lmr on input line 35.
+ (/usr/share/texmf/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2007/01/14 v1.3 Font defs for Latin Modern
 )
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Info: Redefining \dots on input line 34.
-
-(/usr/share/texmf/tex/context/base/supp-pdf.tex
-[Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count114
-\scratchdimen=\dimen120
-\scratchbox=\box30
-\nofMPsegments=\count115
-\nofMParguments=\count116
-\everyMPshowfont=\toks24
-\MPscratchCnt=\count117
-\MPscratchDim=\dimen121
-\MPnumerator=\count118
-\everyMPtoPDFconversion=\toks25
-) (./garde.tex
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Info: Redefining \dots on input line 35.
+ (./garde.tex
 LaTeX Font Info:    Try loading font information for U+msa on input line 3.
- (/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd
+
+(/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2002/01/19 v2.2g AMS font definitions
 )
 LaTeX Font Info:    Try loading font information for U+msb on input line 3.
@@ -472,198 +470,450 @@ Overfull \hbox (0.98396pt too wide) in paragraph at lines 12--17
 <xkcd.png, id=11, 502.87875pt x 792.9625pt>
 File: xkcd.png Graphic file (type png)
  <use xkcd.png> [2 <./xkcd.png (PNG copy)>]
+\openout2 = `chap_01.aux'.
+
+ (./chap_01.tex) [3
+
+]
 \openout2 = `presentation.aux'.
 
  (./presentation.tex
 Chapitre 1.
-[3
+[4
+
 
 
 ]
-Overfull \hbox (48.15683pt too wide) in paragraph at lines 59--59
+Overfull \hbox (48.15683pt too wide) in paragraph at lines 24--24
 []\OT1/cmtt/m/n/10.95 <Instr> ::=  <Conditional> | <While_block> | <Call> | ( r
 eturn <Expr> )[] 
  []
 
 
-Overfull \hbox (105.6437pt too wide) in paragraph at lines 59--59
+Overfull \hbox (105.6437pt too wide) in paragraph at lines 30--30
 []\OT1/cmtt/m/n/10.95 <Builtin_call> ::=  <Assignment> | <Read_call> | <Write_c
 all> | <Arithmetic_call>[] 
  []
 
 
-Overfull \hbox (30.91077pt too wide) in paragraph at lines 59--59
+Overfull \hbox (30.91077pt too wide) in paragraph at lines 32--32
 []\OT1/cmtt/m/n/10.95 <Assignment> ::= ( set <Id_int> <Expr> ) | ( set <This_in
 t> <Expr> )[] 
  []
 
 
-Overfull \hbox (30.91077pt too wide) in paragraph at lines 59--59
+Overfull \hbox (30.91077pt too wide) in paragraph at lines 41--41
 []\OT1/cmtt/m/n/10.95 <Method_call>  ::= ( <Super_id>  <Expr_list_np>  ) | ( <S
 uper_id>  )[] 
  []
 
 
-Overfull \hbox (13.6647pt too wide) in paragraph at lines 59--59
+Overfull \hbox (13.6647pt too wide) in paragraph at lines 42--42
 []\OT1/cmtt/m/n/10.95 <Method_call>  ::= ( <This_id>  <Expr_list_np>  ) | ( <Th
 is_id> )[] 
  []
 
 
-Overfull \hbox (82.64896pt too wide) in paragraph at lines 82--82
+Overfull \hbox (82.64896pt too wide) in paragraph at lines 65--65
 []\OT1/cmtt/m/n/10.95 [Le while s'^^Secrit comme ceci while (la condition) (les
  instruction a r^^Sep^^Reter)[] 
  []
 
 
-Overfull \hbox (19.41339pt too wide) in paragraph at lines 82--82
+Overfull \hbox (19.41339pt too wide) in paragraph at lines 68--68
 []\OT1/cmtt/m/n/10.95 la valeur de retour de set qui sera ici i_initial + 1 ou 
 i_final ][] 
  []
 
-[4]
-Overfull \hbox (76.90027pt too wide) in paragraph at lines 82--82
+[5]
+Overfull \hbox (76.90027pt too wide) in paragraph at lines 72--72
 []\OT1/cmtt/m/n/10.95 [Ensuite si vrai on ex^^Secute la premi^^Rere list d'inst
 ruction sinon la seconde][] 
  []
 
 
-Overfull \hbox (180.37665pt too wide) in paragraph at lines 82--82
+Overfull \hbox (180.37665pt too wide) in paragraph at lines 74--74
 []\OT1/cmtt/m/n/10.95 [Ceci est ^^Sequivalent ^^Ra sauf que dans le cas deux on
  voit clairement les listes d'instructions][] 
  []
 
-[5] [6]) [7]
-\openout2 = `chap_7.aux'.
+[6] [7]) [8]
+\openout2 = `chap_4.aux'.
 
- (./chap_7.tex
+ (./chap_4.tex
+Overfull \hbox (0.2208pt too wide) in paragraph at lines 19--20
+[]\OT1/cmr/m/n/10.95 *RESERVED[]WORD* : repr^^Sesente un mot r^^Seserv^^Se. En 
+fait la cat^^Segorie
+ []
 
-Package pdftex.def Warning: Option `bb' does not make sense,
-(pdftex.def)                using `viewport' instead on input line 16.
+[9
 
-<./restruc.png, id=33, 429.605pt x 264.99pt>
-File: ./restruc.png Graphic file (type png)
- <use ./restruc.png>
-Overfull \hbox (69.605pt too wide) in paragraph at lines 16--18
- [][] 
+
+]
+Overfull \hbox (48.15683pt too wide) in paragraph at lines 48--48
+[]\OT1/cmtt/m/n/10.95 <Instr> ::=  <Conditional> | <While_block> | <Call> | ( r
+eturn <Expr> )[] 
  []
 
 
-Overfull \hbox (30.91077pt too wide) in paragraph at lines 180--180
-[] \OT1/cmtt/m/n/10.95 * Takes a terminal from the lexical parser and puts it o
-n the stack[] 
+Overfull \hbox (105.6437pt too wide) in paragraph at lines 54--54
+[]\OT1/cmtt/m/n/10.95 <Builtin_call> ::=  <Assignment> | <Read_call> | <Write_c
+all> | <Arithmetic_call>[] 
  []
 
 
-Overfull \hbox (19.41339pt too wide) in paragraph at lines 180--180
-[] \OT1/cmtt/m/n/10.95 * if there is no terminal left in the lexical parsers, i
-t returns[] 
- []
-
-[8
-
-
- <./restruc.png (PNG copy)>]
-Overfull \hbox (7.91602pt too wide) in paragraph at lines 180--180
-[] \OT1/cmtt/m/n/10.95 * Returns the precedence relation between the symbol wit
-h index[] 
+Overfull \hbox (30.91077pt too wide) in paragraph at lines 56--56
+[]\OT1/cmtt/m/n/10.95 <Assignment> ::= ( set <Id_int> <Expr> ) | ( set <This_in
+t> <Expr> )[] 
  []
 
 
-Overfull \hbox (7.91602pt too wide) in paragraph at lines 180--180
-[] \OT1/cmtt/m/n/10.95 * i and i+1 on the stack. If i is equal to the stack siz
-e -1 it[] 
+Overfull \hbox (30.91077pt too wide) in paragraph at lines 65--65
+[]\OT1/cmtt/m/n/10.95 <Method_call>  ::= ( <Super_id>  <Expr_list_np>  ) | ( <S
+uper_id>  )[] 
  []
 
 
-Overfull \hbox (2.16733pt too wide) in paragraph at lines 180--180
-[] \OT1/cmtt/m/n/10.95 * returns the precedence relation with the symbol that w
-ill be[] 
- []
-
-[9]
-Overfull \hbox (48.15683pt too wide) in paragraph at lines 180--180
-[] \OT1/cmtt/m/n/10.95 * Returns true if there is only the terminal symbol left
- on the stack.[] 
- []
-
-
-Overfull \hbox (42.40814pt too wide) in paragraph at lines 180--180
-[] \OT1/cmtt/m/n/10.95 * Tries to match the stop of the stack with the right si
-de of a rule.[] 
- []
-
-
-Overfull \hbox (25.16208pt too wide) in paragraph at lines 180--180
-[] \OT1/cmtt/m/n/10.95 * It will try to match <.= ... > handles first. If it ca
-nnot match[] 
- []
-
-
-Overfull \hbox (25.16208pt too wide) in paragraph at lines 180--180
-[] \OT1/cmtt/m/n/10.95 * the first <. ... .> handle found, it will stop and ret
-urn false.[] 
- []
-
-
-Overfull \hbox (25.16208pt too wide) in paragraph at lines 180--180
-[] \OT1/cmtt/m/n/10.95 * If it finds a match the handle is removed from the sta
-ck, put as[] 
- []
-
-
-Overfull \hbox (59.6542pt too wide) in paragraph at lines 180--180
-[] \OT1/cmtt/m/n/10.95 * the child of a new Term corresponding to the left hand
- of the matching[] 
- []
-
-
-Overfull \hbox (13.6647pt too wide) in paragraph at lines 180--180
-[]\OT1/cmtt/m/n/10.95 boolean hard = false; /*it has tried to match a < ... > h
-andle */[] 
+Overfull \hbox (13.6647pt too wide) in paragraph at lines 66--66
+[]\OT1/cmtt/m/n/10.95 <Method_call>  ::= ( <This_id>  <Expr_list_np>  ) | ( <Th
+is_id> )[] 
  []
 
 [10]
-Overfull \hbox (94.14633pt too wide) in paragraph at lines 180--180
-[]\OT1/cmtt/m/n/10.95 while(j < matchsize){ /*removing from the stack and addin
-g to the child list */[] 
+Overfull \hbox (12.04306pt too wide) in paragraph at lines 102--102
+[]\OT1/cmr/bx/n/12 Sp^^Secification ri-gou-reuse des m^^Sethodes pu-bliques de 
+l'ana-
  []
 
 
-Overfull \hbox (36.65945pt too wide) in paragraph at lines 180--180
-[]\OT1/cmtt/m/n/10.95 /*Tries to parse the input, if successful puts the result
- in tree and[] 
+Overfull \hbox (12.42935pt too wide) in paragraph at lines 104--105
+\OT1/cmr/m/n/10.95 l'in-ter-face Ite-ra-tor et Ite-rable. Les m^^Sethodes pu-bl
+iques se-ront dons les m^^Sethodes
  []
 
-[11]) [12]
+[11]
+Overfull \hbox (255.10959pt too wide) in paragraph at lines 124--124
+[]     \OT1/cmtt/m/n/10.95 * @throws NoSuchElementException if the iteration ha
+s no more Term ( the end of the file is reached ).[] 
+ []
+
+[12]) [13]
+\openout2 = `chap_5.aux'.
+
+ (./chap_5.tex
+Overfull \hbox (0.76529pt too wide) in paragraph at lines 15--15
+[]\OT1/cmr/bx/n/12 Repr^^Sesentation Java de la gram-maire et de ses ^^Sel^^Sem
+ents 
+ []
+
+[14
+
+
+]
+Overfull \hbox (2.71744pt too wide) in paragraph at lines 45--50
+[]\OT1/cmr/m/n/10.95 Pour faire cela, le test construit deux en-semble pour cha
+que non-terminal :
+ []
+
+
+Overfull \hbox (11.91231pt too wide) in paragraph at lines 45--50
+\OT1/cmr/m/n/10.95 First et Last. Ceux-ci per-met-tront de d^^Seterminer tr^^Re
+s fa-ci-le-ment les pr^^Sec^^Sedences
+ []
+
+[15] [16]
+Overfull \hbox (12.74675pt too wide) in paragraph at lines 137--137
+[] \OT1/cmtt/m/n/10 * standard en cas de conflits. Si le conflit est entre <. o
+u <.= ou =.[] 
+ []
+
+
+Overfull \hbox (2.24684pt too wide) in paragraph at lines 143--143
+[] \OT1/cmtt/m/n/10 * @param rel la relation de pr^^Sec^^Sedence ( EQ,LE,GE,LEQ
+,ERROR,NOTHING)[] 
+ []
+
+
+Overfull \hbox (2.24684pt too wide) in paragraph at lines 147--147
+[]\OT1/cmtt/m/n/10 public static boolean tableSet(Hashtable<Term,Hashtable<Term
+,String>>[] 
+ []
+
+[17]
+Overfull \hbox (7.4968pt too wide) in paragraph at lines 151--151
+[] \OT1/cmtt/m/n/10 * Calcule l'ensemble First pour chaque Terme correspondant 
+aux Termes[] 
+ []
+
+
+Overfull \hbox (38.99652pt too wide) in paragraph at lines 154--154
+[] \OT1/cmtt/m/n/10 * @return une Hashtable qui fait correspondre ^^Ra chaque T
+erme son set First.[] 
+ []
+
+
+Overfull \hbox (28.49661pt too wide) in paragraph at lines 159--159
+[] \OT1/cmtt/m/n/10 * Calcule la table de pr^^Sec^^Sedence WP et si celle ci co
+ntient des conflits.[] 
+ []
+
+
+Overfull \hbox (12.74675pt too wide) in paragraph at lines 167--167
+[] \OT1/cmtt/m/n/10 * @return true si il n'y a pas de conflits dans la table, f
+alse sinon.[] 
+ []
+
+[18] [19]) [20]
+\openout2 = `chap_6.aux'.
+
+ (./chap_6.tex [21
+
+
+]
+Overfull \hbox (19.31795pt too wide) in paragraph at lines 130--130
+[]                                        \OT1/cmtt/m/n/6 while(j < matchsize){
+ /*removing from the stack and adding to the child list */[] 
+ []
+
+[22]
+
+LaTeX Warning: Characters dropped after `\end{verbatimtab}' on input line 178.
+
+) [23]
+\openout2 = `chap_7.aux'.
+
+ (./chap_7.tex [24
+
+
+]) [25]
+\openout2 = `chap_8.aux'.
+
+ (./chap_8.tex
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 5.
+
+(/usr/share/texmf-texlive/tex/latex/base/omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <6> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 5.
+
+Underfull \hbox (badness 10000) in paragraph at lines 31--32
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 75--85
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 75--85
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 86--95
+
+ []
+
+[26
+
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 114--143
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 114--143
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 114--143
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 114--143
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 114--143
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 114--143
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 114--143
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 114--143
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 146--166
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 146--166
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 146--166
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 146--166
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 146--166
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 146--166
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 167--168
+
+ []
+
+[27]
+Underfull \hbox (badness 10000) in paragraph at lines 178--183
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 184--190
+
+ []
+
+
+Overfull \hbox (22.17268pt too wide) in paragraph at lines 218--223
+ \OT1/cmr/bx/n/10.95 ap-pels de m^^Sethodes sta-tiques[] $\OML/cmm/m/it/6 < e; 
+l; s; P; in; out >\OMS/cmsy/m/n/6 ! \OML/cmm/m/it/6 x \OT1/cmr/m/n/6 = \OML/cmm
+/m/it/6 m\OT1/cmr/m/n/6 (\OML/cmm/m/it/6 x[]; :::; x[]\OT1/cmr/m/n/6 ) \OMS/cms
+y/m/n/6 !\OML/cmm/m/it/6 < e[]; l[]; s; P[]; in; out >$ 
+ []
+
+
+Overfull \hbox (39.86745pt too wide) in paragraph at lines 225--232
+ \OT1/cmr/bx/n/10.95 ap-pels de m^^Sethodes dy-na-mique[] $\OML/cmm/m/it/6 < e;
+ l; s; P; in; out >\OMS/cmsy/m/n/6 ! \OML/cmm/m/it/6 x \OT1/cmr/m/n/6 = \OML/cm
+m/m/it/6 y:m\OT1/cmr/m/n/6 (\OML/cmm/m/it/6 x[]; :::; x[]\OT1/cmr/m/n/6 ) \OMS/
+cmsy/m/n/6 !\OML/cmm/m/it/6 < e[]; l[]; s; P[]; in; out >$ 
+ []
+
+) [28]
 \openout2 = `readme.aux'.
 
  (./readme.tex
 Chapitre 2.
-[13
+[29
 
 
 
-]) [14] (./rapport.aux (./presentation.aux) (./chap_7.aux) (./readme.aux)) ) 
+]) [30]
+\openout2 = `chap_11.aux'.
+
+ (./chap_11.tex [31
+
+
+]
+Overfull \hbox (12.74675pt too wide) in paragraph at lines 69--69
+[]                \OT1/cmtt/m/n/10 (return (Join (Qsort L1) (Join (# Pivot) (Qs
+ort L2 ))))[] 
+ []
+
+
+Overfull \hbox (2.24684pt too wide) in paragraph at lines 72--72
+[]        \OT1/cmtt/m/n/10 [Lit un nombre en entr^^See et trie une liste de cet
+te longueur][] 
+ []
+
+
+LaTeX Warning: Characters dropped after `\end{verbatimtab}' on input line 94.
+
+[32] [33] [34] [35]
+
+LaTeX Warning: Characters dropped after `\end{verbatimtab}' on input line 275.
+
+[36] [37]
+
+LaTeX Warning: Characters dropped after `\end{verbatimtab}' on input line 467.
+
+[38]
+
+LaTeX Warning: Characters dropped after `\end{verbatimtab}' on input line 482.
+
+) [39]
+\openout2 = `chap_12.aux'.
+
+ (./chap_12.tex
+Overfull \hbox (12.30733pt too wide) in paragraph at lines 6--8
+[]\OT1/cmr/m/n/10 Nous avons aussi vu com-ment conce-voir un lan-gage de pro-gr
+am-ma-tion, comp^^Setence
+ []
+
+) [40
+
+
+] (./rapport.aux (./chap_01.aux) (./presentation.aux) (./chap_4.aux)
+(./chap_5.aux) (./chap_6.aux) (./chap_7.aux) (./chap_8.aux) (./readme.aux)
+(./chap_11.aux) (./chap_12.aux)) )
+(\end occurred inside a group at level 5)
+
+### simple group (level 5) entered at line 469 ({)
+### simple group (level 4) entered at line 277 ({)
+### simple group (level 3) entered at line 96 ({)
+### simple group (level 2) entered at line 3 ({)
+### simple group (level 1) entered at line 42 ({)
+### bottom level 
 Here is how much of TeX's memory you used:
- 4187 strings out of 94834
- 52657 string characters out of 1179181
- 112233 words of memory out of 1500000
- 7289 multiletter control sequences out of 10000+50000
- 11842 words of font info for 44 fonts, out of 1200000 for 2000
- 212 hyphenation exceptions out of 8191
- 27i,15n,40p,600b,359s stack positions out of 5000i,500n,6000p,200000b,5000s
-</u
-sr/share/texmf-texlive/fonts/type1/bluesky/cm/cmbx10.pfb></usr/share/texmf-texl
-ive/fonts/type1/bluesky/cm/cmbx12.pfb></usr/share/texmf-texlive/fonts/type1/blu
-esky/cm/cmcsc10.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmmi10.pfb
-></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmr10.pfb></usr/share/texmf-t
-exlive/fonts/type1/bluesky/cm/cmr17.pfb></usr/share/texmf-texlive/fonts/type1/b
-luesky/cm/cmti10.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmtt10.pf
-b>
-Output written on rapport.pdf (14 pages, 222695 bytes).
+ 4046 strings out of 95063
+ 50870 string characters out of 1182610
+ 118616 words of memory out of 1500000
+ 7088 multiletter control sequences out of 10000+50000
+ 13531 words of font info for 51 fonts, out of 1200000 for 2000
+ 28 hyphenation exceptions out of 8191
+ 27i,15n,40p,600b,536s stack positions out of 5000i,500n,6000p,200000b,5000s
+</usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmbx10.pfb></u
+sr/share/texmf-texlive/fonts/type1/bluesky/cm/cmbx12.pfb></usr/share/texmf-texl
+ive/fonts/type1/bluesky/cm/cmbxti10.pfb></usr/share/texmf-texlive/fonts/type1/b
+luesky/cm/cmcsc10.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmmi10.p
+fb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmmi5.pfb></usr/share/texmf
+-texlive/fonts/type1/bluesky/cm/cmmi6.pfb></usr/share/texmf-texlive/fonts/type1
+/bluesky/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmr17.pf
+b></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmr5.pfb></usr/share/texmf-t
+exlive/fonts/type1/bluesky/cm/cmr6.pfb></usr/share/texmf-texlive/fonts/type1/bl
+uesky/cm/cmr8.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmsy10.pfb><
+/usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmsy5.pfb></usr/share/texmf-tex
+live/fonts/type1/bluesky/cm/cmsy6.pfb></usr/share/texmf-texlive/fonts/type1/blu
+esky/cm/cmsy8.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmti10.pfb><
+/usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmti7.pfb></usr/share/texmf-tex
+live/fonts/type1/bluesky/cm/cmtt10.pfb></usr/share/texmf-texlive/fonts/type1/bl
+uesky/cm/cmtt8.pfb></usr/share/texmf-texlive/fonts/type1/public/cmex/fmex7.pfb>
+</usr/share/texmf-texlive/fonts/type1/bluesky/ams/msbm10.pfb></usr/share/texmf-
+texlive/fonts/type1/bluesky/ams/msbm7.pfb>
+Output written on rapport.pdf (40 pages, 376198 bytes).
 PDF statistics:
- 84 PDF objects out of 1000 (max. 8388607)
+ 227 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 131072)
- 16 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

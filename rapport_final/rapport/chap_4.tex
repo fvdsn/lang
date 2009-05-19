@@ -14,10 +14,10 @@ Voici donc les différentes catégories que l'analyseur lexical va sortir :
 \begin{itemize}
 	\item NUMBER  : Représente un ou plusieurs chiffres à la suite.
 	\item ID : Représente une suite de caractères qui n'est pas un mot réservé.
-	\item UNARY_OP : Représente un opérateur unaire, tel que l'opérateur NOT : !
-	\item BINARY_OP : représente un opérateur binaire, tel l'opérateur +
-	\item *RESERVED_WORD* : représente un mot réservé. En fait la catégorie sera le nom du mot réservé (d'où les étoiles ), par exemple FUN
-	\item *BEFORE_AFTER* : Représente ce qu'il y a avant et après un point. BEFORE et AFTER peuvent valoir : THIS, ID, INT
+	\item UNARY\_OP : Représente un opérateur unaire, tel que l'opérateur NOT : !
+	\item BINARY\_OP : représente un opérateur binaire, tel l'opérateur +
+	\item *RESERVED\_WORD* : représente un mot réservé. En fait la catégorie sera le nom du mot réservé (d'où les étoiles ), par exemple FUN
+	\item *BEFORE\_AFTER* : Représente ce qu'il y a avant et après un point. BEFORE et AFTER peuvent valoir : THIS, ID, INT
 \end{itemize}
 
 Finalement, il est de bon aloi de préciser que les espaces, les caractères de tabulations et de nouvelle ligne servent évidemment de caractère de séparation. Il n'est par contre pas nécessaire de placer un espace après une parenthèse par exemple, vu qu'il est assez naturel que ce qui suit sera le début d'un nouveau symbole.
@@ -27,10 +27,10 @@ Pour ce qui est des commentaires, nous avons introduit les symboles de crochet (
 Notre analyseur lexical ne renvoie plus de jetons à partir du moment où on atteind la fin du fichier. Il n'est pas nécessaire de terminer le fichier d'une manière particulière.
 
 \subsection{Symboles terminaux de bases}
-<Instr>  | number | null | true | false | this | id | <Id_int> | <This_int>
+<Instr>  | number | null | true | false | this | id | <Id\_int> | <This\_int>
 
 ( ) <= >= > < = and or ! + - * / \% neg id . number this super while if set write read fun method null true false \\
-C'est-à-dire tout les mots réservé qui se trouve dans le tableau RESERVED_WORD dans la classe \textit{WordIdentifier.java} et tout le reste qui sont
+C'est-à-dire tout les mots réservé qui se trouve dans le tableau RESERVED\_WORD dans la classe \textit{WordIdentifier.java} et tout le reste qui sont
 des id.
 
 \subsection{Grammaire formelle}

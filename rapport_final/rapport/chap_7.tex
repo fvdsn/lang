@@ -9,8 +9,6 @@ Le code de l'analyser syntaxique prend en entrée un flux Term qui sont tous ter
 L'analyseur syntaxique n'a besoin que des méthodes définie dans l'interface Term pour construire l'arbre.
 Voici cette interface : 
 \begin{verbatim}
- 
-\end{verbatim}
 public interface Term {
 	  /**
 	  * 
@@ -68,13 +66,13 @@ les $l\_blocks$ et les $l\_lists$ dans leurs parents. Comme les \emph{Term}
 gardent en mémoire le type donné à l'analyse syntaxique, les terminaux
 récupèrent automatiquement le bon type. 
  
-\begin{figure}
- \centering
- \includegraphics[bb=0 0 428 264]{./restruc.png}
+%\begin{figure}
+% \centering
+% \includegraphics[bb=0 0 428 264]{./restruc.png}
  % restruc.png: 428x264 pixel, 72dpi, 15.10x9.31 cm, bb=0 0 428 264
- \caption{Schema simplifié de la restructuration de l'arbre}
- \label{restruc}
-\end{figure}
+% \caption{Schema simplifié de la restructuration de l'arbre}
+% \label{restruc}
+%\end{figure}
 
 
 Voici la spécification de la seul méthode public du \textit{TreeOrganiser} :
