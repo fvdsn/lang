@@ -1,4 +1,4 @@
-This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2009.5.18)  19 MAY 2009 20:30
+This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2009.5.19)  19 MAY 2009 20:37
 entering extended mode
  %&-line parsing enabled.
 **rapport.tex
@@ -428,15 +428,25 @@ Package: lscape 2000/10/22 v3.01 Landscape Pages (DPC)
 )
 (/usr/share/texmf-texlive/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2004/09/05 1.3 listings language file
+) (./rapport.aux
+No file chap_01.aux.
+No file presentation.aux.
+No file chap_4.aux.
+No file chap_5.aux.
+No file chap_6.aux.
+No file chap_7.aux.
+No file chap_9.aux.
+No file readme.aux.
+No file chap_11.aux.
+No file chap_12.aux.
 )
-No file rapport.aux.
 \openout1 = `rapport.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 35.
 LaTeX Font Info:    ... okay on input line 35.
 LaTeX Font Info:    Checking defaults for T1/lmr/m/n on input line 35.
 LaTeX Font Info:    Try loading font information for T1+lmr on input line 35.
-(/usr/share/texmf/tex/latex/lm/t1lmr.fd
+ (/usr/share/texmf/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2007/01/14 v1.3 Font defs for Latin Modern
 )
 LaTeX Font Info:    ... okay on input line 35.
@@ -734,31 +744,22 @@ LaTeX Warning: Characters dropped after `\end{verbatim}' on input line 394.
 ) [32]
 \openout2 = `chap_9.aux'.
 
- (./chap_9.tex
+
+No file chap_9.tex.
+\openout2 = `readme.aux'.
+
+(./readme.tex
 Chapitre 5.
-
-Overfull \hbox (20.29553pt too wide) in paragraph at lines 37--38
-[]\OT1/cmr/m/n/6 Un autre change-ment qui au-r-rait ^^Seviter tout les en-nuis 
-d'impl^^Sementation du Garbage Col-lec-tor et d'impl^^Sementation
- []
-
 [33
 
 
 
+
+
 ]) [34]
-\openout2 = `readme.aux'.
-
- (./readme.tex
-Chapitre 6.
-[35
-
-
-
-]) [36]
 \openout2 = `chap_11.aux'.
 
- (./chap_11.tex [37
+ (./chap_11.tex [35
 
 
 ]
@@ -776,19 +777,19 @@ te longueur][]
 
 LaTeX Warning: Characters dropped after `\end{verbatimtab}' on input line 94.
 
-[38] [39] [40] [41]
+[36] [37] [38] [39]
 
 LaTeX Warning: Characters dropped after `\end{verbatimtab}' on input line 275.
 
-[42] [43]
+[40] [41]
 
 LaTeX Warning: Characters dropped after `\end{verbatimtab}' on input line 467.
 
-[44]
+[42]
 
 LaTeX Warning: Characters dropped after `\end{verbatimtab}' on input line 482.
 
-) [45]
+) [43]
 \openout2 = `chap_12.aux'.
 
  (./chap_12.tex
@@ -797,7 +798,7 @@ Overfull \hbox (12.30733pt too wide) in paragraph at lines 6--8
 am-ma-tion, comp^^Setence
  []
 
-) [46
+) [44
 
 
 ] (./rapport.aux (./chap_01.aux) (./presentation.aux) (./chap_4.aux)
@@ -817,12 +818,12 @@ am-ma-tion, comp^^Setence
 ### bottom level 
 Here is how much of TeX's memory you used:
  4301 strings out of 94834
- 54209 string characters out of 1179181
+ 54211 string characters out of 1179181
  116921 words of memory out of 1500000
  7362 multiletter control sequences out of 10000+50000
  14778 words of font info for 56 fonts, out of 1200000 for 2000
  212 hyphenation exceptions out of 8191
- 27i,15n,40p,852b,702s stack positions out of 5000i,500n,6000p,200000b,5000s
+ 27i,15n,40p,600b,698s stack positions out of 5000i,500n,6000p,200000b,5000s
 </usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmbx10.pfb></u
 sr/share/texmf-texlive/fonts/type1/bluesky/cm/cmbx12.pfb></usr/share/texmf-texl
 ive/fonts/type1/bluesky/cm/cmbxti10.pfb></usr/share/texmf-texlive/fonts/type1/b
@@ -831,17 +832,16 @@ fb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmmi12.pfb></usr/share/texm
 f-texlive/fonts/type1/bluesky/cm/cmmi6.pfb></usr/share/texmf-texlive/fonts/type
 1/bluesky/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmr12.p
 fb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmr17.pfb></usr/share/texmf
--texlive/fonts/type1/bluesky/cm/cmr5.pfb></usr/share/texmf-texlive/fonts/type1/
-bluesky/cm/cmr6.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmr8.pfb><
-/usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmsy10.pfb></usr/share/texmf-te
-xlive/fonts/type1/bluesky/cm/cmsy8.pfb></usr/share/texmf-texlive/fonts/type1/bl
-uesky/cm/cmti10.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmti7.pfb>
-</usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmtt10.pfb></usr/share/texmf-t
-exlive/fonts/type1/bluesky/cm/cmtt8.pfb></usr/share/texmf-texlive/fonts/type1/b
-luesky/ams/msbm10.pfb>
-Output written on rapport.pdf (46 pages, 362776 bytes).
+-texlive/fonts/type1/bluesky/cm/cmr6.pfb></usr/share/texmf-texlive/fonts/type1/
+bluesky/cm/cmr8.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmsy10.pfb
+></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmsy8.pfb></usr/share/texmf-t
+exlive/fonts/type1/bluesky/cm/cmti10.pfb></usr/share/texmf-texlive/fonts/type1/
+bluesky/cm/cmti7.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmtt10.pf
+b></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmtt8.pfb></usr/share/texmf-
+texlive/fonts/type1/bluesky/ams/msbm10.pfb>
+Output written on rapport.pdf (44 pages, 350910 bytes).
 PDF statistics:
- 234 PDF objects out of 1000 (max. 8388607)
+ 224 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 131072)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
