@@ -1,9 +1,6 @@
-[
-	Ce programme montre un exemple
+	[Ce programme montre un exemple
 	de quick sort avec une générère avec
-	une fonction "pseudo alétoire"
-]
-
+	une fonction "pseudo alétoire"]
 (
 	(fun (# val) (
 		(set n (new 2))
@@ -12,36 +9,32 @@
 		(return n)
 	)) 
 	
-	[
-		@param N une liste 
-		@post imprime la liste
-	]
+	[@param N une liste 
+	 @post imprime la liste	]
+
 	(fun (Print N)(
-		
 		(if (! (= N null)) ( 
 			(write N.1)
 			(Print N.2)
 		))
 	))
+	(method.2 (print) (Print this))
 	
-	[
-		Ajoute la valeur val à la liste N2
-	]
+	[Ajoute la valeur val à la liste N2]
+
 	(fun (#> Val N2) 
 		(return (-> (# Val) N2)) 
 	)
 	
-	[
-		ajoute N2 à la suite du noeud N1
-	]
+	[ajoute N2 à la suite du noeud N1]
+
 	(fun (-> N1 N2) (
 		(set N1.2 N2)
 		(return N1)
 	))
 	
-	
+	[Met la liste L2 après L1]
 	(fun (Join L1 L2) (
-		
 		(if (= L1 null) (return L2) )
 		(set R L1)
 		(set Temp L1.2)
@@ -54,8 +47,8 @@
 		(return R)
 	))
 	
+	[Renvoie une copie de la liste L triée]
 	(fun (Qsort L) (
-		
 		(if (= L null) (return null))
 		(if (= L.2 null) (return L))
 			
@@ -64,9 +57,7 @@
 		(set L1 null)
 		(set L2 null)
 		(while (!(= L null)) (
-
 		      (if (<= L.1 Pivot) 
-				 
 				(set L1 (#> L.1 L1))
 				(set L2 (#> L.1 L2))
 			)
@@ -75,38 +66,25 @@
 		(return (Join (Qsort L1) (Join (# Pivot) (Qsort L2 ))))
 	))
 
-
+	[Lit un nombre en entrée et trie une liste de cette longueur]
 	(fun (main) (
 		(set i (read))
-		(write (random 1000 3))
 		(set List (# 2))
-		[(set i b)]
 		(set seed 8)
 		(while (> i 0) (
-			(set seed (random 1000 seed))
+			(set seed (random 429496726 seed))
 			(set List (#> seed List)) 
 			(set i (- i 1))
 		))
-		
-		
-		[(Print List)]
-		(write -3)	
-		(set a (Qsort List))
-		[(Print List)]
-
-		
-		(write 0)
-		
-		
-		
+		(set List (Qsort List))
+		(List.print)
 	))
 
-	[******************************************
-		Fonction pseudo random
-		@param max : le nombre max
-		@param seed : la graine de départ
-	******************************************]
+	[Fonction pseudo random
+	 @param max : le nombre max
+	 @param seed : la graine de départ]
+		 
 	(fun (random max seed)  
-		(return (% (+ 67 (* 13 seed)) max))
+		(return (% (+ 1013904223 (* 1664525 seed)) max))
 	) 
 )

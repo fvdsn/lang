@@ -12,6 +12,7 @@ import happy.parser.util.CharIdentifier;
 public class Rule {
 	String name;
 	OrList list;
+	boolean start = false;
 	
 	
 	public Rule(String r) throws NotRuleException {
@@ -179,5 +180,11 @@ public class Rule {
 	}
 	public Term getLeftSide(){
 		return new TermImpl(name, false);
+	}
+	public void setStart(){
+		start = true;
+	}
+	public boolean isStart(){
+		return start;
 	}
 }

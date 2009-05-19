@@ -14,6 +14,11 @@ public class TreeOrganiser {
 		this.tree = tree;
 	}
 	
+	/**
+	 * Contracte l'arbre sortit par l'analyseur syntaxique. Tout les l_list et l_block sont
+	 * retiré, à la fin il ne reste que des l0 qui sont soit des terminaux ou des listes de l0.
+	 * @return L'arbre représenté sous la forme d'un lexicalTerm
+	 */
 	public LexicalTerm contract() {
 		contract(tree);		
 		removeLastBlock(tree);		
@@ -76,7 +81,7 @@ public class TreeOrganiser {
 		}
 	}
 	
-	public void removeLastBlock(Term tree) {
+	private void removeLastBlock(Term tree) {
 		List<Term> list = tree.getChildList();
 		Term temp = list.remove(1);
 		List<Term> child = list.remove(0).getChildList();
@@ -86,7 +91,7 @@ public class TreeOrganiser {
 		list.add(temp);
 	}
 	
-	public void phase2(Term tree) {
+	private void phase2(Term tree) {
 		
 		List<Term> list = tree.getChildList();
 		for(int i = 0; i < list.size(); i++) {

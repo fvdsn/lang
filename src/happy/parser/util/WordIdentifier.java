@@ -15,7 +15,7 @@ import happy.parser.newlexical.LexicalTerm;
 public class WordIdentifier {
 	private static String[] RESERVED_WORD = {"fun", "method", "+", "-", "/", "*", "%", "set", 
 		"write" , "read", "this", "super", "null", "if", "else", "while", "true", "false", "and",
-		"or", "<", ">", "=", "<=", ">=", "!", "new", "return", "neg", "skip", "!="};
+		"or", "<", ">", "=", "<=", ">=", "!", "new", "return", "neg"};
 	private static String[] BINARY_OP = {"or", "<", ">", "=", "<=", ">=", "and", "+", "-", "/", "*", "%", "!=" };
 	
 	private static String[] UNARY_OP = {"!", "neg" , "new"};

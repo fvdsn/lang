@@ -7,8 +7,6 @@ public class TermImpl implements Term {
 	String term;
 	protected String value;
 	boolean terminal;
-	int	line;
-	int collumn;
 	List <Term> childList;
 	
 	public TermImpl(String term, boolean terminal) {
@@ -19,8 +17,6 @@ public class TermImpl implements Term {
 		else 
 			this.value = null;
 		this.childList = new LinkedList<Term>();
-		this.line = 0;
-		this.collumn = 0;
 	}
 	
 	@Override
@@ -80,20 +76,7 @@ public class TermImpl implements Term {
 		return childList;
 	}
 
-	@Override
-	public int getCollumn() {
-		return collumn;
-	}
-
-	@Override
-	public int getLine() {
-		return line;
-	}
-
-	@Override
-	public void setCollumn(int col) {
-		collumn = col;
-	}
+	
 	private void indent(int level){
 		while(level-- >= 0){
 			System.out.print(":  ");
@@ -104,7 +87,7 @@ public class TermImpl implements Term {
 		indent(indent);
 		
 		if(value != null){
-			System.out.println(value+" ("+term+") "+line);
+			System.out.println(value+" ("+term+") ");
 		}else{
 			System.out.println("<"+term+">");
 		}
@@ -113,8 +96,5 @@ public class TermImpl implements Term {
 		}
 	}
 
-	@Override
-	public void setLine(int line) {
-		this.line = line;
-	}
+	
 }

@@ -1,0 +1,482 @@
+\section{Exemples de programmes}
+	Voici un programme triant une liste avec l'algorithme quicksort. 
+	{\small \begin{verbatimtab}
+	[Ce programme montre un exemple
+	de quick sort avec une générère avec
+	une fonction "pseudo alétoire"]
+(
+	(fun (# val) (
+		(set n (new 2))
+		(set n.1 val)
+		(set n.2 null)
+		(return n)
+	)) 
+	
+	[@param N une liste 
+	 @post imprime la liste	]
+
+	(fun (Print N)(
+		(if (! (= N null)) ( 
+			(write N.1)
+			(Print N.2)
+		))
+	))
+	(method.2 (print) (Print this))
+	
+	[Ajoute la valeur val à la liste N2]
+
+	(fun (#> Val N2) 
+		(return (-> (# Val) N2)) 
+	)
+	
+	[ajoute N2 à la suite du noeud N1]
+
+	(fun (-> N1 N2) (
+		(set N1.2 N2)
+		(return N1)
+	))
+	
+	[Met la liste L2 après L1]
+	(fun (Join L1 L2) (
+		(if (= L1 null) (return L2) )
+		(set R L1)
+		(set Temp L1.2)
+		(while (!(= Temp null)) (
+			
+			(set L1 L1.2)
+			(set Temp L1.2)
+		))
+		(set L1.2 L2)
+		(return R)
+	))
+	
+	[Renvoie une copie de la liste L triée]
+	(fun (Qsort L) (
+		(if (= L null) (return null))
+		(if (= L.2 null) (return L))
+			
+		(set Pivot L.1)
+		(set L L.2)
+		(set L1 null)
+		(set L2 null)
+		(while (!(= L null)) (
+		      (if (<= L.1 Pivot) 
+				(set L1 (#> L.1 L1))
+				(set L2 (#> L.1 L2))
+			)
+			(set L L.2)
+		))
+		(return (Join (Qsort L1) (Join (# Pivot) (Qsort L2 ))))
+	))
+
+	[Lit un nombre en entrée et trie une liste de cette longueur]
+	(fun (main) (
+		(set i (read))
+		(set List (# 2))
+		(set seed 8)
+		(while (> i 0) (
+			(set seed (random 429496726 seed))
+			(set List (#> seed List)) 
+			(set i (- i 1))
+		))
+		(set List (Qsort List))
+		(List.print)
+	))
+
+	[Fonction pseudo random
+	 @param max : le nombre max
+	 @param seed : la graine de départ]
+		 
+	(fun (random max seed)  
+		(return (% (+ 1013904223 (* 1664525 seed)) max))
+	) 
+)
+	\end{verbatimtab}}
+\subsection{Traduction en langage abstrait structuré}
+{\small \begin{verbatimtab}
+#(val)
+{
+  A_0 = new/2 ;
+  n = A_0 ;
+  A_1 = n ;
+  n.1 = val ;
+  A_2 = n.1 ;
+  n.2 = null ;
+  A_3 = n.2 ;
+  return (n) ;
+  A_4 = 0 ;
+}
+
+Print(N)
+{
+  A_0 = null ;
+  if (!(N == A_0))
+    {
+      A_1 = N.1 ;
+      write(A_1) ;
+      A_2 = N.2 ;
+      A_3 = Print(A_2) ;
+      A_4 = 0 ;
+    }
+  A_5 = 0 ;
+  A_6 = 0 ;
+}
+
+print/2()
+{
+  A_0 = this ;
+  A_1 = Print(A_0) ;
+}
+
+#>(Val, N2)
+{
+  A_0 = #(Val) ;
+  A_1 = ->(A_0, N2) ;
+  return (A_1) ;
+}
+
+->(N1, N2)
+{
+  N1.2 = N2 ;
+  A_0 = N1.2 ;
+  return (N1) ;
+  A_1 = 0 ;
+}
+
+Join(L1, L2)
+{
+  A_0 = null ;
+  if (L1 == A_0)
+    {
+      return (L2) ;
+    }
+  A_1 = 0 ;
+  R = L1 ;
+  A_2 = R ;
+  Temp = L1.2 ;
+  A_3 = Temp ;
+  A_4 = null ;
+  while (!(Temp == A_4))
+    {
+      L1 = L1.2 ;
+      A_5 = L1 ;
+      Temp = L1.2 ;
+      A_6 = Temp ;
+      A_7 = 0 ;
+    }
+  A_8 = 0 ;
+  L1.2 = L2 ;
+  A_9 = L1.2 ;
+  return (R) ;
+  A_10 = 0 ;
+}
+
+Qsort(L)
+{
+  A_0 = null ;
+  if (L == A_0)
+    {
+      A_1 = null ;
+      return (A_1) ;
+    }
+  A_2 = 0 ;
+  A_3 = L.2 ;
+  A_4 = null ;
+  if (A_3 == A_4)
+    {
+      return (L) ;
+    }
+  A_5 = 0 ;
+  Pivot = L.1 ;
+  A_6 = Pivot ;
+  L = L.2 ;
+  A_7 = L ;
+  L1 = null ;
+  A_8 = L1 ;
+  L2 = null ;
+  A_9 = L2 ;
+  A_10 = null ;
+  while (!(L == A_10))
+    {
+      A_11 = L.1 ;
+      if (A_11 <= Pivot)
+        {
+          A_12 = L.1 ;
+          A_13 = #>(A_12, L1) ;
+          L1 = A_13 ;
+          A_14 = L1 ;
+        }
+      else
+        {
+          A_15 = L.1 ;
+          A_16 = #>(A_15, L2) ;
+          L2 = A_16 ;
+          A_17 = L2 ;
+        }
+      A_18 = 0 ;
+      L = L.2 ;
+      A_19 = L ;
+      A_20 = 0 ;
+    }
+  A_21 = 0 ;
+  A_22 = Qsort(L1) ;
+  A_23 = #(Pivot) ;
+  A_24 = Qsort(L2) ;
+  A_25 = Join(A_23, A_24) ;
+  A_26 = Join(A_22, A_25) ;
+  return (A_26) ;
+  A_27 = 0 ;
+}
+
+main()
+{
+  read(A_0) ;
+  i = A_0 ;
+  A_1 = i ;
+  A_2 = 2 ;
+  A_3 = #(A_2) ;
+  List = A_3 ;
+  A_4 = List ;
+  seed = 8 ;
+  A_5 = seed ;
+  A_6 = 0 ;
+  while (i > A_6)
+    {
+      A_7 = 429496726 ;
+      A_8 = random(A_7, seed) ;
+      seed = A_8 ;
+      A_9 = seed ;
+      A_10 = #>(seed, List) ;
+      List = A_10 ;
+      A_11 = List ;
+      A_12 = 1 ;
+      A_13 = (i - A_12) ;
+      i = A_13 ;
+      A_14 = i ;
+      A_15 = 0 ;
+    }
+  A_16 = 0 ;
+  A_17 = Qsort(List) ;
+  List = A_17 ;
+  A_18 = List ;
+  A_19 = List.print() ;
+  A_20 = 0 ;
+}
+
+random(max, seed)
+{
+  A_0 = 1013904223 ;
+  A_1 = 1664525 ;
+  A_2 = (A_1 * seed) ;
+  A_3 = (A_0 + A_2) ;
+  A_4 = (A_3 % max) ;
+  return (A_4) ;
+}
+\end{verbatimtab}}
+\subsection{Code Interne}
+{\tiny \begin{verbatimtab}
+method #(val)
+{ lab10
+  [ lab10 : A_0#3 := new/2 ; go to lab9]
+  [ lab9 : n#2 := A_0#3 ; go to lab8]
+  [ lab8 : A_1#4 := n#2 ; go to lab7]
+  [ lab7 : n#2.1 := val#1 ; go to lab6]
+  [ lab6 : A_2#6 := n#2.1 ; go to lab5]
+  [ lab5 : n#2.2 := null ; go to lab4]
+  [ lab4 : A_3#8 := n#2.2 ; go to lab3]
+  [ lab3 : result#0 := n#2 ; go to lab1]
+} lab1 result#0
+end of method #.
+
+method Print(N)
+{ lab21
+  [ lab21 : A_0#2 := null ; go to lab20]
+  [ lab20 : if N#1 == A_0#2 then go to lab13 else go to lab19]
+  [ lab13 : A_5#7 := 0 ; go to lab12]
+  [ lab12 : A_6#8 := 0 ; go to lab11]
+  [ lab19 : A_1#3 := N#1.1 ; go to lab18]
+  [ lab18 : write(A_1#3) ; go to lab17]
+  [ lab17 : A_2#4 := N#1.2 ; go to lab16]
+  [ lab16 : #9 := A_2#4 ; go to lab15]
+  [ lab15 : A_3#5 := Print(#9) ; go to lab14]
+  [ lab14 : A_4#6 := 0 ; go to lab13]
+} lab11 result#0
+end of method Print.
+
+method print/2()
+{ lab25
+  [ lab25 : A_0#1 := this ; go to lab24]
+  [ lab24 : #3 := A_0#1 ; go to lab23]
+  [ lab23 : A_1#2 := Print(#3) ; go to lab22]
+} lab22 result#0
+end of method print.
+
+method #>(Val, N2)
+{ lab32
+  [ lab32 : #5 := Val#1 ; go to lab31]
+  [ lab31 : A_0#3 := #(#5) ; go to lab30]
+  [ lab30 : #5 := A_0#3 ; go to lab29]
+  [ lab29 : #6 := N2#2 ; go to lab28]
+  [ lab28 : A_1#4 := ->(#5, #6) ; go to lab27]
+  [ lab27 : result#0 := A_1#4 ; go to lab26]
+} lab26 result#0
+end of method #>.
+
+method ->(N1, N2)
+{ lab37
+  [ lab37 : N1#1.2 := N2#2 ; go to lab36]
+  [ lab36 : A_0#4 := N1#1.2 ; go to lab35]
+  [ lab35 : result#0 := N1#1 ; go to lab33]
+} lab33 result#0
+end of method ->.
+
+method Join(L1, L2)
+{ lab59
+  [ lab59 : A_0#3 := null ; go to lab58]
+  [ lab58 : if L1#1 == A_0#3 then go to lab57 else go to lab56]
+  [ lab57 : result#0 := L2#2 ; go to lab38]
+  [ lab56 : A_1#4 := 0 ; go to lab55]
+  [ lab55 : R#5 := L1#1 ; go to lab54]
+  [ lab54 : A_2#6 := R#5 ; go to lab53]
+  [ lab53 : Temp#7 := L1#1.2 ; go to lab52]
+  [ lab52 : A_3#8 := Temp#7 ; go to lab51]
+  [ lab51 : A_4#9 := null ; go to lab45]
+  [ lab45 : if Temp#7 == A_4#9 then go to lab43 else go to lab44]
+  [ lab43 : A_8#13 := 0 ; go to lab42]
+  [ lab42 : L1#1.2 := L2#2 ; go to lab41]
+  [ lab41 : A_9#15 := L1#1.2 ; go to lab40]
+  [ lab40 : result#0 := R#5 ; go to lab38]
+  [ lab44 : skip ; go to lab50]
+  [ lab50 : L1#1 := L1#1.2 ; go to lab49]
+  [ lab49 : A_5#10 := L1#1 ; go to lab48]
+  [ lab48 : Temp#7 := L1#1.2 ; go to lab47]
+  [ lab47 : A_6#11 := Temp#7 ; go to lab46]
+  [ lab46 : A_7#12 := 0 ; go to lab45]
+} lab38 result#0
+end of method Join.
+
+method Qsort(L)
+{ lab114
+  [ lab114 : A_0#2 := null ; go to lab113]
+  [ lab113 : if L#1 == A_0#2 then go to lab112 else go to lab110]
+  [ lab112 : A_1#3 := null ; go to lab111]
+  [ lab111 : result#0 := A_1#3 ; go to lab60]
+  [ lab110 : A_2#4 := 0 ; go to lab109]
+  [ lab109 : A_3#5 := L#1.2 ; go to lab108]
+  [ lab108 : A_4#6 := null ; go to lab107]
+  [ lab107 : if A_3#5 == A_4#6 then go to lab106 else go to lab105]
+  [ lab106 : result#0 := L#1 ; go to lab60]
+  [ lab105 : A_5#7 := 0 ; go to lab104]
+  [ lab104 : Pivot#8 := L#1.1 ; go to lab103]
+  [ lab103 : A_6#9 := Pivot#8 ; go to lab102]
+  [ lab102 : L#1 := L#1.2 ; go to lab101]
+  [ lab101 : A_7#10 := L#1 ; go to lab100]
+  [ lab100 : L1#11 := null ; go to lab99]
+  [ lab99 : A_8#12 := L1#11 ; go to lab98]
+  [ lab98 : L2#13 := null ; go to lab97]
+  [ lab97 : A_9#14 := L2#13 ; go to lab96]
+  [ lab96 : A_10#15 := null ; go to lab77]
+  [ lab77 : if L#1 == A_10#15 then go to lab75 else go to lab76]
+  [ lab75 : A_21#26 := 0 ; go to lab74]
+  [ lab74 : #33 := L1#11 ; go to lab73]
+  [ lab73 : A_22#27 := Qsort(#33) ; go to lab72]
+  [ lab72 : #33 := Pivot#8 ; go to lab71]
+  [ lab71 : A_23#28 := #(#33) ; go to lab70]
+  [ lab70 : #33 := L2#13 ; go to lab69]
+  [ lab69 : A_24#29 := Qsort(#33) ; go to lab68]
+  [ lab68 : #33 := A_23#28 ; go to lab67]
+  [ lab67 : #34 := A_24#29 ; go to lab66]
+  [ lab66 : A_25#30 := Join(#33, #34) ; go to lab65]
+  [ lab65 : #33 := A_22#27 ; go to lab64]
+  [ lab64 : #34 := A_25#30 ; go to lab63]
+  [ lab63 : A_26#31 := Join(#33, #34) ; go to lab62]
+  [ lab62 : result#0 := A_26#31 ; go to lab60]
+  [ lab76 : skip ; go to lab95]
+  [ lab95 : A_11#16 := L#1.1 ; go to lab94]
+  [ lab94 : if Pivot#8 < A_11#16 then go to lab87 else go to lab93]
+  [ lab87 : A_15#20 := L#1.1 ; go to lab86]
+  [ lab86 : #33 := A_15#20 ; go to lab85]
+  [ lab85 : #34 := L2#13 ; go to lab84]
+  [ lab84 : A_16#21 := #>(#33, #34) ; go to lab83]
+  [ lab83 : L2#13 := A_16#21 ; go to lab82]
+  [ lab82 : A_17#22 := L2#13 ; go to lab81]
+  [ lab81 : A_18#23 := 0 ; go to lab80]
+  [ lab80 : L#1 := L#1.2 ; go to lab79]
+  [ lab79 : A_19#24 := L#1 ; go to lab78]
+  [ lab78 : A_20#25 := 0 ; go to lab77]
+  [ lab93 : A_12#17 := L#1.1 ; go to lab92]
+  [ lab92 : #33 := A_12#17 ; go to lab91]
+  [ lab91 : #34 := L1#11 ; go to lab90]
+  [ lab90 : A_13#18 := #>(#33, #34) ; go to lab89]
+  [ lab89 : L1#11 := A_13#18 ; go to lab88]
+  [ lab88 : A_14#19 := L1#11 ; go to lab81]
+} lab60 result#0
+end of method Qsort.
+
+method main()
+{ lab151
+  [ lab151 : read(A_0#2) ; go to lab150]
+  [ lab150 : i#1 := A_0#2 ; go to lab149]
+  [ lab149 : A_1#3 := i#1 ; go to lab148]
+  [ lab148 : A_2#5 := 2 ; go to lab147]
+  [ lab147 : #25 := A_2#5 ; go to lab146]
+  [ lab146 : A_3#6 := #(#25) ; go to lab145]
+  [ lab145 : List#4 := A_3#6 ; go to lab144]
+  [ lab144 : A_4#7 := List#4 ; go to lab143]
+  [ lab143 : seed#8 := 8 ; go to lab142]
+  [ lab142 : A_5#9 := seed#8 ; go to lab141]
+  [ lab141 : A_6#10 := 0 ; go to lab124]
+  [ lab124 : if A_6#10 < i#1 then go to lab123 else go to lab122]
+  [ lab123 : skip ; go to lab140]
+  [ lab140 : A_7#11 := 429496726 ; go to lab139]
+  [ lab139 : #25 := A_7#11 ; go to lab138]
+  [ lab138 : #26 := seed#8 ; go to lab137]
+  [ lab137 : A_8#12 := random(#25, #26) ; go to lab136]
+  [ lab136 : seed#8 := A_8#12 ; go to lab135]
+  [ lab135 : A_9#13 := seed#8 ; go to lab134]
+  [ lab134 : #25 := seed#8 ; go to lab133]
+  [ lab133 : #26 := List#4 ; go to lab132]
+  [ lab132 : A_10#14 := #>(#25, #26) ; go to lab131]
+  [ lab131 : List#4 := A_10#14 ; go to lab130]
+  [ lab130 : A_11#15 := List#4 ; go to lab129]
+  [ lab129 : A_12#16 := 1 ; go to lab128]
+  [ lab128 : A_13#17 := i#1 - A_12#16 ; go to lab127]
+  [ lab127 : i#1 := A_13#17 ; go to lab126]
+  [ lab126 : A_14#18 := i#1 ; go to lab125]
+  [ lab125 : A_15#19 := 0 ; go to lab124]
+  [ lab122 : A_16#20 := 0 ; go to lab121]
+  [ lab121 : #25 := List#4 ; go to lab120]
+  [ lab120 : A_17#21 := Qsort(#25) ; go to lab119]
+  [ lab119 : List#4 := A_17#21 ; go to lab118]
+  [ lab118 : A_18#22 := List#4 ; go to lab117]
+  [ lab117 : A_19#23 := List#4.print() ; go to lab116]
+  [ lab116 : A_20#24 := 0 ; go to lab115]
+} lab115 result#0
+end of method main.
+
+method random(max, seed)
+{ lab158
+  [ lab158 : A_0#3 := 1013904223 ; go to lab157]
+  [ lab157 : A_1#4 := 1664525 ; go to lab156]
+  [ lab156 : A_2#5 := A_1#4 * seed#2 ; go to lab155]
+  [ lab155 : A_3#6 := A_0#3 + A_2#5 ; go to lab154]
+  [ lab154 : A_4#7 := A_3#6 % max#1 ; go to lab153]
+  [ lab153 : result#0 := A_4#7 ; go to lab152]
+} lab152 result#0
+end of method random.
+\end{verbatimtab}}
+\subsection{Exemple d'exécution}
+{\small \begin{verbatimtab}
+10
+2
+15870471
+32357778
+65091998
+168226971
+172331438
+234389844
+298521463
+307405643
+325022690
+385540813
+\end{verbatimtab}}

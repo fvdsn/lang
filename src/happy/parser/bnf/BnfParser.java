@@ -69,13 +69,19 @@ public class BnfParser {
 		File f = new File(file);
 		BufferedReader reader = new BufferedReader(new FileReader(f));
 		String line = reader.readLine();
+		boolean first = true;
 		while(line != null) {
 			try {
 				Rule r = new Rule(line);
+				if(first){
+					System.out.println(r.getLeftSide().getType());
+					r.setStart();
+				}
 				this.rules.add(r);
 			}
 			catch(NotRuleException e) {}
 			line = reader.readLine();
+			first = false;
 		}
 	}
 	

@@ -67,7 +67,13 @@ public class Translator {
 		}
 	}
 	
-	public Cmethod analyseMethod(LexicalTerm t) {
+	/**
+	 * Point de départ de l'exploration de l'arbre. 
+	 * t est un term qui contient en 0 élément de la liste des enfants de t est une fonction ou une méthode.
+	 * @param t
+	 * @return
+	 */
+	private Cmethod analyseMethod(LexicalTerm t) {
 		removeBrackets(t);
 		List<LexicalTerm> child = t.getLexChildList();
 		
