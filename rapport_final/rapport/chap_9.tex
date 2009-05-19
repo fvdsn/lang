@@ -5,7 +5,6 @@ Nous avons choisit d'implémenter l'interpréteur en écrivant de nouvelles mét
 Toute les commande (methode, statement etc) doivent implémenter \textit{execute}. 
 Toute les Expression doivent implémenter \textit{getVal}.
 Et tout les désignateur doivent implémenter \textit{assign}.
-
 En plus de cela nous utilisons deux types de données pour représenter les objets et toutes les valeurs. 
 Une valeur contient un type et en fonction du type un entier ou une référence.
 (Nous utilisons le terme entier car nous utilisons la classe BigInterger pour stocker les entiers et leur taille n'est limité que par la mémoire de la machine)
@@ -43,12 +42,139 @@ Dans la première implémentation, l'interpréteur donnait juste la nature de l'
 Nous avons tenté d'implémenté un garbage collector qui s'exécutait toute les 200 millisecondes. Il parcourait toute la liste des environements de la pile d'exécution et il placait dans un set toutes les référence qu'il trouvait et si il n'avait pas encore rencontré la référence il explorait récursivement les références contenu dans l'objet. A la fin de cette étape le garbage collector avait une liste ordonnée de toute les références encore accessible. Il suffisait donc de parcourir le store (qui lui aussi était ordonné) et de supprimer toutes les références qui n'ont pas été trouver par l'étape 1.
 Les premier tests étaient concluants mais lors de l'éxécution du programme Qsort avec une liste de 7000 éléments nous avons eu des références nulle alors qu'elles ne devaient pas l'être. Le Garbage Collector était trop gourmants. Nous l'avons donc désactiver et là nous nous sommes rendu compte que fibonnaci récursif prenait deux fois moins de temps à s'exécuter. Et finalement avec la dernière amélioration de l'environement proposé le Garbage Collector devient totalement obsolète.  
 
-\subsection{Lien avec la sémantique opérationnelle}
+\section{Lien avec la sémantique opérationnelle}
+\paragraph{Les valeurs}
+La classe Val dans l'implémentation représente les valeurs sémantique. Elle possède trois champs le type : (Entier, Référence, error et undefined). Null étant une référénce mis à 0.
 
+L'environement est modéliser par la classe Env. La méthode get(int i)
+est la fonction qui assure la correspondance entre une variable et sa valeur.
 
-\subsection{Test}
+Le store est modélisé (dans l'implémentation actuel) par la classe Store et la méthode get(int ref) est la fonction qui assure la correspondance entre la référence et l'objet.
+
+La pile quant à elle est directement celle utilisée par java.
+
+L'implémentation de la sémantique du In et Out se trouvent dans la méthode execute() de leur classes respectives.
+
+Les implémentations de la sématique pour toutes les fonctions sémantiques se trouvent dans les méthodes val et eval respective de chaque classe qui corresponde à une fonction sémantique.
+
+La sémantique de l'assignation est directement implémentée dans les méthodes assign de toutes les désignateur. Les désignateurs possède aussi une fonction eval pour accèder à leur valeur.
+
+\section{Test}
 Nous allons reprendre les tests du rapport précédent et y ajouté quelque les test d'icampus qui ne figurait pas là première fois.
+\subsection{Test avec erreur}
+\begin{verbatim}
+ main() {
+  a = new/3 ;
+  a.4 = 5;
+}
+>>>>
+ERROR : out of level access
+  at FieldDes 1.4
+  at Ass a#1.4 := 5
+  at CmdStmt [ lab2 : a#1.4 := 5 ; go to lab1]
+  at main/
+\end{verbatim}
+Ici on veut tester qu'on ne peut pas accèder à un élément plus grande que la taille de l'objet.
+
+On voit donc très bien où se situe l'erreur et que l'on veut accèder à un level qui n'existe pas.
+
+\begin{verbatim}
+ main() {
+  a = new/3 ;
+  a.3 = 5;
+  a = 7;
+  write(a);
+}
+
+>>>> 
+7
+\end{verbatim}
+Ici, on veut montrer qu'on ne peut pas changer le type d'une variable
+qui a été assignée
+
+On voit qu'il n'y a plus d'erreur pour ne pas provoquer des erreurs que le programmeur dans notre langage ne pourrait régler
+
+\begin{verbatim}
+ main() {
+  a = new/4 ;
+  y = a.salut();
+}
+
+salut/2() {
+  x = 3;
+  write(x);
+  y = super.salut();
+  return(0); 
+}
+>>>>
+3
+Unknow Procedure or function
+  At Super Call salut
+  at CmdStmt [ lab6 : y#2 := super.salut() ; go to lab5]
+  at salut/2
+  at CmdStmt [ lab2 : y#2 := x#1.salut() ; go to lab1]
+  at main/-1
+\end{verbatim}
+Ici on cherche à montrer qu'on ne peut pas appelé super si il n'existe pas de fonction de plus bas niveau.
+
+Effectivement l'erreur est bien reportée.
+
+\begin{verbatim}
+main() {
+  a = new/4 ;
+  a.4 = 5;
+  y = a.salut();
+  write(3);
+}
+
+salut/2() {
+  this.4 = 5;
+  return(this.4); 
+}
+>>>
+Error : cannot acces to a field of this on level higher then the level of the method
+  at ThisFieldDes this.4
+  at Ass this.4 := 5
+  at CmdStmt [ lab9 : this.4 := 5 ; go to lab8]
+  at salut/2
+  at CmdStmt [ lab4 : #2 := #1.salut() ; go to lab3]
+  at main/-1
+\end{verbatim}
+Encore une fois, l'interpréteur interdit l'opération comme définit dans la sémantique.
 
 
 
+\subsection{Test d'icampus}
+\footnote{Les tests d'icampus figuraient déjà dans le rapport intermédiaire, dans la section test des programmes fournis.}
+\begin{verbatim}
+
+binTree.slip >>>
+
+3
+4
+5
+6
+7
+
+stack.slip >>>>
+-22
+-5
+25
+1
+-1
+2750
+
+testLevel.slip >>>
+0
+1
+5
+
+testSuper.slip >>>
+0
+237
+2
+241
+
+ 
+\end{verbatim}
 

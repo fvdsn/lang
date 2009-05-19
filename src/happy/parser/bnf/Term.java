@@ -44,10 +44,10 @@ public interface Term {
 	 * @param indent
 	 */
 	void	printTree(int indent);
-	@Override
+
 	public int hashCode();
 	
-	@Override
+	
 	public boolean equals(Object obj);
 	
 }
