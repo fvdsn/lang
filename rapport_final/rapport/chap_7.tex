@@ -1,5 +1,5 @@
-\section{Traduction du programme en code interne}
-\subsection{Création de l'arbre syntaxique du programme}
+\chapter{Traduction du programme en code interne}
+\section{Création de l'arbre syntaxique du programme}
 L'arbre syntaxique est consitué de \emph{Term} afin
 qu'il puisse être généré directement par l'analyseur syntaxique. 
 La méthode getChildList() de la classe Term renvoie la liste des \emph{Term} enfants.
@@ -8,7 +8,7 @@ La méthode getChildList() de la classe Term renvoie la liste des \emph{Term} en
 Le code de l'analyser syntaxique prend en entrée un flux Term qui sont tous terminaux. 
 L'analyseur syntaxique n'a besoin que des méthodes définie dans l'interface Term pour construire l'arbre.
 Voici cette interface : 
-{\tiny
+
 \begin{verbatim}
 
 public interface Term {
@@ -56,7 +56,7 @@ public interface Term {
 	
 	
 }
-\end{verbatim}}
+\end{verbatim}
 
 
 Une fois le code déjà donné dans le chapitre 6 exécuté, l'arbre (le Term) passe dans le treeOrganiser.
@@ -123,7 +123,7 @@ cela ce fait par l'assignation d'une valeur (qui dépend du type d'instruction) 
 appelante utilisateur la variable si elle en a besoin.
 
 Voici le code de la méthode \textit{addOutput}
-{\tiny
+
 \begin{verbatim}
 
  
@@ -175,7 +175,7 @@ private Cvar addOutput(List<LexicalTerm> child, MethodTable table,
   }
 }
  \end{verbatim}
-}
+
 Dans ce code on voit bien les deux cas de figure : les arguments de l'instruction sont des terminaux ou non. 
 On voit aussi l'utilisation des variables annonymes grâce à la classe AnonymousCounter qui a comme seul objectif de fournir des noms différents
 pour chaque variable annonyme d'une méthode. 
@@ -205,7 +205,7 @@ Les conditions avec un opérateur logique (and, or, not) et les conditions avex 
 comme argument que des conditons tandis que les second ne peuvent avoir comme argument que des expressions. 
 
 Voici un exemple de condition avec un opérateur logique :
-{\tiny
+
 \begin{verbatim}
 
 
@@ -228,7 +228,7 @@ private Ccond getAnd(List<LexicalTerm> child, MethodTable table,
       getCond(child.get(2), table, body, counter));
 }
  
-\end{verbatim}}
+\end{verbatim}
 
 Ici encore on voit les appels récursif à getCond (en effet l'appel de getAnd vient uniquement d'un appel à getCond). 
 Les conditons avec un opérateur de relation fonctionne exactement comme les instructions. 
@@ -237,7 +237,7 @@ ou du while et leur résultat sont placés dans une variable annonyme. Cette var
 Dans un if ceci ne pose pas de problème mais dans un while on risque d'avoir très vite une boucle infinie car les expressions ne
 sont plus réévaluée une fois dans le while. (Il faudrait donc aussi rajouté les instructions imbriquée à la fin du while mais l'implémentation
 dans sa forme actuelle ne permet pas de le faire facilement). C'est pourquoi le code suivant est vivement déconseillé
-{\tiny
+
 \begin{verbatim}
 [code qui écris les chiffre de 1 à 10]
  (
@@ -266,14 +266,14 @@ dans sa forme actuelle ne permet pas de le faire facilement). C'est pourquoi le 
 )
 
 [Ce code va effectivement sortir les chiffres de 1 à 10]
-\end{verbatim}}
+\end{verbatim}
 
 \section{traduction du code en code interne}
 Ici nous avons utilisé la méthode Cprog.translate(). Qui nous à poser quelque problème lorsque qu'il y avait dans la traduction en code 
 structuré. En effet les erreurs renvoyée ne sont pas des plus claires.
 
 Voici le premier programme de la démo qui fait la somme de 1 à n.
-{\tiny
+
 \begin{verbatim}
  
 
@@ -391,4 +391,4 @@ Et finalement l'exécution
 55
 
 
-\end{verbatim}}
+\end{verbatim}

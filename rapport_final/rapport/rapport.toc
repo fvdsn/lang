@@ -3,94 +3,94 @@
 \contentsline {section}{\numberline {1.1}Introduction}{6}
 \contentsline {section}{\numberline {1.2}Grammaire de d\IeC {\'e}part}{6}
 \contentsline {section}{\numberline {1.3}Exemple de programme complet}{8}
-\contentsline {chapter}{\numberline {2}L'analyseur Lexical}{11}
-\contentsline {section}{\numberline {2.1}Entr\IeC {\'e}e de l'analyseur lexical}{11}
-\contentsline {section}{\numberline {2.2}Symboles terminaux de bases}{12}
-\contentsline {section}{\numberline {2.3}Grammaire formelle}{12}
-\contentsline {section}{\numberline {2.4}Repr\IeC {\'e}sentation des symboles lexicaux}{13}
-\contentsline {section}{\numberline {2.5}Sp\IeC {\'e}cification rigoureuse des m\IeC {\'e}thodes publiques de l'analyseur lexical}{14}
-\contentsline {section}{\numberline {2.6}principe d'impl\IeC {\'e}mentation}{14}
-\contentsline {section}{\numberline {2.7}Tests de l'analyseur lexical}{15}
-\contentsline {section}{\numberline {2.8}Test avec entr\IeC {\'e}e valide}{15}
-\contentsline {subsection}{\numberline {2.8.1}Tests avec entr\IeC {\'e}e invalide}{15}
-\contentsline {paragraph}{T}{15}
-\contentsline {paragraph}{D}{15}
-\contentsline {chapter}{\numberline {3}V\IeC {\'e}rificateur de grammaire WP}{17}
-\contentsline {section}{\numberline {3.1}BNF Parser}{17}
-\contentsline {section}{\numberline {3.2}Repr\IeC {\'e}sentation Java de la grammaire et de ses \IeC {\'e}l\IeC {\'e}ments}{17}
-\contentsline {subsection}{\numberline {3.2.1}Term}{17}
-\contentsline {subsection}{\numberline {3.2.2}CatList}{18}
-\contentsline {subsection}{\numberline {3.2.3}Rule}{18}
-\contentsline {section}{\numberline {3.3}Architecture}{18}
-\contentsline {section}{\numberline {3.4}Test de symbole vide (\emph {CheckLambda})}{18}
-\contentsline {section}{\numberline {3.5}Test de conflit de pr\IeC {\'e}f\IeC {\'e}rence (\emph {CheckPrecedence})}{18}
-\contentsline {section}{\numberline {3.6}Preuve de l'algorithme}{19}
-\contentsline {subsection}{\numberline {3.6.1}$\DOTSB \mathrel {\mathop {\kern 0pt =}\limits ^{\textstyle .}}$}{19}
-\contentsline {subsection}{\numberline {3.6.2}$\lessdot $}{20}
-\contentsline {subsection}{\numberline {3.6.3}$\gtrdot $}{20}
-\contentsline {section}{\numberline {3.7}Test de Suffixe}{20}
-\contentsline {section}{\numberline {3.8}Test de Cycles}{20}
-\contentsline {section}{\numberline {3.9}Sp\IeC {\'e}cifications des m\IeC {\'e}thodes importantes}{20}
-\contentsline {section}{\numberline {3.10}Test du v\IeC {\'e}rificateur}{22}
-\contentsline {section}{\numberline {3.11}Premier Test}{22}
-\contentsline {section}{\numberline {3.12}Second Test}{23}
-\contentsline {section}{\numberline {3.13}Troisi\IeC {\`e}me Test}{23}
-\contentsline {chapter}{\numberline {4}Analyse syntaxique}{25}
-\contentsline {section}{\numberline {4.1}Grammaire WP du langage}{25}
-\contentsline {section}{\numberline {4.2}Probl\IeC {\`e}mes rencontr\IeC {\'e}s}{25}
-\contentsline {section}{\numberline {4.3}Code de l'analyseur syntaxique}{26}
-\contentsline {section}{\numberline {4.4}Analyse syntaxique}{26}
-\contentsline {section}{\numberline {4.5}Traduction du programme en code interne}{28}
-\contentsline {subsection}{\numberline {4.5.1}Cr\IeC {\'e}ation de l'arbre syntaxique du programme}{28}
-\contentsline {section}{\numberline {4.6}traduction}{28}
-\contentsline {section}{\numberline {4.7}traduction du code en code interne}{30}
-\contentsline {section}{\numberline {4.8}S\IeC {\'e}mantique Op\IeC {\'e}rationelle}{33}
-\contentsline {subsection}{\numberline {4.8.1}Domaines s\IeC {\'e}mantiques}{33}
-\contentsline {paragraph}{Valeurs}{33}
-\contentsline {paragraph}{Environnement}{33}
-\contentsline {paragraph}{Store}{33}
-\contentsline {paragraph}{Pile}{33}
-\contentsline {paragraph}{Etats}{33}
-\contentsline {paragraph}{in}{33}
-\contentsline {paragraph}{Out}{33}
-\contentsline {subsection}{\numberline {4.8.2}Philosophie et choix de design}{33}
-\contentsline {subsection}{\numberline {4.8.3}Fonctions s\IeC {\'e}mantiques}{33}
-\contentsline {paragraph}{Conditions}{33}
-\contentsline {paragraph}{Designateur}{34}
-\contentsline {paragraph}{Expressions}{34}
-\contentsline {paragraph}{Affectations}{34}
-\contentsline {paragraph}{In/Out}{35}
-\contentsline {subsection}{\numberline {4.8.4}Relations de transition}{35}
-\contentsline {paragraph}{Conditions}{35}
-\contentsline {paragraph}{Affectations}{35}
-\contentsline {paragraph}{Entr\IeC {\'e}e/Sortie}{35}
-\contentsline {paragraph}{appels de m\IeC {\'e}thodes statiques}{35}
-\contentsline {paragraph}{appels de m\IeC {\'e}thodes dynamique}{35}
-\contentsline {paragraph}{appels vers super}{35}
-\contentsline {paragraph}{retour de fonction}{35}
-\contentsline {paragraph}{d\IeC {\'e}marrage du programme}{35}
-\contentsline {chapter}{\numberline {5}Interpr\IeC {\'e}teur}{36}
-\contentsline {section}{\numberline {5.1}Impl\IeC {\'e}mentation}{36}
-\contentsline {subsection}{\numberline {5.1.1}Changement de l'impl\IeC {\'e}mention}{36}
-\contentsline {paragraph}{Execute recursif entre les statement}{36}
-\contentsline {paragraph}{Gestion de l'overflow}{36}
-\contentsline {paragraph}{Changement de l'environement}{36}
-\contentsline {paragraph}{Gestion des erreurs}{37}
-\contentsline {paragraph}{Garbage Collector}{37}
-\contentsline {section}{\numberline {5.2}Lien avec la s\IeC {\'e}mantique op\IeC {\'e}rationnelle}{37}
-\contentsline {paragraph}{Les valeurs}{37}
-\contentsline {section}{\numberline {5.3}Test}{37}
-\contentsline {subsection}{\numberline {5.3.1}Test avec erreur}{37}
-\contentsline {subsection}{\numberline {5.3.2}Test d'icampus}{38}
-\contentsline {chapter}{\numberline {6}Mode d'emploi du compilateur}{39}
-\contentsline {section}{\numberline {6.1}Les erreurs}{39}
-\contentsline {section}{\numberline {6.2}Les erreurs du v\IeC {\'e}rificateur}{39}
-\contentsline {section}{\numberline {6.3}Les erreurs du parser lexical}{39}
-\contentsline {section}{\numberline {6.4}Les erreurs de l'analyseur syntaxique}{39}
-\contentsline {section}{\numberline {6.5}Les erreurs du traducteur}{39}
-\contentsline {section}{\numberline {6.6}Les erreurs de l'interpr\IeC {\'e}teur}{40}
-\contentsline {section}{\numberline {6.7}Exemples de programmes}{41}
-\contentsline {subsection}{\numberline {6.7.1}Traduction en langage abstrait structur\IeC {\'e}}{42}
-\contentsline {subsection}{\numberline {6.7.2}Code Interne}{46}
-\contentsline {subsection}{\numberline {6.7.3}Exemple d'ex\IeC {\'e}cution}{48}
-\contentsline {section}{\numberline {6.8}Conclusion}{50}
+\contentsline {chapter}{\numberline {2}L'analyseur Lexical}{10}
+\contentsline {section}{\numberline {2.1}Entr\IeC {\'e}e de l'analyseur lexical}{10}
+\contentsline {section}{\numberline {2.2}Symboles terminaux de bases}{11}
+\contentsline {section}{\numberline {2.3}Grammaire formelle}{11}
+\contentsline {section}{\numberline {2.4}Repr\IeC {\'e}sentation des symboles lexicaux}{12}
+\contentsline {section}{\numberline {2.5}Sp\IeC {\'e}cification rigoureuse des m\IeC {\'e}thodes publiques de l'analyseur lexical}{12}
+\contentsline {section}{\numberline {2.6}principe d'impl\IeC {\'e}mentation}{13}
+\contentsline {section}{\numberline {2.7}Tests de l'analyseur lexical}{13}
+\contentsline {section}{\numberline {2.8}Test avec entr\IeC {\'e}e valide}{13}
+\contentsline {subsection}{\numberline {2.8.1}Tests avec entr\IeC {\'e}e invalide}{13}
+\contentsline {paragraph}{T}{13}
+\contentsline {paragraph}{D}{14}
+\contentsline {chapter}{\numberline {3}V\IeC {\'e}rificateur de grammaire WP}{15}
+\contentsline {section}{\numberline {3.1}BNF Parser}{15}
+\contentsline {section}{\numberline {3.2}Repr\IeC {\'e}sentation Java de la grammaire et de ses \IeC {\'e}l\IeC {\'e}ments}{15}
+\contentsline {subsection}{\numberline {3.2.1}Term}{15}
+\contentsline {subsection}{\numberline {3.2.2}CatList}{15}
+\contentsline {subsection}{\numberline {3.2.3}Rule}{16}
+\contentsline {section}{\numberline {3.3}Architecture}{16}
+\contentsline {section}{\numberline {3.4}Test de symbole vide (\emph {CheckLambda})}{16}
+\contentsline {section}{\numberline {3.5}Test de conflit de pr\IeC {\'e}f\IeC {\'e}rence (\emph {CheckPrecedence})}{16}
+\contentsline {section}{\numberline {3.6}Preuve de l'algorithme}{17}
+\contentsline {subsection}{\numberline {3.6.1}$\DOTSB \mathrel {\mathop {\kern 0pt =}\limits ^{\textstyle .}}$}{17}
+\contentsline {subsection}{\numberline {3.6.2}$\lessdot $}{17}
+\contentsline {subsection}{\numberline {3.6.3}$\gtrdot $}{17}
+\contentsline {section}{\numberline {3.7}Test de Suffixe}{17}
+\contentsline {section}{\numberline {3.8}Test de Cycles}{18}
+\contentsline {section}{\numberline {3.9}Sp\IeC {\'e}cifications des m\IeC {\'e}thodes importantes}{18}
+\contentsline {section}{\numberline {3.10}Test du v\IeC {\'e}rificateur}{19}
+\contentsline {section}{\numberline {3.11}Premier Test}{19}
+\contentsline {section}{\numberline {3.12}Second Test}{20}
+\contentsline {section}{\numberline {3.13}Troisi\IeC {\`e}me Test}{20}
+\contentsline {chapter}{\numberline {4}Analyse syntaxique}{22}
+\contentsline {section}{\numberline {4.1}Grammaire WP du langage}{22}
+\contentsline {section}{\numberline {4.2}Probl\IeC {\`e}mes rencontr\IeC {\'e}s}{22}
+\contentsline {section}{\numberline {4.3}Code de l'analyseur syntaxique}{22}
+\contentsline {section}{\numberline {4.4}Analyse syntaxique}{23}
+\contentsline {chapter}{\numberline {5}Traduction du programme en code interne}{26}
+\contentsline {section}{\numberline {5.1}Cr\IeC {\'e}ation de l'arbre syntaxique du programme}{26}
+\contentsline {section}{\numberline {5.2}traduction}{28}
+\contentsline {section}{\numberline {5.3}traduction du code en code interne}{31}
+\contentsline {chapter}{\numberline {6}S\IeC {\'e}mantique Op\IeC {\'e}rationelle}{35}
+\contentsline {section}{\numberline {6.1}Domaines s\IeC {\'e}mantiques}{35}
+\contentsline {paragraph}{Valeurs}{35}
+\contentsline {paragraph}{Environnement}{35}
+\contentsline {paragraph}{Store}{35}
+\contentsline {paragraph}{Pile}{35}
+\contentsline {paragraph}{Etats}{35}
+\contentsline {paragraph}{in}{36}
+\contentsline {paragraph}{Out}{36}
+\contentsline {section}{\numberline {6.2}Philosophie et choix de design}{36}
+\contentsline {section}{\numberline {6.3}Fonctions s\IeC {\'e}mantiques}{36}
+\contentsline {paragraph}{Conditions}{36}
+\contentsline {paragraph}{Designateur}{37}
+\contentsline {paragraph}{Expressions}{37}
+\contentsline {paragraph}{Affectations}{38}
+\contentsline {paragraph}{In/Out}{39}
+\contentsline {section}{\numberline {6.4}Relations de transition}{39}
+\contentsline {paragraph}{Conditions}{39}
+\contentsline {paragraph}{Affectations}{39}
+\contentsline {paragraph}{Entr\IeC {\'e}e/Sortie}{39}
+\contentsline {paragraph}{appels de m\IeC {\'e}thodes statiques}{40}
+\contentsline {paragraph}{appels de m\IeC {\'e}thodes dynamique}{40}
+\contentsline {paragraph}{appels vers super}{40}
+\contentsline {paragraph}{retour de fonction}{40}
+\contentsline {paragraph}{d\IeC {\'e}marrage du programme}{40}
+\contentsline {chapter}{\numberline {7}Interpr\IeC {\'e}teur}{41}
+\contentsline {section}{\numberline {7.1}Impl\IeC {\'e}mentation}{41}
+\contentsline {subsection}{\numberline {7.1.1}Changement de l'impl\IeC {\'e}mention}{42}
+\contentsline {paragraph}{Execute recursif entre les statement}{42}
+\contentsline {paragraph}{Gestion de l'overflow}{42}
+\contentsline {paragraph}{Changement de l'environement}{42}
+\contentsline {paragraph}{Gestion des erreurs}{42}
+\contentsline {paragraph}{Garbage Collector}{42}
+\contentsline {section}{\numberline {7.2}Lien avec la s\IeC {\'e}mantique op\IeC {\'e}rationnelle}{43}
+\contentsline {paragraph}{Les valeurs}{43}
+\contentsline {section}{\numberline {7.3}Test}{43}
+\contentsline {subsection}{\numberline {7.3.1}Test avec erreur}{43}
+\contentsline {subsection}{\numberline {7.3.2}Test d'icampus}{45}
+\contentsline {chapter}{\numberline {8}Mode d'emploi du compilateur}{46}
+\contentsline {section}{\numberline {8.1}Les erreurs}{46}
+\contentsline {section}{\numberline {8.2}Les erreurs du v\IeC {\'e}rificateur}{46}
+\contentsline {section}{\numberline {8.3}Les erreurs du parser lexical}{47}
+\contentsline {section}{\numberline {8.4}Les erreurs de l'analyseur syntaxique}{47}
+\contentsline {section}{\numberline {8.5}Les erreurs du traducteur}{47}
+\contentsline {section}{\numberline {8.6}Les erreurs de l'interpr\IeC {\'e}teur}{47}
+\contentsline {section}{\numberline {8.7}Exemples de programmes}{48}
+\contentsline {subsection}{\numberline {8.7.1}Traduction en langage abstrait structur\IeC {\'e}}{49}
+\contentsline {subsection}{\numberline {8.7.2}Code Interne}{53}
+\contentsline {subsection}{\numberline {8.7.3}Exemple d'ex\IeC {\'e}cution}{55}
+\contentsline {section}{\numberline {8.8}Conclusion}{57}

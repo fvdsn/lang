@@ -1,7 +1,7 @@
 \chapter{Sémantique Opérationelle}
 
 
-\subsection{Domaines sémantiques}
+\section{Domaines sémantiques}
 \paragraph{Valeurs} Val $\doteq$ Entier + Référence + \{null\} + \{undefined\} + \{Error\}
 
 Une Valeur représente soit un entier soit une réference vers une autre valeur
@@ -46,7 +46,7 @@ La fonction In permet de lire la première valeur de la pile ( donc la dernière
 
 La fonction Out permet d'écrire Val au sommet de la pile, Elle renvoie par ailleurs cette même valeur.
 
-\subsection{Philosophie et choix de design}
+\section{Philosophie et choix de design}
 	Définir la sémantique opérationnelle ne se limite pas à formaliser des concepts génériques
 	comme présenté dans le précédent chapitre. Il faut souvent choisir entre plusieurs alternatives
 	et ces choix étendent ou limitent les possibilités du langage.
@@ -69,7 +69,7 @@ La fonction Out permet d'écrire Val au sommet de la pile, Elle renvoie par aill
 	faisant des approximations, en ne prévenant pas le programmeur de la non exactitude des résultats
 	obtenus. 
 
-\subsection{Fonctions sémantiques}
+\section{Fonctions sémantiques}
 \paragraph{Conditions} B: Cond $\rightarrow$ Env $\rightarrow$ Store $\rightarrow \{true, false, error\}$
 
 $B[$ expr1 cop expr2 $]$ e s\\
@@ -192,7 +192,7 @@ La fonction \emph{tochar(x)} prend un \emph{int} ou une référence en paramètr
 Dans le cas d'une référence, ce qui est imprimé dépend de l'implémentation et n'a pas de garantie d'être
 constant entre les plateformes ou exécutions successives (de la même façon qu'en pointeur en C). 
 
-\subsection{Relations de transition}
+\section{Relations de transition}
 \paragraph{Conditions}
 $<e,l,s,P,in,out> \rightarrow$ $l$ if cond then $l1$ else $l2$  $\rightarrow <e,l',s,P,in,out>$\\
 $l'$ = $l1$ si B[cond] = $true$\\

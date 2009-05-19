@@ -9,7 +9,7 @@ Les conditions aurait aussi renvoyé une valeur si le langage SLIP dans lequel n
 
 \section{Grammaire de départ}
 Cette grammaire est la grammaire exhaustive du langage si on rajoute que les id peuvent être formé de tout les caractères UTF-16 sauf des caractères réservés et qu'ils ne doivent pas être égale à un mot réservé.
-
+{\small
 \begin{verbatim}
 <Program> ::= ( <Prog_list> )
 <Prog_list> ::=  <Meth_or_fun> | <Prog_list> <Meth_or_fun>	
@@ -56,7 +56,7 @@ Cette grammaire est la grammaire exhaustive du langage si on rajoute que les id 
 <This_id> := this . id 
 <Id_id> ::= id . id
 <Method_int> ::= method . number
-\end{verbatim}
+\end{verbatim}}
 Cette grammaire n'est pas wp, mais elle exprime très bien ce qui est syntaxiquement correcte dans ce que nous avons réellement implémenté. 
 
 Voici quelque bout de code permis par cette grammaire :
@@ -120,6 +120,7 @@ Le programme suivant fait la somme de 1 à n pour 10 n
 
 
 Le dernier programme fait la somme des éléments d'une pile et utilise la POO
+{\small
 \begin{verbatim}
 (
   (fun (main) (
@@ -171,7 +172,7 @@ Le dernier programme fait la somme des éléments d'une pile et utilise la POO
   (method.2 (->) (return this.2))
   (method.2 (->= a) (set this.2 a))
 )
-\end{verbatim}
+\end{verbatim}}
 
 
 
